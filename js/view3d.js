@@ -173,7 +173,7 @@ function buildTrack() {
         // piers every ~8"
         for (let i = 0; i < pts.length; i += 16) {
           const p = pts[i];
-          if (p.z < 1) continue;
+          if (p.z < 1 || underSpan(p)) continue;
           const h = p.z - 0.6;
           const m = new THREE.Mesh(new THREE.BoxGeometry(0.8, h, 0.8), pier);
           m.position.copy(V(p.x, p.y, h / 2)); m.castShadow = true; root.add(m);
@@ -194,6 +194,96 @@ function buildTrack() {
     ties.forEach((t, i) => { o.position.copy(V(t.x, t.y, t.z + 0.22)); o.rotation.set(0, t.h * DEG, 0); o.updateMatrix(); im.setMatrixAt(i, o.matrix); });
     im.receiveShadow = true;
     root.add(im);
+  }
+}
+
+// true if a point lies on the deck of a bridge or trestle (no generic piers needed there)
+function underSpan(p) {
+  for (const o of state.project.scenery) {
+    if (o.shape !== 'bridge' && o.shape !== 'trestle') continue;
+    const c = Math.cos(-(o.rot || 0) * DEG), s = Math.sin(-(o.rot || 0) * DEG);
+    const dx = p.x - o.x, dy = p.y - o.y;
+    if (Math.abs(dx * c - dy * s) <= o.w / 2 + 0.5 && Math.abs(dx * s + dy * c) <= o.d / 2 + 0.5) return true;
+  }
+  return false;
+}
+
+// A group placed and rotated like a scenery item; children use local coords
+// (x along the item's width, y up from its base, z across = -local y).
+function itemGroup(o) {
+  const g = new THREE.Group();
+  g.position.copy(V(o.x, o.y, o.base || 0));
+  g.rotation.y = (o.rot || 0) * DEG;
+  root.add(g);
+  return g;
+}
+function gbox(g, sx, sy, sz, x, y, z, m, rz = 0, rx = 0) {
+  const mesh = new THREE.Mesh(new THREE.BoxGeometry(sx, sy, sz), m);
+  mesh.position.set(x, y, z); mesh.rotation.set(rx, 0, rz);
+  mesh.castShadow = true; mesh.receiveShadow = true;
+  g.add(mesh);
+  return mesh;
+}
+// a straight member between two points in the group's x/y plane at depth z
+function strut(g, x0, y0, x1, y1, z, t, m) {
+  const L = Math.hypot(x1 - x0, y1 - y0);
+  return gbox(g, L, t, t, (x0 + x1) / 2, (y0 + y1) / 2, z, m, Math.atan2(y1 - y0, x1 - x0));
+}
+
+function buildSpan(o) {
+  const g = itemGroup(o);
+  const steel = mat(o.color, { metalness: 0.3, roughness: 0.6 });
+  const concrete = mat('#9a968c');
+  const deckY = -0.6, H = o.base || 0, half = o.w / 2, zs = o.d / 2;
+  if (o.shape === 'trestle') {
+    const wood = mat(o.color);
+    gbox(g, o.w, 0.2, o.d * 0.9, 0, deckY - 0.1, 0, wood); // stringers / deck
+    const n = Math.max(2, Math.round(o.w / 1.8));
+    const legH = Math.max(0.2, H + deckY - 0.2);
+    for (let i = 0; i <= n; i++) {
+      const x = -half + (o.w * i) / n;
+      gbox(g, 0.18, 0.16, o.d + 0.4, x, deckY - 0.28, 0, wood); // cap
+      if (H < 0.9) continue;
+      const spread = Math.min(1.6, 0.25 + legH * 0.12); // battered outer posts
+      const base = -H, top = deckY - 0.36;
+      for (const zz of [-0.35, 0.35]) gbox(g, 0.14, legH, 0.14, x, (base + top) / 2, zz, wood);
+      for (const sgn of [-1, 1]) {
+        const zt = sgn * 0.8, zb = sgn * (0.8 + spread);
+        const L = Math.hypot(top - base, zb - zt);
+        gbox(g, 0.14, L, 0.14, x, (base + top) / 2, (zt + zb) / 2, wood, 0, -sgn * Math.atan2(zb - zt, top - base));
+      }
+      // sway bracing
+      for (let y = base + 1.2; y < top - 0.6; y += 2.4) {
+        const w = 1.6 + spread * 2 * (1 - (y - base) / (top - base));
+        gbox(g, 0.08, 0.08, w, x, y, 0, wood);
+      }
+    }
+    return;
+  }
+  // abutments / end piers
+  if (H > 0.9) for (const x of [-half, half]) gbox(g, 1.2, H + deckY, o.d + 0.8, x, (-H + deckY) / 2, 0, concrete);
+  gbox(g, o.w, 0.15, o.d, 0, deckY - 0.08, 0, steel); // deck plate
+  if (o.style === 'truss') {
+    const n = Math.max(3, Math.round(o.w / 3)), p = o.w / n, top = deckY + Math.max(2, o.h), bot = deckY, t = 0.18;
+    for (const z of [-zs, zs]) {
+      strut(g, -half, bot, half, bot, z, t + 0.05, steel); // bottom chord
+      strut(g, -half + p, top, half - p, top, z, t + 0.05, steel); // top chord
+      strut(g, -half, bot, -half + p, top, z, t + 0.05, steel); // inclined end posts
+      strut(g, half, bot, half - p, top, z, t + 0.05, steel);
+      for (let i = 1; i < n; i++) {
+        const x = -half + i * p;
+        strut(g, x, bot, x, top, z, t, steel); // verticals
+        if (i < n / 2) strut(g, x, top, x + p, bot, z, t * 0.8, steel); // Pratt diagonals
+        else if (i > n / 2) strut(g, x, top, x - p, bot, z, t * 0.8, steel);
+      }
+    }
+    for (let i = 1; i < n; i++) gbox(g, t, t, o.d, -half + i * p, top, 0, steel); // top lateral struts
+  } else {
+    const gh = Math.max(0.8, o.h);
+    for (const z of [-zs, zs]) {
+      gbox(g, o.w, gh, 0.14, 0, deckY - 0.15 + gh / 2, z, steel); // through plate girders
+      for (let x = -half + 1; x < half; x += 1.5) gbox(g, 0.1, gh, 0.22, x, deckY - 0.15 + gh / 2, z, steel); // stiffeners
+    }
   }
 }
 
@@ -257,6 +347,14 @@ function buildScenery(o) {
       m.scale.set(o.w / 2, o.h, o.d / 2);
       break;
     }
+    case 'river': {
+      placeObj(new THREE.Mesh(new THREE.BoxGeometry(o.w, 0.06, o.d), mat(c, { roughness: 0.1, metalness: 0.2, transparent: true, opacity: 0.85 })), o, 0.04);
+      break;
+    }
+    case 'bridge':
+    case 'trestle':
+      buildSpan(o);
+      break;
     case 'portal': {
       placeObj(new THREE.Mesh(new THREE.BoxGeometry(o.w, o.h, o.d), mat(c)), o, o.h / 2);
       const hole = new THREE.Mesh(new THREE.BoxGeometry(o.w * 0.55, o.h * 0.7, o.d + 0.05), mat('#111'));

@@ -3,7 +3,8 @@ import { TRACK, TRACK_BY_ID, DEVICES, DEVICE_BY_ID, SCENERY, BOARD_PRESETS, buil
 import { state, emit, begin, changed, commit, doUndo, doRedo, addPiece, flipLast, deleteSelection, findItem, itemType, loadAutosave, loadProject, newProject, resetProject, getCache, alignTo, invalidate, advanceTarget } from './model.js';
 import { ed, initEditor, draw, fitView, setMode, rotateSelection, toggleTurnout, centerOn, fmt, exportPNG } from './editor2d.js';
 import { runChecks, billOfMaterials, controlSchedule, toCSV } from './checks.js';
-import { sampleRoute, polyArea } from './geometry.js';
+import { sampleRoute, polyArea, toWorld } from './geometry.js';
+import { SAMPLES } from './samples.js';
 
 const $ = (s) => document.querySelector(s);
 const $$ = (s) => [...document.querySelectorAll(s)];
@@ -333,7 +334,7 @@ function wire() {
   $('#units').onchange = (e) => { begin(); state.project.units = e.target.value; changed(); };
   $('#bUndo').onclick = doUndo; $('#bRedo').onclick = doRedo;
   $('#bNew').onclick = () => { if (confirmSafe('Start a new project? (Current work stays in undo history)')) { resetProject(); fitView(); } };
-  $('#bDemo').onclick = () => { buildDemo(); fitView(); };
+  $('#bDemo').onclick = showSamples;
   $('#bOpen').onclick = () => $('#fileIn').click();
   $('#fileIn').onchange = async (e) => {
     const f = e.target.files[0]; if (!f) return;
@@ -420,6 +421,47 @@ function throwSelected() {
   for (const id of state.selection) { const it = findItem(id); if (itemType(id) === 'piece') toggleTurnout(it); }
 }
 function confirmSafe(msg) { try { return window.confirm(msg); } catch (e) { return true; } }
+
+// ---------------- sample gallery ----------------
+// Small plan preview of a project: board outline plus track coloured by level.
+function planThumb(P, W = 240, H = 130) {
+  const c = h('canvas', { width: W * 2, height: H * 2, style: `width:${W}px;height:${H}px` });
+  const ctx = c.getContext('2d'); ctx.scale(2, 2);
+  const O = P.board.outline, xs = O.map((p) => p.x), ys = O.map((p) => p.y);
+  const minX = Math.min(...xs), maxX = Math.max(...xs), minY = Math.min(...ys), maxY = Math.max(...ys);
+  const s = Math.min((W - 10) / (maxX - minX), (H - 10) / (maxY - minY));
+  const ox = (W - (maxX - minX) * s) / 2 - minX * s, oy = (H + (maxY - minY) * s) / 2 + minY * s;
+  const X = (p) => p.x * s + ox, Y = (p) => oy - p.y * s;
+  ctx.fillStyle = '#c9a66b'; ctx.beginPath(); O.forEach((p, i) => (i ? ctx.lineTo(X(p), Y(p)) : ctx.moveTo(X(p), Y(p)))); ctx.closePath(); ctx.fill();
+  for (const o of P.scenery) {
+    if (!['hill', 'water', 'river'].includes(o.shape)) continue;
+    ctx.save(); ctx.translate(X(o), Y(o)); ctx.rotate(-(o.rot || 0) * Math.PI / 180); ctx.fillStyle = o.color; ctx.globalAlpha = 0.7; ctx.beginPath();
+    if (o.shape === 'river') ctx.rect(-o.w * s / 2, -o.d * s / 2, o.w * s, o.d * s); else ctx.ellipse(0, 0, o.w * s / 2, o.d * s / 2, 0, 0, 7);
+    ctx.fill(); ctx.restore();
+  }
+  const levels = Object.fromEntries(P.levels.map((l) => [l.id, l.color]));
+  for (const pc of [...P.pieces].sort((a, b) => a.z - b.z)) {
+    ctx.strokeStyle = levels[pc.level] || '#333'; ctx.lineWidth = 1.6; ctx.lineCap = 'round';
+    for (const r of buildGeometry(pc.kind, pc.params).routes) {
+      ctx.beginPath(); sampleRoute(r, 1).forEach((lp, i) => { const w = toWorld(pc, lp); i ? ctx.lineTo(X(w), Y(w)) : ctx.moveTo(X(w), Y(w)); }); ctx.stroke();
+    }
+  }
+  return c;
+}
+
+function showSamples() {
+  const pick = (fn) => { $('#modal').classList.add('hidden'); fn(); fitView(); };
+  const card = (title, size, blurb, features, thumb, fn) => h('button', { class: 'sampleCard', onclick: () => pick(fn) },
+    thumb, h('div', { class: 'sTitle' }, title, h('span', { class: 'sSize' }, size)), h('div', { class: 'sBlurb' }, blurb),
+    h('div', { class: 'sTags' }, features.map((f) => h('span', {}, f))));
+  const cards = [card('Starter oval', '8 × 3½ ft + plank', 'A small oval with a siding, a spur on the upper level, and a few signals and sensors. A good first look at the tools.', ['sectional track', '2 levels'], h('div', { class: 'sNoThumb' }, '🚂'), buildDemo)];
+  for (const S of SAMPLES) {
+    let P = null;
+    try { P = S.build(); } catch (err) { console.error(S.id, err); continue; }
+    cards.push(card(S.name, S.size, S.blurb, S.features, planThumb(P), () => { begin(); loadProject(S.build()); state.grade = +$('#gradeSel').value || 0; changed(); }));
+  }
+  modal('Sample layouts', h('div', {}, h('div', { class: 'hint' }, 'Loading a sample replaces the current plan (Undo brings it back). Open the 3D view and press Test train to explore it.'), h('div', { class: 'sampleGrid' }, cards)));
+}
 
 // ---------------- sample layout ----------------
 function buildDemo() {

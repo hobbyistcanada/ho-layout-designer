@@ -124,7 +124,15 @@ export const SCENERY = [
   { id: 'water', name: 'Pond / water', shape: 'water', w: 10, d: 6, h: 0.05, color: '#3a7bbf' },
   { id: 'hill', name: 'Hill / mound', shape: 'hill', w: 14, d: 10, h: 4, color: '#6d8b4a' },
   { id: 'portal', name: 'Tunnel portal', shape: 'portal', w: 4, d: 1, h: 4, color: '#7a7a7a' },
+  { id: 'mountain', name: 'Mountain', shape: 'hill', w: 36, d: 30, h: 12, color: '#7b7262' },
+  { id: 'river', name: 'River / creek (24")', shape: 'river', w: 24, d: 5, h: 0.05, color: '#3a7bbf' },
+  // Bridges: drop one on a track and it lines up with the rails and takes the track height
+  // as its base. Width = span length, depth = deck width, height = girder / truss depth.
+  { id: 'girder', name: 'Bridge – plate girder', shape: 'bridge', style: 'girder', w: 12, d: 2.6, h: 1.4, color: '#3d4148' },
+  { id: 'truss', name: 'Bridge – through truss', shape: 'bridge', style: 'truss', w: 18, d: 2.8, h: 3.8, color: '#55606b' },
+  { id: 'trestle', name: 'Trestle (timber)', shape: 'trestle', w: 16, d: 2.6, h: 0.2, color: '#6b4f3a' },
 ];
+export const SPAN_SHAPES = ['bridge', 'trestle'];
 export const SCENERY_BY_ID = Object.fromEntries(SCENERY.map((s) => [s.id, s]));
 
 // Board presets (inches). Polygons listed counter-clockwise.

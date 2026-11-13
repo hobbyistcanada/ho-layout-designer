@@ -1,0 +1,966 @@
+{
+  "version": 1,
+  "name": "Sample – Over & under figure 8 (13×5 ft)",
+  "units": "in",
+  "board": {
+    "outline": [
+      {
+        "x": 0,
+        "y": 0
+      },
+      {
+        "x": 156,
+        "y": 0
+      },
+      {
+        "x": 156,
+        "y": 60
+      },
+      {
+        "x": 0,
+        "y": 60
+      }
+    ],
+    "thickness": 0.75,
+    "color": "#c9a66b"
+  },
+  "levels": [
+    {
+      "id": "L0",
+      "name": "Ground",
+      "elevation": 0,
+      "visible": true,
+      "color": "#3f6fb5"
+    },
+    {
+      "id": "L1",
+      "name": "High line",
+      "elevation": 4.25,
+      "visible": true,
+      "color": "#b5523f"
+    }
+  ],
+  "activeLevel": "L0",
+  "settings": {
+    "minRadius": 24,
+    "maxGrade": 2.5,
+    "clearance": 3.5,
+    "snap": true,
+    "grid": 1
+  },
+  "pieces": [
+    {
+      "id": "tx1",
+      "cat": "flex",
+      "kind": "straight",
+      "params": {
+        "len": 41.5692
+      },
+      "x": 78,
+      "y": 30,
+      "rot": 30,
+      "z": 0,
+      "grade": 2.31,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx2",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 24,
+        "angle": 30
+      },
+      "x": 126,
+      "y": 54,
+      "rot": -180,
+      "z": 1.2527,
+      "grade": -2.31,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 24,
+        "angle": 30
+      },
+      "x": 138,
+      "y": 50.7846,
+      "rot": 150,
+      "z": 1.5434,
+      "grade": -2.31,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx4",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 24,
+        "angle": 30
+      },
+      "x": 146.7846,
+      "y": 42,
+      "rot": 120,
+      "z": 1.8342,
+      "grade": -2.31,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx5",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 24,
+        "angle": 30
+      },
+      "x": 150,
+      "y": 30,
+      "rot": 90,
+      "z": 2.125,
+      "grade": -2.31,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx6",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 24,
+        "angle": 30
+      },
+      "x": 146.7846,
+      "y": 18,
+      "rot": 60,
+      "z": 2.4158,
+      "grade": -2.31,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx7",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 24,
+        "angle": 30
+      },
+      "x": 138,
+      "y": 9.2154,
+      "rot": 30,
+      "z": 2.7066,
+      "grade": -2.31,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx8",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 24,
+        "angle": 30
+      },
+      "x": 126,
+      "y": 6,
+      "rot": 0,
+      "z": 2.9973,
+      "grade": -2.31,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx9",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 24,
+        "angle": 30
+      },
+      "x": 114,
+      "y": 9.2154,
+      "rot": -30,
+      "z": 3.2881,
+      "grade": -2.31,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "txa",
+      "cat": "flex",
+      "kind": "straight",
+      "params": {
+        "len": 41.5692
+      },
+      "x": 114,
+      "y": 9.2154,
+      "rot": 150,
+      "z": 3.2881,
+      "grade": 2.31,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "txb",
+      "cat": "flex",
+      "kind": "straight",
+      "params": {
+        "len": 41.5692
+      },
+      "x": 78,
+      "y": 30,
+      "rot": 150,
+      "z": 4.25,
+      "grade": -2.31,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "txc",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 24,
+        "angle": 30
+      },
+      "x": 42,
+      "y": 50.7846,
+      "rot": 150,
+      "z": 3.2881,
+      "grade": -2.31,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "txd",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 24,
+        "angle": 30
+      },
+      "x": 30,
+      "y": 54,
+      "rot": -180,
+      "z": 2.9973,
+      "grade": -2.31,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "txe",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 24,
+        "angle": 30
+      },
+      "x": 18,
+      "y": 50.7846,
+      "rot": -150,
+      "z": 2.7066,
+      "grade": -2.31,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "txf",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 24,
+        "angle": 30
+      },
+      "x": 9.2154,
+      "y": 42,
+      "rot": -120,
+      "z": 2.4158,
+      "grade": -2.31,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "txg",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 24,
+        "angle": 30
+      },
+      "x": 6,
+      "y": 30,
+      "rot": -90,
+      "z": 2.125,
+      "grade": -2.31,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "txh",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 24,
+        "angle": 30
+      },
+      "x": 9.2154,
+      "y": 18,
+      "rot": -60,
+      "z": 1.8342,
+      "grade": -2.31,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "txi",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 24,
+        "angle": 30
+      },
+      "x": 18,
+      "y": 9.2154,
+      "rot": -30,
+      "z": 1.5434,
+      "grade": -2.31,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "txj",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 24,
+        "angle": 30
+      },
+      "x": 30,
+      "y": 6,
+      "rot": 0,
+      "z": 1.2527,
+      "grade": -2.31,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "txk",
+      "cat": "flex",
+      "kind": "straight",
+      "params": {
+        "len": 41.5692
+      },
+      "x": 42,
+      "y": 9.2154,
+      "rot": 30,
+      "z": 0.9619,
+      "grade": -2.31,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    }
+  ],
+  "devices": [
+    {
+      "id": "dx18",
+      "type": "signal3",
+      "name": "Signal – 3 aspect",
+      "x": 0,
+      "y": 0,
+      "rot": 0,
+      "side": 1,
+      "flip": false,
+      "pieceId": "tx1",
+      "route": 0,
+      "d": 3,
+      "props": {
+        "name": "SIG1",
+        "address": "D4",
+        "notes": "",
+        "heads": 3,
+        "aspect": "Red"
+      }
+    },
+    {
+      "id": "dx19",
+      "type": "signal3",
+      "name": "Signal – 3 aspect",
+      "x": 0,
+      "y": 0,
+      "rot": 0,
+      "side": 1,
+      "flip": false,
+      "pieceId": "txb",
+      "route": 0,
+      "d": 3,
+      "props": {
+        "name": "SIG2",
+        "address": "D5",
+        "notes": "",
+        "heads": 3,
+        "aspect": "Red"
+      }
+    },
+    {
+      "id": "dx1a",
+      "type": "sensor",
+      "name": "Train passing sensor",
+      "x": 0,
+      "y": 0,
+      "rot": 0,
+      "side": 1,
+      "flip": false,
+      "pieceId": "txk",
+      "route": 0,
+      "d": 10,
+      "props": {
+        "name": "PS1",
+        "address": "A0",
+        "notes": "",
+        "sensorType": "IR"
+      }
+    },
+    {
+      "id": "dx1b",
+      "type": "feeder",
+      "name": "Power feeder",
+      "x": 0,
+      "y": 0,
+      "rot": 0,
+      "side": 1,
+      "flip": false,
+      "pieceId": "tx1",
+      "route": 0,
+      "d": 8,
+      "props": {
+        "name": "F1",
+        "address": "",
+        "notes": "",
+        "bus": "Main"
+      }
+    }
+  ],
+  "scenery": [
+    {
+      "id": "oxl",
+      "type": "mountain",
+      "name": "Mountain",
+      "shape": "hill",
+      "x": 30,
+      "y": 30,
+      "rot": 0,
+      "w": 56,
+      "d": 54,
+      "h": 14,
+      "roof": "flat",
+      "color": "#7b7262",
+      "base": 0,
+      "props": {
+        "name": "Bald Knob"
+      }
+    },
+    {
+      "id": "oxm",
+      "type": "portal",
+      "name": "Tunnel portal",
+      "shape": "portal",
+      "x": 24.1461,
+      "y": 53.2751,
+      "rot": -75.8824,
+      "w": 4,
+      "d": 1,
+      "h": 4,
+      "roof": "flat",
+      "color": "#7a7a7a",
+      "base": 2.8607,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "oxn",
+      "type": "portal",
+      "name": "Tunnel portal",
+      "shape": "portal",
+      "x": 51.2695,
+      "y": 14.5671,
+      "rot": 120,
+      "w": 4,
+      "d": 1,
+      "h": 4,
+      "roof": "flat",
+      "color": "#7a7a7a",
+      "base": 0.7147,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "oxo",
+      "type": "girder",
+      "name": "Bridge – plate girder",
+      "shape": "bridge",
+      "x": 78,
+      "y": 30,
+      "rot": 150,
+      "w": 14,
+      "d": 2.6,
+      "h": 1.4,
+      "roof": "flat",
+      "color": "#3d4148",
+      "base": 4.2483,
+      "style": "girder",
+      "props": {
+        "name": "Crossing girder"
+      }
+    },
+    {
+      "id": "oxp",
+      "type": "trestle",
+      "name": "Trestle (timber)",
+      "shape": "trestle",
+      "x": 95.2455,
+      "y": 20.0433,
+      "rot": 150,
+      "w": 18,
+      "d": 2.6,
+      "h": 0.2,
+      "roof": "flat",
+      "color": "#6b4f3a",
+      "base": 3.7883,
+      "props": {
+        "name": "Gully trestle"
+      }
+    },
+    {
+      "id": "oxq",
+      "type": "water",
+      "name": "Pond / water",
+      "shape": "water",
+      "x": 110,
+      "y": 47,
+      "rot": 0,
+      "w": 16,
+      "d": 7,
+      "h": 0.05,
+      "roof": "flat",
+      "color": "#3a7bbf",
+      "base": 0,
+      "props": {
+        "name": "Mill pond"
+      }
+    },
+    {
+      "id": "oxr",
+      "type": "station",
+      "name": "Station",
+      "shape": "box",
+      "x": 112,
+      "y": 10,
+      "rot": 0,
+      "w": 12,
+      "d": 5,
+      "h": 4.5,
+      "roof": "gable",
+      "color": "#c0785a",
+      "base": 0,
+      "props": {
+        "name": "Figure Eight Jct"
+      }
+    },
+    {
+      "id": "oxs",
+      "type": "platform",
+      "name": "Platform",
+      "shape": "box",
+      "x": 112,
+      "y": 13.5,
+      "rot": 0,
+      "w": 16,
+      "d": 2.5,
+      "h": 0.5,
+      "roof": "flat",
+      "color": "#b0b0b0",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "oxt",
+      "type": "house",
+      "name": "House",
+      "shape": "box",
+      "x": 120,
+      "y": 26,
+      "rot": 0,
+      "w": 5,
+      "d": 4,
+      "h": 4,
+      "roof": "gable",
+      "color": "#d9b38c",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "oxu",
+      "type": "house",
+      "name": "House",
+      "shape": "box",
+      "x": 128,
+      "y": 32,
+      "rot": 90,
+      "w": 5,
+      "d": 4,
+      "h": 4,
+      "roof": "gable",
+      "color": "#d9b38c",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "oxv",
+      "type": "house",
+      "name": "House",
+      "shape": "box",
+      "x": 132,
+      "y": 24,
+      "rot": 0,
+      "w": 5,
+      "d": 4,
+      "h": 4,
+      "roof": "gable",
+      "color": "#d9b38c",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "oxw",
+      "type": "house",
+      "name": "House",
+      "shape": "box",
+      "x": 124,
+      "y": 38,
+      "rot": 0,
+      "w": 5,
+      "d": 4,
+      "h": 4,
+      "roof": "gable",
+      "color": "#d9b38c",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "oxx",
+      "type": "tower",
+      "name": "Water tower",
+      "shape": "cyl",
+      "x": 140,
+      "y": 30,
+      "rot": 0,
+      "w": 3,
+      "d": 3,
+      "h": 9,
+      "roof": "flat",
+      "color": "#6b4f3a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "oxy",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 62,
+      "y": 52,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "oxz",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 70,
+      "y": 8,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox10",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 92,
+      "y": 52,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox11",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 100,
+      "y": 6,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox12",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 146,
+      "y": 52,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox13",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 150,
+      "y": 8,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox14",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 8,
+      "y": 55,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox15",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 52,
+      "y": 4,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox16",
+      "type": "oak",
+      "name": "Tree – deciduous",
+      "shape": "tree",
+      "x": 96,
+      "y": 44,
+      "rot": 0,
+      "w": 3.5,
+      "d": 3.5,
+      "h": 5,
+      "roof": "flat",
+      "color": "#4c8a3a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox17",
+      "type": "oak",
+      "name": "Tree – deciduous",
+      "shape": "tree",
+      "x": 60,
+      "y": 44,
+      "rot": 0,
+      "w": 3.5,
+      "d": 3.5,
+      "h": 5,
+      "roof": "flat",
+      "color": "#4c8a3a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    }
+  ]
+}

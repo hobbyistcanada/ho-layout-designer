@@ -1,6 +1,6 @@
 // 2D plan editor on a <canvas>: pan/zoom, track laying, snapping, board editing, placing items.
 import { state, getCache, begin, changed, invalidate, freeEndpoints, alignTo, pieceEndpoints, nearestTrack, routeSampleWorld, findItem, itemType, uid, emit } from './model.js';
-import { HO, DEVICE_BY_ID, SCENERY_BY_ID, TRACK_BY_ID, buildGeometry } from './catalog.js';
+import { HO, DEVICE_BY_ID, SCENERY_BY_ID, TRACK_BY_ID, SPAN_SHAPES, buildGeometry } from './catalog.js';
 import { DEG, dist, distToSeg, sampleRoute, toWorld, toLocal, routeLen } from './geometry.js';
 
 export const ed = {
@@ -35,6 +35,7 @@ function resize() {
   ed.canvas.style.width = r.width + 'px'; ed.canvas.style.height = r.height + 'px';
   ed.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   ed.w = r.width; ed.h = r.height;
+  if (ed.pendingFit && ed.w > 100 && ed.h > 100) { ed.pendingFit = false; fitView(); return; }
   draw();
 }
 
@@ -44,6 +45,8 @@ export function fitView() {
   const xs = pts.map((p) => p.x), ys = pts.map((p) => p.y);
   const minX = Math.min(...xs), maxX = Math.max(...xs), minY = Math.min(...ys), maxY = Math.max(...ys);
   const pad = 40;
+  // plan hidden (e.g. 3D view): fit once it becomes visible instead of computing a negative scale
+  if (ed.w < pad * 2 + 20 || ed.h < pad * 2 + 20) { ed.pendingFit = true; return; }
   ed.s = Math.min((ed.w - pad * 2) / (maxX - minX || 1), (ed.h - pad * 2) / (maxY - minY || 1));
   ed.tx = (ed.w - (maxX - minX) * ed.s) / 2 - minX * ed.s;
   ed.ty = (ed.h + (maxY - minY) * ed.s) / 2 + minY * ed.s;
@@ -288,6 +291,12 @@ function placeItem(pt) {
   } else {
     const cat = SCENERY_BY_ID[ed.place.id];
     const o = { id: uid('o'), type: cat.id, name: cat.name, shape: cat.shape, x: pt.x, y: pt.y, rot: 0, w: cat.w, d: cat.d, h: cat.h, roof: cat.roof || 'flat', color: cat.color, base: 0, props: { name: '' } };
+    if (cat.style) o.style = cat.style;
+    // bridges and trestles snap onto the nearest track: centred on it, aligned, at track height
+    if (SPAN_SHAPES.includes(cat.shape)) {
+      const n = nearestTrack(pt, 4);
+      if (n) { o.x = n.s.x; o.y = n.s.y; o.rot = Math.round(((n.s.h % 180) + 180) % 180 * 100) / 100; o.base = Math.round(n.s.z * 100) / 100; }
+    }
     P.scenery.push(o);
     state.selection = new Set([o.id]);
   }
@@ -320,12 +329,13 @@ function render() {
   ctx.fillStyle = '#1e2329'; ctx.fillRect(0, 0, w, h);
   drawGrid();
   drawBoard();
-  for (const o of P.scenery.filter((o) => ['flat', 'water', 'hill'].includes(o.shape))) drawScenery(o);
+  const under = (o) => ['flat', 'water', 'hill', 'river', 'bridge', 'trestle'].includes(o.shape);
+  for (const o of P.scenery.filter(under)) drawScenery(o);
 
   const C = getCache();
   const list = [...C.map.values()].filter((c) => visiblePiece(c.pc)).sort((a, b) => a.pc.z - b.pc.z);
   for (const c of list) drawPiece(c);
-  for (const o of P.scenery.filter((o) => !['flat', 'water', 'hill'].includes(o.shape))) drawScenery(o);
+  for (const o of P.scenery.filter((o) => !under(o))) drawScenery(o);
   for (const d of P.devices) drawDevice(d);
   for (const c of list) drawEndpoints(c);
   if (ed.showIssues) drawIssues();
@@ -518,7 +528,28 @@ function drawScenery(o) {
   else if (o.shape === 'water' || o.shape === 'hill') ctx.ellipse(0, 0, w / 2, d / 2, 0, 0, Math.PI * 2);
   else if (o.shape === 'light') { ctx.fillStyle = 'rgba(255,215,106,0.25)'; ctx.arc(0, 0, 2 * ed.s, 0, Math.PI * 2); ctx.fill(); ctx.beginPath(); ctx.fillStyle = o.color; ctx.arc(0, 0, Math.max(3, 0.3 * ed.s), 0, Math.PI * 2); }
   else ctx.rect(-w / 2, -d / 2, w, d);
-  ctx.fill(); ctx.stroke();
+  if (o.shape === 'hill') {
+    // contour rings make mountains read as terrain rather than flat blobs
+    ctx.fill(); ctx.stroke();
+    ctx.strokeStyle = 'rgba(0,0,0,0.18)'; ctx.lineWidth = 1;
+    for (const f of [0.4, 0.7, 0.9]) { const k = Math.sqrt(1 - f * f); ctx.beginPath(); ctx.ellipse(0, 0, (w / 2) * k, (d / 2) * k, 0, 0, Math.PI * 2); ctx.stroke(); }
+  } else if (o.shape === 'bridge' || o.shape === 'trestle') {
+    ctx.globalAlpha = 0.35; ctx.fill(); ctx.globalAlpha = 1;
+    ctx.strokeStyle = sel ? '#33e1ff' : o.color; ctx.lineWidth = sel ? 3 : Math.max(1.5, 0.25 * ed.s);
+    ctx.beginPath(); ctx.moveTo(-w / 2, -d / 2); ctx.lineTo(w / 2, -d / 2); ctx.moveTo(-w / 2, d / 2); ctx.lineTo(w / 2, d / 2); ctx.stroke();
+    ctx.lineWidth = 1;
+    if (o.shape === 'trestle') {
+      const n = Math.max(2, Math.round(o.w / 1.8));
+      ctx.beginPath(); for (let i = 0; i <= n; i++) { const x = -w / 2 + (w * i) / n; ctx.moveTo(x, -d / 2 - 0.4 * ed.s); ctx.lineTo(x, d / 2 + 0.4 * ed.s); } ctx.stroke();
+    } else if (o.style === 'truss') {
+      const n = Math.max(3, Math.round(o.w / 3));
+      ctx.beginPath(); for (let i = 0; i < n; i++) { const x0 = -w / 2 + (w * i) / n, x1 = x0 + w / n; ctx.moveTo(x0, -d / 2); ctx.lineTo(x1, d / 2); ctx.moveTo(x0, d / 2); ctx.lineTo(x1, -d / 2); } ctx.stroke();
+    }
+  } else if (o.shape === 'river') {
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(255,255,255,0.35)'; ctx.setLineDash([1.2 * ed.s, 1.2 * ed.s]);
+    ctx.beginPath(); ctx.moveTo(-w / 2, 0); ctx.lineTo(w / 2, 0); ctx.stroke(); ctx.setLineDash([]);
+  } else { ctx.fill(); ctx.stroke(); }
   if (o.shape === 'box' && o.roof === 'gable') { ctx.strokeStyle = 'rgba(0,0,0,0.35)'; ctx.beginPath(); ctx.moveTo(-w / 2, 0); ctx.lineTo(w / 2, 0); ctx.stroke(); }
   if (o.shape === 'flat') { ctx.setLineDash([0.8 * ed.s, 0.8 * ed.s]); ctx.strokeStyle = '#e8d36a'; ctx.beginPath(); ctx.moveTo(-w / 2, 0); ctx.lineTo(w / 2, 0); ctx.stroke(); ctx.setLineDash([]); }
   ctx.restore();

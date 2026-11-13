@@ -16,11 +16,25 @@ A free, browser-based planner for **HO scale (1:87.1)** model railroad layouts. 
 | **Multi-level** | Any number of levels with colour, default height, show/hide and "dim other levels". Set a **laying grade** (for example +2%) and new track climbs as you lay it. Heights and grades are labelled on the plan. |
 | **Control & sensors** | Turnouts get a position (normal/thrown), an address or pin, and a motor type. Place 2- and 3-aspect signals, dwarf signals, **train passing sensors** (IR/reed/Hall/…), **home / end-of-travel sensors**, occupancy-detection blocks, power feeders, insulated rail gaps, uncouplers and crossing gates. Everything snaps to the track and moves with it. |
 | **Control table** | One table of every turnout, signal and sensor with its address or pin, exportable as CSV for wiring, Arduino sketches or JMRI. |
-| **Scenery** | Houses, station, factory, engine house, water tower, platform, street lights, trees, roads, ponds, hills and tunnel portals. All are resizable and recolourable, and the real-world size is shown. |
+| **Scenery** | Houses, station, factory, engine house, water tower, platform, street lights, trees, roads, ponds, rivers, hills, mountains and tunnel portals. All are resizable and recolourable, and the real-world size is shown. |
+| **Bridges** | Plate-girder bridge, through-truss bridge and timber trestle. Drop one on a track and it centres itself, lines up with the rails and takes the track's height; the 3D view draws abutments or trestle bents down to the ground instead of plain piers. |
 | **Design checks** | Flags curves under your minimum radius, grades over your maximum, **too little vertical clearance** where levels cross, tracks overlapping at the same height, track running off the benchwork, open ends, and turnouts without an address. Click an issue to jump to it. |
 | **3D view** | Three.js scene with benchwork, ballast, ties, rails, sub-roadbed and **piers under raised track**, scenery and signals (lit by aspect). Orbit, top view, **night mode** (street lights glow), a **test train** that follows connections and turnout settings, and a **cab ride** camera. |
 | **Parts list** | Counts of sectional pieces, flex track needed (with 10% waste), joiners, devices and scenery, exportable as CSV. |
 | **Files** | Autosaves in the browser. Save/Open `.json` projects you can keep in this repo. Export a PNG of the plan or the 3D view. Undo/redo (Ctrl+Z / Ctrl+Y). |
+
+## Sample layouts
+
+Click **Samples** for a gallery of ready-made plans. Each loads with track, signals, sensors and scenery, passes the design checks, and is also saved in [`examples/`](examples/) so you can open it with *Open…*.
+
+| Sample | Size | Highlights |
+|---|---|---|
+| **Starter oval** | 8 × 3½ ft + plank | Oval with a siding and an upper-level spur; a quick tour of the tools. |
+| **Over & under figure 8** | 13 × 5 ft table | One half climbs 4¼" (2.3%) so the track crosses over itself on a girder bridge; trestle approach; the low loop tunnels under a mountain. |
+| **Spiral loop mountain division** | 16 × 8 ft island | Inspired by the Tehachapi Loop. A branch leaves the valley main, spirals inside a mountain and crosses over its own track, then climbs on a canyon trestle to a mining town. The valley has a continuous main, passing siding, 4-track yard and engine terminal. 3 levels. |
+| **Two-deck helix railroad** | 14 × 11 ft room | Around-the-walls, two decks joined by a 3¾-turn R28" helix (15" rise). Lower-deck yard and town, upper-deck shelf with a truss bridge, trestle and mine terminal stacked above. |
+
+The samples are generated in [`js/samples.js`](js/samples.js) with a small "turtle" that lays flex track so every loop closes exactly; run `node tools/export-samples.mjs` to refresh the `.json` copies after changing them.
 
 ## Run it
 
@@ -66,8 +80,18 @@ js/model.js         project state, track graph & connections, undo, autosave
 js/editor2d.js      canvas plan editor (snapping, laying, board editing)
 js/checks.js        design-rule checks, parts list, control table
 js/view3d.js        three.js scene, test train, cab ride
-js/main.js          panels, properties, files, keyboard
+js/main.js          panels, properties, files, keyboard, sample gallery
+js/samples.js       generated sample layouts (figure 8, spiral loop, helix)
 examples/           sample project files
+tests/              sample checks (Node) and a browser smoke test (Playwright)
+tools/              export-samples.mjs regenerates examples/*.json
+```
+
+## Tests
+
+```
+node tests/samples.test.mjs        # builds every sample and runs the design checks
+python3 tests/browser.test.py      # serves the app, loads each sample in Chrome, fails on JS errors
 ```
 
 Units are inches internally (cm can be chosen for display). Track pieces are stored as a catalog id plus editable parameters, position, rotation, start height and grade, so the `.json` files stay small and are easy to compare in git.
