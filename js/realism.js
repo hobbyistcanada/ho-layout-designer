@@ -108,7 +108,7 @@ export function hillBase(o, x, y) {
   return q > 0 ? (o.base || 0) + o.h * q : 0;
 }
 // within `pad` inches of a hill's footprint
-const nearHill = (o, p, pad = 4) => {
+const nearHill = (o, p, pad = 12) => { // covers the terrain mesh (+6") and the reach of fill slopes
   const c = Math.cos(-(o.rot || 0) * DEG), s = Math.sin(-(o.rot || 0) * DEG);
   const dx = p.x - o.x, dy = p.y - o.y;
   const lx = (dx * c - dy * s) / (o.w / 2 + pad), ly = (dx * s + dy * c) / (o.d / 2 + pad);
@@ -196,6 +196,7 @@ export function tunnelInfo() {
         if (k < merged.length - 1) { const p = ch[r.b + 1] || ch[r.b]; mouths.push({ x: p.x, y: p.y, z: p.z, h: p.h, hill: o.id }); }
       });
     }
+    for (const p of cut) p.onSlope = hillBase(o, p.x, p.y) > p.z - 2.5;
     res.set(o.id, { tun, cut, mouths });
   }
   tunCache.set(I, { key, res });
@@ -235,7 +236,10 @@ export function hillHeightFn(o) {
     around(Cg, x, y, (p, lat) => { const allowed = p.z - 0.15 + Math.max(0, lat - 1.6) * 1.33; if (allowed < h) h = allowed; });
     // 2) tunnels: rock (or a retaining wall) stays above the bore, even next to another cutting
     around(T, x, y, (p, lat) => { const need = p.z + cover + 0.4 - Math.max(0, lat - 2.4) * 3; if (need > h) h = need; });
-    // 3) the floor of every open trench stays clear
+    // 3) on a hillside the downhill side is built up as an embankment (1:1.5 fill slope) so the
+    //    track bed sits on ground, not on a ledge hanging over the slope
+    around(Cg, x, y, (p, lat) => { if (p.onSlope) { const fill = p.z - 0.15 - Math.max(0, lat - 1.6) * 0.67; if (fill > h) h = fill; } });
+    // 4) the floor of every open trench / formation stays clear
     around(Cg, x, y, (p, lat) => { if (lat <= 1.6 && h > p.z - 0.15) h = p.z - 0.15; });
     return Math.max(0, h);
   };
@@ -308,6 +312,11 @@ export const portalOpening = (o) => ({ w: Math.min(o.w - 0.6, Math.max(o.w * 0.6
 const postFouls = (I, x, y, top, selfId) => I.near(x, y, R.carHalfWidth + R.postHalf + 0.05)
   .some((q) => q.z < top - 0.25 && !(q.id === selfId && Math.abs(q.z - top) < 1));
 
+// true where a hill carries the track (cutting, hillside shelf or embankment): no roadbed or posts
+export function onTerrain(p) {
+  return state.project.scenery.some((o) => o.shape === 'hill' && hillBase(o, p.x, p.y) > p.z - 2.5);
+}
+
 export function supports() {
   const I = trackIndex(), S = settings(), out = [], gaps = [];
   const hills = state.project.scenery.filter((o) => o.shape === 'hill');
@@ -317,7 +326,7 @@ export function supports() {
     for (let i = 0; i < pts.length; i += 16) {
       const p = pts[i];
       if (p.z < 0.8) { lastD = p.d; continue; }
-      if (underSpan(p) || hills.some((o) => hillBase(o, p.x, p.y) > p.z - 0.7)) { lastD = p.d; continue; }
+      if (underSpan(p) || hills.some((o) => hillBase(o, p.x, p.y) > p.z - 2.5)) { lastD = p.d; continue; }
       const top = p.z - 0.6;
       const nx = -Math.sin(p.h * DEG), ny = Math.cos(p.h * DEG);
       if (!postFouls(I, p.x, p.y, top, id)) { out.push({ posts: [{ x: p.x, y: p.y }], top, at: p }); lastD = p.d; continue; }

@@ -5,7 +5,7 @@ import { state, getCache, routeSampleWorld } from './model.js';
 import { HO } from './catalog.js';
 import { DEG, sampleRoute, toWorld } from './geometry.js';
 import { devicePose } from './editor2d.js';
-import { supports, hillHeightFn, portalOpening, trestleBents, trestleSpread, moveTrain, autoPortals, TURNOUT_KINDS } from './realism.js';
+import { supports, onTerrain, hillHeightFn, portalOpening, trestleBents, trestleSpread, moveTrain, autoPortals, TURNOUT_KINDS } from './realism.js';
 
 let renderer, scene, camera, controls, root, container, active = false, dirty = true;
 let hemi, sun, night = false, train = null, cab = false, clock = new THREE.Clock();
@@ -170,7 +170,13 @@ function buildTrack() {
     c.samples.forEach((pts, ri) => {
       const elevated = pts.some((p) => p.z > 0.3);
       if (!c.g.pit) beam(pts, 0, HO.ballastW, 0, 0.18, ballast);
-      if (elevated) beam(pts, 0, HO.ballastW + 1, -0.6, 0, ply);
+      if (elevated) {
+        // plywood roadbed only where the track is in the air, not where the hill carries it
+        let run = [];
+        const flush = () => { if (run.length > 1) beam(run, 0, HO.ballastW + 1, -0.6, 0, ply); run = []; };
+        for (const p of pts) { if (p.z > 0.3 && !onTerrain(p)) run.push(p); else flush(); }
+        flush();
+      }
       // Rails. On a turnout only the route it is set for runs through the points; the other
       // route's rails start behind the points, which is what you see from the cab.
       const isTurnout = TURNOUT_KINDS.includes(c.pc.kind);
