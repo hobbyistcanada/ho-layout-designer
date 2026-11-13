@@ -30,6 +30,7 @@ export function init3D(el) {
   sun = new THREE.DirectionalLight('#ffffff', 1.6);
   sun.castShadow = true;
   sun.shadow.mapSize.set(2048, 2048);
+  sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.02;
   scene.add(hemi, sun, sun.target);
   root = new THREE.Group();
   scene.add(root);
@@ -239,7 +240,7 @@ function buildTerrain(o) {
     const lx = -W0 / 2 + (W0 * i) / nx, ly = -D0 / 2 + (D0 * j) / ny;
     const x = o.x + lx * cs - ly * sn, y = o.y + lx * sn + ly * cs;
     const hgt = f(x, y);
-    const v = V(x, y, hgt > 0.01 ? hgt : -0.5); // flat ground tucks under the board top (clear of shadow acne)
+    const v = V(x, y, hgt > 0.01 ? hgt : -2); // flat ground tucks well under the board top (no shadow acne)
     pos.push(v.x, v.y, v.z);
     inside.push(pointInPoly({ x, y }, state.project.board.outline)); // terrain only on the benchwork
   }
