@@ -103,33 +103,140 @@ export function hillBase(o, x, y) {
   const dx = x - o.x, dy = y - o.y;
   const lx = (dx * c - dy * s) / (o.w / 2), ly = (dx * s + dy * c) / (o.d / 2);
   const q = 1 - lx * lx - ly * ly;
-  return q > 0 ? (o.base || 0) + o.h * Math.sqrt(q) : 0;
+  // paraboloid: rounded summit, flanks that steepen towards the foot (~50° for a typical
+  // mountain) but no vertical cliff at the edge the way a hemisphere would have
+  return q > 0 ? (o.base || 0) + o.h * q : 0;
 }
+// within `pad` inches of a hill's footprint
+const nearHill = (o, p, pad = 4) => {
+  const c = Math.cos(-(o.rot || 0) * DEG), s = Math.sin(-(o.rot || 0) * DEG);
+  const dx = p.x - o.x, dy = p.y - o.y;
+  const lx = (dx * c - dy * s) / (o.w / 2 + pad), ly = (dx * s + dy * c) / (o.d / 2 + pad);
+  return lx * lx + ly * ly <= 1;
+};
 // Deep enough under the hill to be a tunnel (bore height + some rock above it)
 export const inTunnel = (o, s, S = settings()) => hillBase(o, s.x, s.y) > s.z + tunnelCover(S);
 
-// Terrain height with railway cuttings: where track runs into the slope but is not deep enough
-// to be in a tunnel, the ground is dug down to the track with 1:0.8 side slopes, the way a real
-// railway cuts through a hillside on its way to a tunnel portal.
+// ---- tunnels & cuttings, classified along whole connected runs of track
+// Track is followed piece to piece (through plain track; turnouts end a run) so tunnels are
+// judged by their length, not sample by sample:
+//   T = tunnel (enough rock above for the bore), C = cutting (the slope covers the track but not
+//   deep enough for a tunnel), F = free (track clear of the hill).
+// Daylight gaps shorter than TUNNEL.mergeGap inside a tunnel are bored through; tunnels shorter
+// than TUNNEL.minLength are opened out into a cutting. Mouths are where T meets C/F.
+export const TUNNEL = { mergeGap: 16, minLength: 10 };
+
+function trackChains(I) {
+  const C = I.C, seen = new Set(), out = [];
+  const plain = (c) => c && c.g.routes.length === 1 && ['straight', 'curve'].includes(c.pc.kind);
+  const pts = (id, rev) => { const a = I.per.get(id + '|0'); return rev ? [...a].reverse() : a; };
+  for (const c of C.map.values()) {
+    c.g.routes.forEach((r, ri) => {
+      const key = c.pc.id + '|' + ri;
+      if (seen.has(key) || !I.per.has(key)) return;
+      seen.add(key);
+      if (!plain(c)) { out.push(I.per.get(key)); return; }
+      // extend from the 'e' end forwards and from the 's' end backwards
+      const walk = (startEnd) => {
+        const list = [];
+        let cur = c, end = startEnd;
+        for (let guard = 0; guard < 2000; guard++) {
+          const epi = cur.eps.findIndex((e) => e.refs.some((q) => q.end === end));
+          const l = epi >= 0 ? cur.links[epi] : null;
+          if (!l) break;
+          const nc = C.map.get(l.id);
+          if (!plain(nc) || seen.has(nc.pc.id + '|0')) break;
+          seen.add(nc.pc.id + '|0');
+          const inAt = nc.eps[l.ep].refs[0].end; // entering at 's' -> forward
+          list.push({ id: nc.pc.id, rev: inAt === 'e' });
+          cur = nc; end = inAt === 's' ? 'e' : 's';
+        }
+        return list;
+      };
+      const fwd = walk('e'), back = walk('s');
+      const seq = [...back.reverse().map((q) => ({ id: q.id, rev: !q.rev })), { id: c.pc.id, rev: false }, ...fwd];
+      const chain = [];
+      for (const q of seq) for (const p of pts(q.id, q.rev)) chain.push(q.rev ? { ...p, h: p.h + 180 } : p);
+      out.push(chain);
+    });
+  }
+  for (const ch of out) { let acc = 0; ch.forEach((p, i) => { if (i) acc += Math.hypot(p.x - ch[i - 1].x, p.y - ch[i - 1].y); p.s = acc; }); }
+  return out;
+}
+
+const tunCache = new WeakMap();
+// For every hill: classified track samples and the tunnel mouths {x,y,z,h (heading out of the tunnel)}
+export function tunnelInfo() {
+  const I = trackIndex(), S = settings();
+  const key = JSON.stringify(state.project.scenery.filter((o) => o.shape === 'hill')) + S.carHeight;
+  const c = tunCache.get(I);
+  if (c && c.key === key) return c.res;
+  const cover = tunnelCover(S), chains = trackChains(I), res = new Map();
+  for (const o of state.project.scenery) {
+    if (o.shape !== 'hill') continue;
+    const tun = [], cut = [], mouths = [];
+    for (const ch of chains) {
+      const st = ch.map((p) => { const b = hillBase(o, p.x, p.y); return b > p.z + cover ? 'T' : b > p.z - 0.3 ? 'C' : 'F'; });
+      // 'cut' = every open (non-tunnel) sample near the hill: the ground is kept below its rails
+      if (!st.includes('T')) { ch.forEach((p) => nearHill(o, p) && cut.push(p)); continue; }
+      const runs = [];
+      st.forEach((v, i) => { const t = v === 'T'; if (!runs.length || runs[runs.length - 1].t !== t) runs.push({ t, a: i, b: i }); else runs[runs.length - 1].b = i; });
+      const len = (r) => ch[r.b].s - ch[r.a].s;
+      runs.forEach((r, k) => { if (!r.t && k > 0 && k < runs.length - 1 && len(r) < TUNNEL.mergeGap) r.t = true; }); // bore through short daylight
+      const merged = [];
+      for (const r of runs) { const m = merged[merged.length - 1]; if (m && m.t === r.t) m.b = r.b; else merged.push({ ...r }); }
+      for (const r of merged) if (r.t && len(r) < TUNNEL.minLength) r.t = false; // too short: open cutting
+      for (const r of merged) for (let i = r.a; i <= r.b; i++) {
+        const p = ch[i];
+        if (r.t) tun.push(p); else if (nearHill(o, p)) cut.push(p);
+      }
+      merged.forEach((r, k) => {
+        if (!r.t) return;
+        if (k > 0) { const p = ch[r.a - 1] || ch[r.a]; mouths.push({ x: p.x, y: p.y, z: p.z, h: p.h + 180, hill: o.id }); }
+        if (k < merged.length - 1) { const p = ch[r.b + 1] || ch[r.b]; mouths.push({ x: p.x, y: p.y, z: p.z, h: p.h, hill: o.id }); }
+      });
+    }
+    res.set(o.id, { tun, cut, mouths });
+  }
+  tunCache.set(I, { key, res });
+  return res;
+}
+// Portals the 3D view draws at every tunnel mouth (same size the clearance checks use)
+export function autoPortals() {
+  const out = [];
+  for (const [, t] of tunnelInfo()) for (const m of t.mouths)
+    out.push({ id: 'auto-' + m.hill + '-' + Math.round(m.x) + ',' + Math.round(m.y), type: 'portal', shape: 'portal', name: 'Tunnel portal', x: m.x, y: m.y, rot: norm(m.h + 90), w: 4.2, d: 1, h: 4.2, base: m.z, color: '#80786c', props: { name: 'Tunnel portal' }, auto: true });
+  return out;
+}
+
+// Terrain height: the hill (with some rock texture), built up over tunnels so there is always
+// rock above the bore, and dug out along cuttings as a trench with 1:0.75 sides that stops at
+// the portal face.
+const rock = (o, x, y) => (Math.sin(x * 0.9) * Math.cos(y * 0.7) + Math.sin(x * 0.31 + y * 0.53) + 2) * 0.03 * o.h;
 export function hillHeightFn(o) {
-  const S = settings(), I = trackIndex();
-  const rad = Math.max(o.w, o.d) / 2 + 8;
-  const cuts = I.near(o.x, o.y, rad).filter((s) => {
-    const b = hillBase(o, s.x, s.y);
-    return b > s.z - 0.3 && !(b > s.z + tunnelCover(S));
-  });
-  const grid = new Map(), cell = 4;
-  for (const s of cuts) { const k = Math.floor(s.x / cell) + ',' + Math.floor(s.y / cell); if (!grid.has(k)) grid.set(k, []); grid.get(k).push(s); }
+  const S = settings(), cover = tunnelCover(S);
+  const info = tunnelInfo().get(o.id) || { tun: [], cut: [] };
+  const bucket = (list) => { const g = new Map(); for (const p of list) { const k = Math.floor(p.x / 4) + ',' + Math.floor(p.y / 4); if (!g.has(k)) g.set(k, []); g.get(k).push(p); } return g; };
+  const T = bucket(info.tun), Cg = bucket(info.cut);
+  const around = (g, x, y, fn) => {
+    for (let gx = Math.floor((x - 8) / 4); gx <= Math.floor((x + 8) / 4); gx++)
+      for (let gy = Math.floor((y - 8) / 4); gy <= Math.floor((y + 8) / 4); gy++)
+        for (const p of g.get(gx + ',' + gy) || []) {
+          const dx = x - p.x, dy = y - p.y, c = Math.cos(p.h * DEG), s = Math.sin(p.h * DEG);
+          const along = dx * c + dy * s;
+          if (Math.abs(along) > 0.3) continue; // cross-section of the track at this sample only
+          fn(p, Math.abs(-dx * s + dy * c));
+        }
+  };
   return (x, y) => {
     let h = hillBase(o, x, y);
-    if (h <= 0) return 0;
-    for (let gx = Math.floor((x - 8) / cell); gx <= Math.floor((x + 8) / cell); gx++)
-      for (let gy = Math.floor((y - 8) / cell); gy <= Math.floor((y + 8) / cell); gy++)
-        for (const s of grid.get(gx + ',' + gy) || []) {
-          const d = Math.hypot(s.x - x, s.y - y);
-          const allowed = s.z - 0.2 + Math.max(0, d - 1.5) * 1.25;
-          if (allowed < h) h = allowed;
-        }
+    if (h > 0) h += rock(o, x, y) * Math.min(1, h / 2);
+    // 1) cuttings: trench with 1:0.75 side slopes along every open track
+    around(Cg, x, y, (p, lat) => { const allowed = p.z - 0.15 + Math.max(0, lat - 1.6) * 1.33; if (allowed < h) h = allowed; });
+    // 2) tunnels: rock (or a retaining wall) stays above the bore, even next to another cutting
+    around(T, x, y, (p, lat) => { const need = p.z + cover + 0.4 - Math.max(0, lat - 2.4) * 3; if (need > h) h = need; });
+    // 3) the floor of every open trench stays clear
+    around(Cg, x, y, (p, lat) => { if (lat <= 1.6 && h > p.z - 0.15) h = p.z - 0.15; });
     return Math.max(0, h);
   };
 }
@@ -305,8 +412,8 @@ export function analyse() {
     });
   }
 
-  // scenery: fouling, floating, bridges, water
-  for (const o of P.scenery) {
+  // scenery: fouling, floating, bridges, water (auto portals at tunnel mouths included)
+  for (const o of [...P.scenery, ...autoPortals()]) {
     const label = o.props?.name || o.name;
     const boxes = obstacleBoxes(o);
     const reach = Math.max(o.w, o.d) / 2 + 4;
@@ -338,16 +445,6 @@ export function analyse() {
         if (!inside) continue;
         addHz(s, 'stop', `Track runs into ${label} – it needs a bridge`);
         issue('warn', `Track runs through ${label} – raise it on a bridge or move the water`, s, o.id, 'wet' + o.id);
-      }
-    }
-    if (o.shape === 'hill') {
-      // tunnel mouths should have a portal
-      const portals = P.scenery.filter((p) => p.shape === 'portal');
-      for (const [, pts] of I.per) for (let i = 1; i < pts.length; i++) {
-        const a = inTunnel(o, pts[i - 1], S), b = inTunnel(o, pts[i], S);
-        if (a === b) continue;
-        const m = a ? pts[i - 1] : pts[i];
-        if (!portals.some((p) => Math.hypot(p.x - m.x, p.y - m.y) < 3.5)) issue('info', `Tunnel mouth under ${label} has no portal`, m, o.id, 'tm' + Math.round(m.x) + ',' + Math.round(m.y));
       }
     }
   }

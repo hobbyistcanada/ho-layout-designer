@@ -3,7 +3,7 @@
 import { SAMPLES } from '../js/samples.js';
 import { state, loadProject, getCache } from '../js/model.js';
 import { runChecks, billOfMaterials } from '../js/checks.js';
-import { moveTrain, supports, trackIndex, obstacleBoxes } from '../js/realism.js';
+import { moveTrain, supports, trackIndex, tunnelInfo, hillHeightFn, settings, TUNNEL } from '../js/realism.js';
 
 // Run test trains from many places, both directions, with turnouts normal and then all thrown.
 // Trailing turnouts are lined for the train, as a dispatcher would. Anything other than
@@ -64,6 +64,33 @@ for (const S of SAMPLES) {
     if (bad) fail(`support post at (${q.x.toFixed(1)}, ${q.y.toFixed(1)}) fouls the track below`);
   }
   console.log(`  supports ${sup.supports.length} (${sup.supports.filter((s) => s.posts.length === 2).length} two-post bents, ${sup.supports.filter((s) => s.cap && s.posts.length === 1).length} brackets)`);
+  // terrain vs the train: outside tunnels the ground must stay below the rails across the car's
+  // width; inside tunnels there must be rock above the tallest car (no train "inside" the hill)
+  const RS = settings();
+  let tunnels = 0;
+  for (const o of P.scenery.filter((h) => h.shape === 'hill')) {
+    const f = hillHeightFn(o), info = tunnelInfo().get(o.id);
+    tunnels += info.mouths.length;
+    const key = (p) => Math.round(p.x * 4) + ',' + Math.round(p.y * 4) + ',' + Math.round(p.z * 4);
+    const tun = new Set(info.tun.map(key));
+    const atMouth = (p) => info.mouths.some((m) => Math.hypot(m.x - p.x, m.y - p.y) < 0.8);
+    const R2 = Math.max(o.w, o.d) / 2 + 6;
+    for (const s of I.near(o.x, o.y, R2)) {
+      const nx = -Math.sin(s.h * Math.PI / 180), ny = Math.cos(s.h * Math.PI / 180);
+      const tx = Math.cos(s.h * Math.PI / 180), ty = Math.sin(s.h * Math.PI / 180);
+      if (atMouth(s)) continue; // the portal face itself
+      for (const lat of [-0.75, 0, 0.75]) for (const al of [0]) {
+        const x = s.x + nx * lat + tx * al, y = s.y + ny * lat + ty * al, g = f(x, y);
+        if (tun.has(key(s))) { if (g < s.z + RS.carHeight) { fail(`thin tunnel roof at (${s.x.toFixed(1)}, ${s.y.toFixed(1)}): ground ${g.toFixed(2)} vs train top ${(s.z + RS.carHeight).toFixed(2)}`); break; } }
+        else if (g > s.z + 0.05) { fail(`ground ${(g - s.z).toFixed(2)}" above the rails at (${x.toFixed(1)}, ${y.toFixed(1)}) – train would be inside the hill`); break; }
+      }
+    }
+    // tunnels long enough and no daylight slivers
+    const m = info.mouths;
+    for (let i = 0; i < m.length; i++) for (let j = i + 1; j < m.length; j++)
+      if (Math.hypot(m[i].x - m[j].x, m[i].y - m[j].y) < 6 && Math.abs(m[i].z - m[j].z) < 1) fail(`tunnel mouths only ${Math.hypot(m[i].x - m[j].x, m[i].y - m[j].y).toFixed(1)}" apart`);
+  }
+  console.log(`  tunnel mouths ${tunnels} (min tunnel ${TUNNEL.minLength}", daylight gaps < ${TUNNEL.mergeGap}" bored through)`);
   const runs = trainRuns(json);
   for (const [m, mode] of runs) fail(`test train (${mode}): ${m}`);
   console.log(`  test trains: ${runs.size ? runs.size + ' problem(s)' : 'no derailments, collisions or stalls'}`);

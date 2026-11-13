@@ -2872,7 +2872,7 @@
   ],
   "devices": [
     {
-      "id": "dx4t",
+      "id": "dx4p",
       "type": "signal3",
       "name": "Signal – 3 aspect",
       "x": 0,
@@ -2892,7 +2892,7 @@
       }
     },
     {
-      "id": "dx4u",
+      "id": "dx4q",
       "type": "signal3",
       "name": "Signal – 3 aspect",
       "x": 0,
@@ -2912,7 +2912,7 @@
       }
     },
     {
-      "id": "dx4v",
+      "id": "dx4r",
       "type": "signal2",
       "name": "Signal – 2 aspect",
       "x": 0,
@@ -2932,7 +2932,7 @@
       }
     },
     {
-      "id": "dx4w",
+      "id": "dx4s",
       "type": "sensor",
       "name": "Train passing sensor",
       "x": 0,
@@ -2951,7 +2951,7 @@
       }
     },
     {
-      "id": "dx4x",
+      "id": "dx4t",
       "type": "sensor",
       "name": "Train passing sensor",
       "x": 0,
@@ -2970,7 +2970,7 @@
       }
     },
     {
-      "id": "dx4y",
+      "id": "dx4u",
       "type": "block",
       "name": "Occupancy detection block",
       "x": 0,
@@ -2989,7 +2989,7 @@
       }
     },
     {
-      "id": "dx4z",
+      "id": "dx4v",
       "type": "home",
       "name": "Home / end-of-travel sensor",
       "x": 0,
@@ -3008,7 +3008,7 @@
       }
     },
     {
-      "id": "dx50",
+      "id": "dx4w",
       "type": "home",
       "name": "Home / end-of-travel sensor",
       "x": 0,
@@ -3027,7 +3027,7 @@
       }
     },
     {
-      "id": "dx51",
+      "id": "dx4x",
       "type": "home",
       "name": "Home / end-of-travel sensor",
       "x": 0,
@@ -3046,7 +3046,7 @@
       }
     },
     {
-      "id": "dx52",
+      "id": "dx4y",
       "type": "home",
       "name": "Home / end-of-travel sensor",
       "x": 0,
@@ -3065,7 +3065,7 @@
       }
     },
     {
-      "id": "dx53",
+      "id": "dx4z",
       "type": "feeder",
       "name": "Power feeder",
       "x": 0,
@@ -3084,7 +3084,7 @@
       }
     },
     {
-      "id": "dx54",
+      "id": "dx50",
       "type": "feeder",
       "name": "Power feeder",
       "x": 0,
@@ -3103,7 +3103,7 @@
       }
     },
     {
-      "id": "dx55",
+      "id": "dx51",
       "type": "gap",
       "name": "Insulated rail gap",
       "x": 0,
@@ -3133,7 +3133,7 @@
       "rot": 0,
       "w": 64,
       "d": 60,
-      "h": 20,
+      "h": 26,
       "roof": "flat",
       "color": "#7b7262",
       "base": 0,
@@ -3143,78 +3143,6 @@
     },
     {
       "id": "ox3u",
-      "type": "portal",
-      "name": "Tunnel portal",
-      "shape": "portal",
-      "x": 146.4216,
-      "y": 69.8601,
-      "rot": 120,
-      "w": 4,
-      "d": 1,
-      "h": 4,
-      "roof": "flat",
-      "color": "#7a7a7a",
-      "base": 1.6902,
-      "props": {
-        "name": ""
-      }
-    },
-    {
-      "id": "ox3v",
-      "type": "portal",
-      "name": "Tunnel portal",
-      "shape": "portal",
-      "x": 174.3762,
-      "y": 23.384,
-      "rot": 99.5,
-      "w": 4,
-      "d": 1,
-      "h": 4,
-      "roof": "flat",
-      "color": "#7a7a7a",
-      "base": 3.6479,
-      "props": {
-        "name": ""
-      }
-    },
-    {
-      "id": "ox3w",
-      "type": "portal",
-      "name": "Tunnel portal",
-      "shape": "portal",
-      "x": 160.1783,
-      "y": 24.6886,
-      "rot": 70,
-      "w": 4,
-      "d": 1,
-      "h": 4,
-      "roof": "flat",
-      "color": "#7a7a7a",
-      "base": 3.9073,
-      "props": {
-        "name": ""
-      }
-    },
-    {
-      "id": "ox3x",
-      "type": "portal",
-      "name": "Tunnel portal",
-      "shape": "portal",
-      "x": 151.7246,
-      "y": 29.0782,
-      "rot": -120,
-      "w": 4,
-      "d": 1,
-      "h": 4,
-      "roof": "flat",
-      "color": "#7a7a7a",
-      "base": 4.0791,
-      "props": {
-        "name": ""
-      }
-    },
-    {
-      "id": "ox3y",
       "type": "girder",
       "name": "Bridge – plate girder",
       "shape": "bridge",
@@ -3233,7 +3161,7 @@
       }
     },
     {
-      "id": "ox3z",
+      "id": "ox3v",
       "type": "trestle",
       "name": "Trestle (timber)",
       "shape": "trestle",
@@ -3251,7 +3179,7 @@
       }
     },
     {
-      "id": "ox40",
+      "id": "ox3w",
       "type": "river",
       "name": "River / creek (24\")",
       "shape": "river",
@@ -3269,7 +3197,7 @@
       }
     },
     {
-      "id": "ox41",
+      "id": "ox3x",
       "type": "station",
       "name": "Station",
       "shape": "box",
@@ -3287,7 +3215,7 @@
       }
     },
     {
-      "id": "ox42",
+      "id": "ox3y",
       "type": "platform",
       "name": "Platform",
       "shape": "box",
@@ -3305,7 +3233,7 @@
       }
     },
     {
-      "id": "ox43",
+      "id": "ox3z",
       "type": "road",
       "name": "Road (12\")",
       "shape": "flat",
@@ -3323,7 +3251,7 @@
       }
     },
     {
-      "id": "ox44",
+      "id": "ox40",
       "type": "road",
       "name": "Road (12\")",
       "shape": "flat",
@@ -3341,7 +3269,7 @@
       }
     },
     {
-      "id": "ox45",
+      "id": "ox41",
       "type": "house",
       "name": "House",
       "shape": "box",
@@ -3359,7 +3287,7 @@
       }
     },
     {
-      "id": "ox46",
+      "id": "ox42",
       "type": "house",
       "name": "House",
       "shape": "box",
@@ -3377,7 +3305,7 @@
       }
     },
     {
-      "id": "ox47",
+      "id": "ox43",
       "type": "house",
       "name": "House",
       "shape": "box",
@@ -3395,7 +3323,7 @@
       }
     },
     {
-      "id": "ox48",
+      "id": "ox44",
       "type": "house",
       "name": "House",
       "shape": "box",
@@ -3413,7 +3341,7 @@
       }
     },
     {
-      "id": "ox49",
+      "id": "ox45",
       "type": "light",
       "name": "Street light",
       "shape": "light",
@@ -3431,7 +3359,7 @@
       }
     },
     {
-      "id": "ox4a",
+      "id": "ox46",
       "type": "light",
       "name": "Street light",
       "shape": "light",
@@ -3449,7 +3377,7 @@
       }
     },
     {
-      "id": "ox4b",
+      "id": "ox47",
       "type": "light",
       "name": "Street light",
       "shape": "light",
@@ -3467,7 +3395,7 @@
       }
     },
     {
-      "id": "ox4c",
+      "id": "ox48",
       "type": "light",
       "name": "Street light",
       "shape": "light",
@@ -3485,7 +3413,7 @@
       }
     },
     {
-      "id": "ox4d",
+      "id": "ox49",
       "type": "enginehouse",
       "name": "Engine house",
       "shape": "box",
@@ -3503,7 +3431,7 @@
       }
     },
     {
-      "id": "ox4e",
+      "id": "ox4a",
       "type": "tower",
       "name": "Water tower",
       "shape": "cyl",
@@ -3521,7 +3449,7 @@
       }
     },
     {
-      "id": "ox4f",
+      "id": "ox4b",
       "type": "factory",
       "name": "Factory",
       "shape": "box",
@@ -3539,7 +3467,7 @@
       }
     },
     {
-      "id": "ox4g",
+      "id": "ox4c",
       "type": "house",
       "name": "House",
       "shape": "box",
@@ -3557,7 +3485,7 @@
       }
     },
     {
-      "id": "ox4h",
+      "id": "ox4d",
       "type": "house",
       "name": "House",
       "shape": "box",
@@ -3575,7 +3503,7 @@
       }
     },
     {
-      "id": "ox4i",
+      "id": "ox4e",
       "type": "water",
       "name": "Pond / water",
       "shape": "water",
@@ -3593,7 +3521,7 @@
       }
     },
     {
-      "id": "ox4j",
+      "id": "ox4f",
       "type": "pine",
       "name": "Tree – pine",
       "shape": "pine",
@@ -3611,7 +3539,7 @@
       }
     },
     {
-      "id": "ox4k",
+      "id": "ox4g",
       "type": "pine",
       "name": "Tree – pine",
       "shape": "pine",
@@ -3629,7 +3557,7 @@
       }
     },
     {
-      "id": "ox4l",
+      "id": "ox4h",
       "type": "pine",
       "name": "Tree – pine",
       "shape": "pine",
@@ -3647,7 +3575,7 @@
       }
     },
     {
-      "id": "ox4m",
+      "id": "ox4i",
       "type": "pine",
       "name": "Tree – pine",
       "shape": "pine",
@@ -3665,7 +3593,7 @@
       }
     },
     {
-      "id": "ox4n",
+      "id": "ox4j",
       "type": "pine",
       "name": "Tree – pine",
       "shape": "pine",
@@ -3683,7 +3611,7 @@
       }
     },
     {
-      "id": "ox4o",
+      "id": "ox4k",
       "type": "pine",
       "name": "Tree – pine",
       "shape": "pine",
@@ -3701,7 +3629,7 @@
       }
     },
     {
-      "id": "ox4p",
+      "id": "ox4l",
       "type": "pine",
       "name": "Tree – pine",
       "shape": "pine",
@@ -3719,7 +3647,7 @@
       }
     },
     {
-      "id": "ox4q",
+      "id": "ox4m",
       "type": "pine",
       "name": "Tree – pine",
       "shape": "pine",
@@ -3737,7 +3665,7 @@
       }
     },
     {
-      "id": "ox4r",
+      "id": "ox4n",
       "type": "pine",
       "name": "Tree – pine",
       "shape": "pine",
@@ -3755,7 +3683,7 @@
       }
     },
     {
-      "id": "ox4s",
+      "id": "ox4o",
       "type": "pine",
       "name": "Tree – pine",
       "shape": "pine",
