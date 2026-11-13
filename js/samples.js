@@ -329,7 +329,7 @@ function spiralLoop() {
   const tr = B.spanAt('trestle', log, sO2 + 10, { w: 10, name: 'Canyon trestle' });
   B.sc('river', tr.x, tr.y, { w: 12, d: 3.5, rot: tr.rot + 90, name: 'Canyon creek' });
   B.sc('station', 96, 10, { name: 'Valley City' });
-  B.sc('platform', 96, 13.2, { w: 22 });
+  B.sc('platform', 96, 13.8, { w: 22 }); // edge 5'2" from the siding centreline
   B.sc('road', 60, 4, { w: 30 }); B.sc('road', 136, 4, { w: 30 });
   for (const [x, y] of [[66, 7], [74, 7], [120, 7], [128, 7]]) B.sc('house', x, y);
   for (const x of [60, 84, 108, 136]) B.sc('light', x, 2.5);
@@ -396,8 +396,8 @@ function helixTwoDeck() {
 
   // scenery – lower deck
   B.sc('enginehouse', 26.5, 92, { rot: 90, w: 12, d: 5, name: 'Engine house' });
-  B.sc('station', 60, 110.6, { name: 'Junction City' });
-  B.sc('platform', 60, 114.4, { w: 18 });
+  B.sc('station', 60, 111.2, { name: 'Junction City' });
+  B.sc('platform', 60, 115.0, { w: 18 }); // edge 5'2" from the main
   B.sc('factory', 84, 107.5, { w: 14, d: 7 });
   for (const [x, y] of [[40, 106], [46, 106]]) B.sc('house', x, y);
   for (const [x, y] of [[106, 55], [166, 55], [166, 126], [136, 85], [128, 92], [144, 78]]) B.sc('pine', x, y);

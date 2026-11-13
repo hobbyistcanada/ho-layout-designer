@@ -313,7 +313,7 @@ function tiesFor(c) {
   if (tieCache.has(c)) return tieCache.get(c);
   const out = c.g.routes.map((r) => {
     const L = routeLen(r), pts = [];
-    const loc = sampleRoute(r, HO.tieSpacing);
+    const loc = sampleRoute(r, HO.planTieSpacing); // plan view: lighter tie pattern
     for (const p of loc) if (p.d <= L) pts.push(toWorld(c.pc, p));
     return pts;
   });

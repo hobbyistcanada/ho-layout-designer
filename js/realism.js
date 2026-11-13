@@ -23,6 +23,8 @@ export const REAL_DEFAULTS = {
 };
 export const R = {
   carHalfWidth: 0.95, // half the swept width of a car incl. curve overhang
+  lowHalfWidth: 0.64, // below the car floor (~4 ft above rail) only wheels/trucks: 4'8" from centre, like a low platform edge
+  lowTop: 0.55, // objects whose top is under this height above the rail use lowHalfWidth
   postHalf: 0.4, // half width of a support post
   sCurveRadius: 30, // reverse curves at or above this radius don't need a tangent
   kinkWarn: 1.0, // grade change at one joint that deserves an easement (%)
@@ -467,12 +469,18 @@ export function analyse() {
     for (const b of boxes) {
       for (const s of nearby) {
         const { lx, ly } = toLocalObj(o, s.x, s.y);
-        if (Math.abs(lx - b.lx) > b.hw + R.carHalfWidth || Math.abs(ly - b.ly) > b.hd + R.carHalfWidth) continue;
+        const hw = b.z1 <= s.z + R.lowTop ? R.lowHalfWidth : R.carHalfWidth;
+        if (Math.abs(lx - b.lx) > b.hw + hw || Math.abs(ly - b.ly) > b.hd + hw) continue;
         if (b.z1 <= s.z + 0.05 || b.z0 >= s.z + S.carHeight) continue;
         const msg = `${label}${b.part} is in the way of the train`;
         addHz(s, 'derail', `Hit ${label}${b.part}`);
         issue('error', msg, s, o.id, 'foul' + o.id + b.part + s.id);
       }
+    }
+    if (o.type === 'platform') {
+      // a platform serves a track: its long edge should be ~5 ft (0.6-0.9") from a track centre
+      const beside = nearby.some((s) => { const { lx, ly } = toLocalObj(o, s.x, s.y); return Math.abs(lx) <= o.w / 2 && Math.abs(Math.abs(ly) - o.d / 2) <= 1.0 && Math.abs(s.z - (o.base || 0)) < 0.8; });
+      if (!beside) issue('warn', `${label} isn't beside a track – passengers couldn't board (edge should be ~5 ft, 0.6–0.9", from the track centre)`, o, o.id);
     }
     if (SPANS.includes(o.shape)) {
       const carried = nearby.some((s) => { const { lx, ly } = toLocalObj(o, s.x, s.y); return Math.abs(lx) <= o.w / 2 && Math.abs(ly) < 0.6 && Math.abs(s.z - (o.base || 0)) < 0.5; });

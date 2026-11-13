@@ -24,6 +24,10 @@ A free, browser-based planner for **HO scale (1:87.1)** model railroad layouts. 
 | **Parts list** | Counts of sectional pieces, flex track needed (with 10% waste), joiners, devices and scenery, exportable as CSV. |
 | **Files** | Autosaves in the browser. Save/Open `.json` projects you can keep in this repo. Export a PNG of the plan or the 3D view. Undo/redo (Ctrl+Z / Ctrl+Y). |
 
+## HO scale (1:87.1)
+
+Everything is modelled at true HO scale; `tests/scale.test.mjs` converts each item to prototype feet and checks it against North American practice. Track: 16.5 mm gauge, 8'6" × 9" × 7" ties at ~20" centres, code 83 rail (≈132 lb). Rolling stock in 3D: 56 ft locomotive and 50 ft cars, 10'8" wide, roof ~15' above the rail, on trucks. Structures: house ≈ 36 × 29 ft, 29 ft tall; depot ≈ 87 × 36 ft, 29 ft; engine house stalls 116 ft, 33 ft tall; water tank 22 ft × 43 ft with the tub floor ~14 ft up; low platforms ~7" above the rail with the edge ~5 ft from the track centre; street lights 29 ft; single-track tunnel bore ≈ 17 × 23 ft; signal heads ~20 ft. Trees and building lengths use the usual modeller's selective compression.
+
 ## Sample layouts
 
 Click **Samples** for a gallery of ready-made plans. Each loads with track, signals, sensors and scenery, passes the design checks, and is also saved in [`examples/`](examples/) so you can open it with *Open…*.
@@ -94,6 +98,7 @@ tools/              export-samples.mjs regenerates examples/*.json
 ```
 node tests/samples.test.mjs        # builds every sample, runs all checks and test trains everywhere
 node tests/realism.test.mjs        # one deliberate fault per mini-layout: each must be caught
+node tests/scale.test.mjs          # every catalog object vs prototype dimensions at 1:87.1
 python3 tests/browser.test.py      # serves the app, loads each sample in Chrome, fails on JS errors
 ```
 
