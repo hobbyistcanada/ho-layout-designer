@@ -701,7 +701,7 @@
   ],
   "devices": [
     {
-      "id": "dgbac0",
+      "id": "d4o2yr",
       "type": "signal3",
       "name": "Signal \u2013 3 aspect",
       "x": 0,
@@ -721,7 +721,7 @@
       }
     },
     {
-      "id": "doxxgv",
+      "id": "ddxvpj",
       "type": "sensor",
       "name": "Train passing sensor",
       "x": 0,
@@ -740,7 +740,7 @@
       }
     },
     {
-      "id": "d05qgh",
+      "id": "dnxm8g",
       "type": "home",
       "name": "Home / end-of-travel sensor",
       "x": 0,
@@ -759,7 +759,7 @@
       }
     },
     {
-      "id": "diwmch",
+      "id": "dkcrue",
       "type": "feeder",
       "name": "Power feeder",
       "x": 0,
@@ -778,7 +778,7 @@
       }
     },
     {
-      "id": "d2gtft",
+      "id": "dq73yo",
       "type": "gap",
       "name": "Insulated rail gap",
       "x": 0,
@@ -799,16 +799,16 @@
   ],
   "scenery": [
     {
-      "id": "ojc2ab",
+      "id": "op2ce7",
       "type": "station",
       "name": "Station",
       "shape": "box",
       "x": 50,
-      "y": 32,
+      "y": 33.2,
       "rot": 0,
       "w": 12,
       "d": 5,
-      "h": 4.5,
+      "h": 4,
       "roof": "gable",
       "color": "#c0785a",
       "base": 0,
@@ -817,16 +817,16 @@
       }
     },
     {
-      "id": "ogky5o",
+      "id": "ob0mrp",
       "type": "platform",
       "name": "Platform",
       "shape": "box",
       "x": 50,
-      "y": 36.6,
+      "y": 37,
       "rot": 0,
       "w": 20,
       "d": 2.5,
-      "h": 0.5,
+      "h": 0.42,
       "roof": "flat",
       "color": "#b0b0b0",
       "base": 0,
@@ -835,25 +835,7 @@
       }
     },
     {
-      "id": "oowp9d",
-      "type": "enginehouse",
-      "name": "Engine house",
-      "shape": "box",
-      "x": 74,
-      "y": 57,
-      "rot": 0,
-      "w": 16,
-      "d": 7,
-      "h": 6,
-      "roof": "gable",
-      "color": "#a0522d",
-      "base": 0,
-      "props": {
-        "name": ""
-      }
-    },
-    {
-      "id": "oq5dnd",
+      "id": "obhept",
       "type": "house",
       "name": "House",
       "shape": "box",
@@ -871,7 +853,7 @@
       }
     },
     {
-      "id": "oa08qj",
+      "id": "o94geb",
       "type": "house",
       "name": "House",
       "shape": "box",
@@ -889,7 +871,7 @@
       }
     },
     {
-      "id": "ow5u0r",
+      "id": "oa1ojs",
       "type": "factory",
       "name": "Factory",
       "shape": "box",
@@ -907,7 +889,7 @@
       }
     },
     {
-      "id": "ou01q8",
+      "id": "o22b9i",
       "type": "road",
       "name": "Road (12\")",
       "shape": "flat",
@@ -925,7 +907,7 @@
       }
     },
     {
-      "id": "o20906",
+      "id": "oa7jrw",
       "type": "light",
       "name": "Street light",
       "shape": "light",
@@ -943,7 +925,7 @@
       }
     },
     {
-      "id": "otj5jf",
+      "id": "oryznr",
       "type": "light",
       "name": "Street light",
       "shape": "light",
@@ -961,7 +943,7 @@
       }
     },
     {
-      "id": "on237u",
+      "id": "owouq1",
       "type": "light",
       "name": "Street light",
       "shape": "light",
@@ -979,7 +961,7 @@
       }
     },
     {
-      "id": "omf6ly",
+      "id": "o23ulx",
       "type": "pine",
       "name": "Tree \u2013 pine",
       "shape": "pine",
@@ -997,7 +979,7 @@
       }
     },
     {
-      "id": "oe3att",
+      "id": "okub5r",
       "type": "pine",
       "name": "Tree \u2013 pine",
       "shape": "pine",
@@ -1015,16 +997,16 @@
       }
     },
     {
-      "id": "oavtem",
+      "id": "o8sr4c",
       "type": "oak",
       "name": "Tree \u2013 deciduous",
       "shape": "tree",
       "x": 82,
       "y": 24,
       "rot": 0,
-      "w": 3.5,
-      "d": 3.5,
-      "h": 5,
+      "w": 4,
+      "d": 4,
+      "h": 6,
       "roof": "flat",
       "color": "#4c8a3a",
       "base": 0,
@@ -1033,7 +1015,7 @@
       }
     },
     {
-      "id": "ocbw5u",
+      "id": "o1dfr8",
       "type": "water",
       "name": "Pond / water",
       "shape": "water",
@@ -1051,7 +1033,7 @@
       }
     },
     {
-      "id": "om4dfj",
+      "id": "o2ab7p",
       "type": "pine",
       "name": "Tree \u2013 pine",
       "shape": "pine",
@@ -1069,7 +1051,7 @@
       }
     },
     {
-      "id": "oexwjm",
+      "id": "ozn679",
       "type": "pine",
       "name": "Tree \u2013 pine",
       "shape": "pine",

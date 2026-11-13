@@ -7,6 +7,11 @@ import { DEG, sampleRoute, toWorld, pointInPoly } from './geometry.js';
 import { devicePose } from './editor2d.js';
 import { supports, onTerrain, seated, groundAt, hillHeightFn, portalOpening, trestleBents, trestleSpread, moveTrain, autoPortals, TURNOUT_KINDS } from './realism.js';
 
+// Heights above the subroadbed (inches): ballast/roadbed to 0.18, ties on top, code 83 rail
+const TIE_TOP = 0.18 + HO.tieDepth;
+export const RAIL_TOP = TIE_TOP + HO.rail;
+const LOCO_LEN = 7.7, CAR_LEN = 6.9; // 56 ft locomotive, 50 ft cars
+
 let renderer, scene, camera, controls, root, container, active = false, dirty = true;
 let hemi, sun, night = false, train = null, cab = false, clock = new THREE.Clock();
 const lampLights = [];
@@ -159,7 +164,7 @@ function beam(pts, off, w, y0, y1, material, cast = true) {
 function buildTrack() {
   const C = getCache();
   const ballast = mat('#8a8278'), rail = mat('#b9b9c0', { metalness: 0.8, roughness: 0.35 }), ply = mat('#c8a46a'), pier = mat('#9a8b78');
-  const tieGeo = new THREE.BoxGeometry(0.2, 0.12, HO.tieLen);
+  const tieGeo = new THREE.BoxGeometry(HO.tieWidth, HO.tieDepth, HO.tieLen);
   const ties = [];
   for (const c of C.map.values()) {
     const lv = state.project.levels.find((l) => l.id === c.pc.level);
@@ -183,7 +188,7 @@ function buildTrack() {
       const isTurnout = TURNOUT_KINDS.includes(c.pc.kind);
       const active = (c.pc.state || 0) === ri;
       const railPts = isTurnout && !active ? pts.filter((p) => p.d >= 2.6) : pts;
-      if (railPts.length > 1) for (const s of [HO.gauge / 2, -HO.gauge / 2]) beam(railPts, s, 0.07, 0.25, 0.42, rail, false);
+      if (railPts.length > 1) for (const s of [HO.gauge / 2, -HO.gauge / 2]) beam(railPts, s, 0.05, TIE_TOP, RAIL_TOP, rail, false);
       if (isTurnout && ri === 0) switchStand(c);
       // ties
       const r = c.g.routes[ri];
@@ -197,7 +202,7 @@ function buildTrack() {
   if (ties.length) {
     const im = new THREE.InstancedMesh(tieGeo, mat('#4a3626'), ties.length);
     const o = new THREE.Object3D();
-    ties.forEach((t, i) => { o.position.copy(V(t.x, t.y, t.z + 0.22)); o.rotation.set(0, t.h * DEG, 0); o.updateMatrix(); im.setMatrixAt(i, o.matrix); });
+    ties.forEach((t, i) => { o.position.copy(V(t.x, t.y, t.z + TIE_TOP - HO.tieDepth / 2)); o.rotation.set(0, t.h * DEG, 0); o.updateMatrix(); im.setMatrixAt(i, o.matrix); });
     im.receiveShadow = true;
     root.add(im);
   }
@@ -372,10 +377,13 @@ function buildScenery(o) {
       break;
     }
     case 'cyl': {
-      placeObj(new THREE.Mesh(new THREE.CylinderGeometry(o.w / 2, o.w / 2, o.h * 0.45, 20), mat(c)), o, o.h * 0.75);
+      // railroad water tank: tub floor ~1/3 of the height up (12-15 ft), tub ~45%, conical roof
+      const floor = o.h * 0.33, tub = o.h * 0.45;
+      placeObj(new THREE.Mesh(new THREE.CylinderGeometry(o.w / 2, o.w / 2, tub, 20), mat(c)), o, floor + tub / 2);
+      placeObj(new THREE.Mesh(new THREE.ConeGeometry(o.w / 2 + 0.1, o.h - floor - tub, 20), mat('#4a4a4a')), o, floor + tub + (o.h - floor - tub) / 2);
       for (const [dx, dy] of [[1, 1], [-1, 1], [1, -1], [-1, -1]]) {
-        const leg = new THREE.Mesh(new THREE.BoxGeometry(0.2, o.h * 0.55, 0.2), mat('#3a2a1a'));
-        placeObj(leg, { ...o, x: o.x + dx * o.w * 0.3, y: o.y + dy * o.w * 0.3 }, o.h * 0.275);
+        const leg = new THREE.Mesh(new THREE.BoxGeometry(0.16, floor, 0.16), mat('#3a2a1a'));
+        placeObj(leg, { ...o, x: o.x + dx * o.w * 0.3, y: o.y + dy * o.w * 0.3 }, floor / 2);
       }
       break;
     }
@@ -431,7 +439,7 @@ function buildDevice(d) {
   const lit = (col, on) => new THREE.MeshStandardMaterial({ color: on ? col : '#222', emissive: on ? col : '#000', emissiveIntensity: on ? 2 : 0 });
   if (d.type.startsWith('signal') || d.type === 'dwarf') {
     const dwarf = d.type === 'dwarf';
-    const H = dwarf ? 0.6 : 3.2;
+    const H = dwarf ? 0.25 : 2.5; // mast: heads ~20 ft above rail; dwarf ~3 ft
     add(new THREE.CylinderGeometry(0.08, 0.08, H, 8), mat('#222'), p.x, p.y, H / 2);
     const heads = d.props.heads || 3;
     const cols = heads === 3 ? ['Green', 'Yellow', 'Red'] : ['Green', 'Red'];
@@ -445,7 +453,7 @@ function buildDevice(d) {
     const arm = add(new THREE.BoxGeometry(0.12, 0.12, 4), mat('#ff3030'), p.x, p.y, 2);
     arm.position.add(new THREE.Vector3(Math.cos(p.h * DEG) * 0, 0, 0));
   } else if (d.type === 'gap') {
-    add(new THREE.BoxGeometry(0.12, 0.2, HO.gauge + 0.3), mat('#111'), p.x, p.y, 0.38);
+    add(new THREE.BoxGeometry(0.12, 0.2, HO.gauge + 0.3), mat('#111'), p.x, p.y, RAIL_TOP - 0.05);
   } else if (d.type === 'feeder') {
     const t = p.track || p;
     add(new THREE.CylinderGeometry(0.12, 0.12, 0.3, 8), mat('#d12'), t.x - Math.sin(t.h * DEG) * 0.55, t.y + Math.cos(t.h * DEG) * 0.55, 0.3);
@@ -477,11 +485,21 @@ export function startTrain() {
   if (!pc) return false;
   stopTrain();
   const colors = ['#c8102e', '#2b4c7e', '#2b7e4c', '#7e6a2b'];
+  // HO-scale rolling stock (prototype): 56 ft road diesel and 50 ft cars, 10'8" wide,
+  // car floor ~3'6" and roof ~15' above the rail, trucks under each end
   const mesh = colors.map((col, i) => {
     const g = new THREE.Group();
-    const body = new THREE.Mesh(new THREE.BoxGeometry(i ? 6.5 : 7, 1.3, 1.2), mat(col));
-    body.position.y = 1.1; body.castShadow = true; g.add(body);
-    if (!i) { const cab = new THREE.Mesh(new THREE.BoxGeometry(1.4, 0.5, 1.2), mat('#222')); cab.position.set(2.2, 1.95, 0); g.add(cab); }
+    const L = i ? CAR_LEN : LOCO_LEN, W = 1.47;
+    const body = new THREE.Mesh(new THREE.BoxGeometry(i ? L : L - 1.6, 2.07 - 0.5, W), mat(col));
+    body.position.set(i ? 0 : -0.8, 0.5 + (2.07 - 0.5) / 2, 0); body.castShadow = true; g.add(body);
+    if (!i) { // cab at the front of the hood unit, slightly taller, dark windows
+      const cab = new THREE.Mesh(new THREE.BoxGeometry(1.6, 2.12 - 0.5, W), mat('#222'));
+      cab.position.set(L / 2 - 0.8, 0.5 + (2.12 - 0.5) / 2, 0); g.add(cab);
+    }
+    for (const sx of [-1, 1]) {
+      const truck = new THREE.Mesh(new THREE.BoxGeometry(1.0, 0.42, HO.gauge + 0.25), mat('#1b1b1b'));
+      truck.position.set(sx * (L / 2 - 1.1), 0.24, 0); g.add(truck);
+    }
     root.add(g); return g;
   });
   train = { pieceId: pc.id, route: TURNOUT_KINDS.includes(pc.kind) ? pc.state || 0 : 0, d: 0, dir: 1, speed: 12, mesh, hist: [], odo: 0, curv: null, straight: Infinity, halted: null };
@@ -511,9 +529,10 @@ function stepTrain(dt) {
   train.hist.unshift({ x: w.x, y: w.y, z: w.z, h, odo: train.odo });
   if (train.hist.length > 4000) train.hist.length = 4000;
   train.mesh.forEach((m, i) => {
-    const target = train.odo - i * 7.3;
+    // centre of each vehicle along the track: loco, then cars, with ~2 ft between couplers
+    const target = train.odo - (i ? LOCO_LEN / 2 + 0.3 + CAR_LEN / 2 + (i - 1) * (CAR_LEN + 0.3) : 0);
     const hp = train.hist.find((q) => q.odo <= target) || train.hist[train.hist.length - 1];
-    m.position.copy(V(hp.x, hp.y, hp.z + 0.3));
+    m.position.copy(V(hp.x, hp.y, hp.z + RAIL_TOP));
     m.rotation.y = hp.h * DEG;
   });
   train.cabPose = { x: w.x, y: w.y, z: w.z, h };
@@ -525,7 +544,7 @@ function placeCab() {
   const p = train.cabPose;
   if (!p) return;
   const fwd = V(Math.cos(p.h * DEG), Math.sin(p.h * DEG), 0);
-  camera.position.copy(V(p.x, p.y, p.z + 2.4)).addScaledVector(fwd, 3.6);
+  camera.position.copy(V(p.x, p.y, p.z + RAIL_TOP + 1.75)).addScaledVector(fwd, 3.2); // engineer's eye ~12'8" above rail
   camera.lookAt(camera.position.clone().add(fwd.multiplyScalar(10)).add(new THREE.Vector3(0, -0.4, 0)));
 }
 

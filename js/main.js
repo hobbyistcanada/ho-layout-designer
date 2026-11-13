@@ -538,7 +538,7 @@ function buildDemo() {
   dev('gap', to, 8.9, { name: 'G1' });
   // scenery
   const sc = (id, x, y, rot = 0) => { const c = SCENERY.find((s) => s.id === id); P.scenery.push({ id: 'o' + Math.random().toString(36).slice(2, 7), type: id, name: c.name, shape: c.shape, x, y, rot, w: c.w, d: c.d, h: c.h, roof: c.roof || 'flat', color: c.color, base: 0, props: { name: '' } }); };
-  sc('station', 50, 32); sc('platform', 50, 36.6); sc('enginehouse', 74, 57);
+  sc('station', 50, 33.2); sc('platform', 50, 37.0); // platform edge 5'2" from the track sc('enginehouse', 74, 57);
   sc('house', 30, 22); sc('house', 38, 22, 90); sc('factory', 62, 20);
   sc('road', 36, 16); sc('light', 30, 18); sc('light', 44, 18); sc('light', 58, 28);
   sc('pine', 14, 21); sc('pine', 17, 25); sc('oak', 82, 24); sc('water', 22, 30); sc('pine', 62, 59); sc('pine', 90, 46);

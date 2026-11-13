@@ -3,7 +3,9 @@
 // Values are generic sectional/flex geometry similar to common brands
 // (Atlas, Bachmann E-Z Track, Kato Unitrack, Peco) – not exact brand data.
 
-export const HO = { scale: 87.1, gauge: 0.65, tieLen: 1.17, ballastW: 1.6, tieSpacing: 0.72 };
+// Track at true HO scale (prototype in brackets): 8'6" x 9" x 7" ties at ~20" centres, code 83
+// rail (0.083" = 7.2", ~132 lb rail). planTieSpacing is only a drawing aid for the 2D plan.
+export const HO = { scale: 87.1, gauge: 0.65, tieLen: 1.17, tieWidth: 0.103, tieDepth: 0.08, tieSpacing: 0.235, planTieSpacing: 0.72, rail: 0.083, ballastW: 1.6 };
 
 export const TRACK = [
   // Straights
@@ -112,14 +114,14 @@ export const DEVICE_BY_ID = Object.fromEntries(DEVICES.map((d) => [d.id, d]));
 
 export const SCENERY = [
   { id: 'house', name: 'House', shape: 'box', w: 5, d: 4, h: 4, roof: 'gable', color: '#d9b38c' },
-  { id: 'station', name: 'Station', shape: 'box', w: 12, d: 5, h: 4.5, roof: 'gable', color: '#c0785a' },
+  { id: 'station', name: 'Station', shape: 'box', w: 12, d: 5, h: 4, roof: 'gable', color: '#c0785a' },
   { id: 'factory', name: 'Factory', shape: 'box', w: 14, d: 8, h: 7, roof: 'flat', color: '#8d8d8d' },
-  { id: 'enginehouse', name: 'Engine house', shape: 'box', w: 16, d: 7, h: 6, roof: 'gable', color: '#a0522d' },
-  { id: 'tower', name: 'Water tower', shape: 'cyl', w: 3, d: 3, h: 9, color: '#6b4f3a' },
-  { id: 'platform', name: 'Platform', shape: 'box', w: 20, d: 2.5, h: 0.5, roof: 'flat', color: '#b0b0b0' },
+  { id: 'enginehouse', name: 'Engine house', shape: 'box', w: 16, d: 7, h: 4.5, roof: 'gable', color: '#a0522d' },
+  { id: 'tower', name: 'Water tower', shape: 'cyl', w: 3, d: 3, h: 6, color: '#6b4f3a' },
+  { id: 'platform', name: 'Platform', shape: 'box', w: 20, d: 2.5, h: 0.42, roof: 'flat', color: '#b0b0b0' },
   { id: 'light', name: 'Street light', shape: 'light', w: 0.5, d: 0.5, h: 4, color: '#ffd76a' },
   { id: 'pine', name: 'Tree – pine', shape: 'pine', w: 2.5, d: 2.5, h: 6, color: '#2f6b3a' },
-  { id: 'oak', name: 'Tree – deciduous', shape: 'tree', w: 3.5, d: 3.5, h: 5, color: '#4c8a3a' },
+  { id: 'oak', name: 'Tree – deciduous', shape: 'tree', w: 4, d: 4, h: 6, color: '#4c8a3a' },
   { id: 'road', name: 'Road (12")', shape: 'flat', w: 12, d: 3, h: 0.05, color: '#3d3d3d' },
   { id: 'water', name: 'Pond / water', shape: 'water', w: 10, d: 6, h: 0.05, color: '#3a7bbf' },
   { id: 'hill', name: 'Hill / mound', shape: 'hill', w: 14, d: 10, h: 4, color: '#6d8b4a' },
