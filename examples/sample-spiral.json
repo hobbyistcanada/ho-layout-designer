@@ -591,7 +591,7 @@
       "cat": "flex",
       "kind": "straight",
       "params": {
-        "len": 4
+        "len": 36
       },
       "x": 172,
       "y": 84,
@@ -617,7 +617,7 @@
         "angle": 9.46,
         "tail": 4.49
       },
-      "x": 168,
+      "x": 136,
       "y": 84,
       "rot": -180,
       "z": 0,
@@ -637,7 +637,7 @@
       "params": {
         "len": 2.7
       },
-      "x": 156.9967,
+      "x": 124.9967,
       "y": 85.2819,
       "rot": 170.54,
       "z": 0,
@@ -661,7 +661,7 @@
         "angle": 9.46,
         "tail": 4.49
       },
-      "x": 154.3334,
+      "x": 122.3334,
       "y": 85.7257,
       "rot": 170.54,
       "z": 0,
@@ -681,7 +681,7 @@
       "params": {
         "len": 2.7
       },
-      "x": 143.483,
+      "x": 111.483,
       "y": 87.5336,
       "rot": 170.54,
       "z": 0,
@@ -705,7 +705,7 @@
         "angle": 9.46,
         "tail": 4.49
       },
-      "x": 140.8197,
+      "x": 108.8197,
       "y": 87.9774,
       "rot": 170.54,
       "z": 0,
@@ -725,7 +725,7 @@
       "params": {
         "len": 2.7
       },
-      "x": 129.9693,
+      "x": 97.9693,
       "y": 89.7853,
       "rot": 170.54,
       "z": 0,
@@ -749,7 +749,7 @@
         "angle": 9.46,
         "tail": 4.49
       },
-      "x": 127.306,
+      "x": 95.306,
       "y": 90.2291,
       "rot": 170.54,
       "z": 0,
@@ -769,7 +769,7 @@
       "params": {
         "len": 2.7
       },
-      "x": 116.4556,
+      "x": 84.4556,
       "y": 92.037,
       "rot": 170.54,
       "z": 0,
@@ -790,7 +790,7 @@
         "r": 40,
         "angle": 9.46
       },
-      "x": 113.7923,
+      "x": 81.7923,
       "y": 92.4808,
       "rot": 170.54,
       "z": 0,
@@ -808,9 +808,9 @@
       "cat": "flex",
       "kind": "straight",
       "params": {
-        "len": 28.423
+        "len": 26.6345
       },
-      "x": 143.269,
+      "x": 111.269,
       "y": 86.2697,
       "rot": -180,
       "z": 0,
@@ -828,9 +828,9 @@
       "cat": "flex",
       "kind": "straight",
       "params": {
-        "len": 28.423
+        "len": 26.6345
       },
-      "x": 114.846,
+      "x": 84.6345,
       "y": 86.2697,
       "rot": -180,
       "z": 0,
@@ -845,12 +845,12 @@
     },
     {
       "id": "tx12",
-      "cat": "flex",
-      "kind": "straight",
+      "cat": "bumper",
+      "kind": "bumper",
       "params": {
-        "len": 28.423
+        "len": 2
       },
-      "x": 86.423,
+      "x": 58,
       "y": 86.2697,
       "rot": -180,
       "z": 0,
@@ -865,13 +865,13 @@
     },
     {
       "id": "tx13",
-      "cat": "bumper",
-      "kind": "bumper",
+      "cat": "flex",
+      "kind": "straight",
       "params": {
-        "len": 2
+        "len": 19.8777
       },
-      "x": 58,
-      "y": 86.2697,
+      "x": 97.7553,
+      "y": 88.5214,
       "rot": -180,
       "z": 0,
       "grade": 0,
@@ -888,9 +888,9 @@
       "cat": "flex",
       "kind": "straight",
       "params": {
-        "len": 35.8777
+        "len": 19.8777
       },
-      "x": 129.7553,
+      "x": 77.8777,
       "y": 88.5214,
       "rot": -180,
       "z": 0,
@@ -905,26 +905,6 @@
     },
     {
       "id": "tx15",
-      "cat": "flex",
-      "kind": "straight",
-      "params": {
-        "len": 35.8777
-      },
-      "x": 93.8777,
-      "y": 88.5214,
-      "rot": -180,
-      "z": 0,
-      "grade": 0,
-      "level": "L0",
-      "state": 0,
-      "props": {
-        "name": "",
-        "address": "",
-        "motor": ""
-      }
-    },
-    {
-      "id": "tx16",
       "cat": "bumper",
       "kind": "bumper",
       "params": {
@@ -944,13 +924,33 @@
       }
     },
     {
-      "id": "tx17",
+      "id": "tx16",
       "cat": "flex",
       "kind": "straight",
       "params": {
-        "len": 29.1208
+        "len": 26.2416
       },
-      "x": 116.2416,
+      "x": 84.2416,
+      "y": 90.7731,
+      "rot": -180,
+      "z": 0,
+      "grade": 0,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx17",
+      "cat": "bumper",
+      "kind": "bumper",
+      "params": {
+        "len": 2
+      },
+      "x": 58,
       "y": 90.7731,
       "rot": -180,
       "z": 0,
@@ -968,10 +968,10 @@
       "cat": "flex",
       "kind": "straight",
       "params": {
-        "len": 29.1208
+        "len": 17.218
       },
-      "x": 87.1208,
-      "y": 90.7731,
+      "x": 75.218,
+      "y": 93.0248,
       "rot": -180,
       "z": 0,
       "grade": 0,
@@ -991,7 +991,7 @@
         "len": 2
       },
       "x": 58,
-      "y": 90.7731,
+      "y": 93.0248,
       "rot": -180,
       "z": 0,
       "grade": 0,
@@ -1008,10 +1008,10 @@
       "cat": "flex",
       "kind": "straight",
       "params": {
-        "len": 24.609
+        "len": 28.3333
       },
-      "x": 107.218,
-      "y": 93.0248,
+      "x": 125,
+      "y": 84,
       "rot": -180,
       "z": 0,
       "grade": 0,
@@ -1028,10 +1028,10 @@
       "cat": "flex",
       "kind": "straight",
       "params": {
-        "len": 24.609
+        "len": 28.3333
       },
-      "x": 82.609,
-      "y": 93.0248,
+      "x": 96.6667,
+      "y": 84,
       "rot": -180,
       "z": 0,
       "grade": 0,
@@ -1045,13 +1045,13 @@
     },
     {
       "id": "tx1c",
-      "cat": "bumper",
-      "kind": "bumper",
+      "cat": "flex",
+      "kind": "straight",
       "params": {
-        "len": 2
+        "len": 28.3333
       },
-      "x": 58,
-      "y": 93.0248,
+      "x": 68.3333,
+      "y": 84,
       "rot": -180,
       "z": 0,
       "grade": 0,
@@ -1065,86 +1065,6 @@
     },
     {
       "id": "tx1d",
-      "cat": "flex",
-      "kind": "straight",
-      "params": {
-        "len": 29.25
-      },
-      "x": 157,
-      "y": 84,
-      "rot": -180,
-      "z": 0,
-      "grade": 0,
-      "level": "L0",
-      "state": 0,
-      "props": {
-        "name": "",
-        "address": "",
-        "motor": ""
-      }
-    },
-    {
-      "id": "tx1e",
-      "cat": "flex",
-      "kind": "straight",
-      "params": {
-        "len": 29.25
-      },
-      "x": 127.75,
-      "y": 84,
-      "rot": -180,
-      "z": 0,
-      "grade": 0,
-      "level": "L0",
-      "state": 0,
-      "props": {
-        "name": "",
-        "address": "",
-        "motor": ""
-      }
-    },
-    {
-      "id": "tx1f",
-      "cat": "flex",
-      "kind": "straight",
-      "params": {
-        "len": 29.25
-      },
-      "x": 98.5,
-      "y": 84,
-      "rot": -180,
-      "z": 0,
-      "grade": 0,
-      "level": "L0",
-      "state": 0,
-      "props": {
-        "name": "",
-        "address": "",
-        "motor": ""
-      }
-    },
-    {
-      "id": "tx1g",
-      "cat": "flex",
-      "kind": "straight",
-      "params": {
-        "len": 29.25
-      },
-      "x": 69.25,
-      "y": 84,
-      "rot": -180,
-      "z": 0,
-      "grade": 0,
-      "level": "L0",
-      "state": 0,
-      "props": {
-        "name": "",
-        "address": "",
-        "motor": ""
-      }
-    },
-    {
-      "id": "tx1h",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -1165,7 +1085,7 @@
       }
     },
     {
-      "id": "tx1i",
+      "id": "tx1e",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -1186,7 +1106,7 @@
       }
     },
     {
-      "id": "tx1j",
+      "id": "tx1f",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -1207,7 +1127,7 @@
       }
     },
     {
-      "id": "tx1k",
+      "id": "tx1g",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -1228,7 +1148,7 @@
       }
     },
     {
-      "id": "tx1l",
+      "id": "tx1h",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -1249,7 +1169,7 @@
       }
     },
     {
-      "id": "tx1m",
+      "id": "tx1i",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -1270,7 +1190,7 @@
       }
     },
     {
-      "id": "tx1n",
+      "id": "tx1j",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -1291,7 +1211,7 @@
       }
     },
     {
-      "id": "tx1o",
+      "id": "tx1k",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -1312,7 +1232,7 @@
       }
     },
     {
-      "id": "tx1p",
+      "id": "tx1l",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -1333,7 +1253,7 @@
       }
     },
     {
-      "id": "tx1q",
+      "id": "tx1m",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -1354,7 +1274,7 @@
       }
     },
     {
-      "id": "tx1r",
+      "id": "tx1n",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -1375,7 +1295,7 @@
       }
     },
     {
-      "id": "tx1s",
+      "id": "tx1o",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -1396,7 +1316,7 @@
       }
     },
     {
-      "id": "tx1t",
+      "id": "tx1p",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -1416,7 +1336,7 @@
       }
     },
     {
-      "id": "tx1u",
+      "id": "tx1q",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -1437,7 +1357,7 @@
       }
     },
     {
-      "id": "tx1v",
+      "id": "tx1r",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -1458,7 +1378,7 @@
       }
     },
     {
-      "id": "tx1w",
+      "id": "tx1s",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -1478,7 +1398,7 @@
       }
     },
     {
-      "id": "tx1x",
+      "id": "tx1t",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -1498,7 +1418,7 @@
       }
     },
     {
-      "id": "tx1y",
+      "id": "tx1u",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -1518,7 +1438,7 @@
       }
     },
     {
-      "id": "tx1z",
+      "id": "tx1v",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -1538,7 +1458,7 @@
       }
     },
     {
-      "id": "tx20",
+      "id": "tx1w",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -1558,7 +1478,7 @@
       }
     },
     {
-      "id": "tx21",
+      "id": "tx1x",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -1578,7 +1498,7 @@
       }
     },
     {
-      "id": "tx22",
+      "id": "tx1y",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -1598,7 +1518,7 @@
       }
     },
     {
-      "id": "tx23",
+      "id": "tx1z",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -1618,7 +1538,7 @@
       }
     },
     {
-      "id": "tx24",
+      "id": "tx20",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -1638,7 +1558,7 @@
       }
     },
     {
-      "id": "tx25",
+      "id": "tx21",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -1658,7 +1578,7 @@
       }
     },
     {
-      "id": "tx26",
+      "id": "tx22",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -1678,7 +1598,7 @@
       }
     },
     {
-      "id": "tx27",
+      "id": "tx23",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -1698,7 +1618,7 @@
       }
     },
     {
-      "id": "tx28",
+      "id": "tx24",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -1718,7 +1638,7 @@
       }
     },
     {
-      "id": "tx29",
+      "id": "tx25",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -1738,7 +1658,7 @@
       }
     },
     {
-      "id": "tx2a",
+      "id": "tx26",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -1758,7 +1678,7 @@
       }
     },
     {
-      "id": "tx2b",
+      "id": "tx27",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -1778,7 +1698,7 @@
       }
     },
     {
-      "id": "tx2c",
+      "id": "tx28",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -1798,7 +1718,7 @@
       }
     },
     {
-      "id": "tx2d",
+      "id": "tx29",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -1818,7 +1738,7 @@
       }
     },
     {
-      "id": "tx2e",
+      "id": "tx2a",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -1838,7 +1758,7 @@
       }
     },
     {
-      "id": "tx2f",
+      "id": "tx2b",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -1859,7 +1779,7 @@
       }
     },
     {
-      "id": "tx2g",
+      "id": "tx2c",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -1880,7 +1800,7 @@
       }
     },
     {
-      "id": "tx2h",
+      "id": "tx2d",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -1901,7 +1821,7 @@
       }
     },
     {
-      "id": "tx2i",
+      "id": "tx2e",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -1922,7 +1842,7 @@
       }
     },
     {
-      "id": "tx2j",
+      "id": "tx2f",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -1943,7 +1863,7 @@
       }
     },
     {
-      "id": "tx2k",
+      "id": "tx2g",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -1964,7 +1884,7 @@
       }
     },
     {
-      "id": "tx2l",
+      "id": "tx2h",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -1985,7 +1905,7 @@
       }
     },
     {
-      "id": "tx2m",
+      "id": "tx2i",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -2006,7 +1926,7 @@
       }
     },
     {
-      "id": "tx2n",
+      "id": "tx2j",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -2027,7 +1947,7 @@
       }
     },
     {
-      "id": "tx2o",
+      "id": "tx2k",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -2048,7 +1968,7 @@
       }
     },
     {
-      "id": "tx2p",
+      "id": "tx2l",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -2069,7 +1989,7 @@
       }
     },
     {
-      "id": "tx2q",
+      "id": "tx2m",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -2090,7 +2010,7 @@
       }
     },
     {
-      "id": "tx2r",
+      "id": "tx2n",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -2111,7 +2031,7 @@
       }
     },
     {
-      "id": "tx2s",
+      "id": "tx2o",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -2132,7 +2052,7 @@
       }
     },
     {
-      "id": "tx2t",
+      "id": "tx2p",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -2153,7 +2073,7 @@
       }
     },
     {
-      "id": "tx2u",
+      "id": "tx2q",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -2174,7 +2094,7 @@
       }
     },
     {
-      "id": "tx2v",
+      "id": "tx2r",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -2195,7 +2115,7 @@
       }
     },
     {
-      "id": "tx2w",
+      "id": "tx2s",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -2216,7 +2136,7 @@
       }
     },
     {
-      "id": "tx2x",
+      "id": "tx2t",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -2237,7 +2157,7 @@
       }
     },
     {
-      "id": "tx2y",
+      "id": "tx2u",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -2258,7 +2178,7 @@
       }
     },
     {
-      "id": "tx2z",
+      "id": "tx2v",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -2278,7 +2198,7 @@
       }
     },
     {
-      "id": "tx30",
+      "id": "tx2w",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -2298,7 +2218,7 @@
       }
     },
     {
-      "id": "tx31",
+      "id": "tx2x",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -2318,7 +2238,7 @@
       }
     },
     {
-      "id": "tx32",
+      "id": "tx2y",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -2338,7 +2258,7 @@
       }
     },
     {
-      "id": "tx33",
+      "id": "tx2z",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -2358,7 +2278,7 @@
       }
     },
     {
-      "id": "tx34",
+      "id": "tx30",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -2378,7 +2298,7 @@
       }
     },
     {
-      "id": "tx35",
+      "id": "tx31",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -2398,7 +2318,7 @@
       }
     },
     {
-      "id": "tx36",
+      "id": "tx32",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -2418,7 +2338,7 @@
       }
     },
     {
-      "id": "tx37",
+      "id": "tx33",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -2438,7 +2358,7 @@
       }
     },
     {
-      "id": "tx38",
+      "id": "tx34",
       "cat": "s6",
       "kind": "straight",
       "params": {
@@ -2458,7 +2378,7 @@
       }
     },
     {
-      "id": "tx39",
+      "id": "tx35",
       "cat": "s6",
       "kind": "straight",
       "params": {
@@ -2478,7 +2398,7 @@
       }
     },
     {
-      "id": "tx3a",
+      "id": "tx36",
       "cat": "s6",
       "kind": "straight",
       "params": {
@@ -2498,7 +2418,7 @@
       }
     },
     {
-      "id": "tx3b",
+      "id": "tx37",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -2519,7 +2439,7 @@
       }
     },
     {
-      "id": "tx3c",
+      "id": "tx38",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -2540,7 +2460,7 @@
       }
     },
     {
-      "id": "tx3d",
+      "id": "tx39",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -2561,7 +2481,7 @@
       }
     },
     {
-      "id": "tx3e",
+      "id": "tx3a",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -2581,7 +2501,7 @@
       }
     },
     {
-      "id": "tx3f",
+      "id": "tx3b",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -2601,7 +2521,7 @@
       }
     },
     {
-      "id": "tx3g",
+      "id": "tx3c",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -2621,7 +2541,7 @@
       }
     },
     {
-      "id": "tx3h",
+      "id": "tx3d",
       "cat": "n6L",
       "kind": "turnout",
       "params": {
@@ -2645,7 +2565,7 @@
       }
     },
     {
-      "id": "tx3i",
+      "id": "tx3e",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -2665,7 +2585,7 @@
       }
     },
     {
-      "id": "tx3j",
+      "id": "tx3f",
       "cat": "n6R",
       "kind": "turnout",
       "params": {
@@ -2689,7 +2609,7 @@
       }
     },
     {
-      "id": "tx3k",
+      "id": "tx3g",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -2709,7 +2629,7 @@
       }
     },
     {
-      "id": "tx3l",
+      "id": "tx3h",
       "cat": "cflex",
       "kind": "curve",
       "params": {
@@ -2730,7 +2650,7 @@
       }
     },
     {
-      "id": "tx3m",
+      "id": "tx3i",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -2750,7 +2670,7 @@
       }
     },
     {
-      "id": "tx3n",
+      "id": "tx3j",
       "cat": "bumper",
       "kind": "bumper",
       "params": {
@@ -2770,7 +2690,7 @@
       }
     },
     {
-      "id": "tx3o",
+      "id": "tx3k",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -2790,7 +2710,7 @@
       }
     },
     {
-      "id": "tx3p",
+      "id": "tx3l",
       "cat": "bumper",
       "kind": "bumper",
       "params": {
@@ -2810,7 +2730,7 @@
       }
     },
     {
-      "id": "tx3q",
+      "id": "tx3m",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -2830,7 +2750,7 @@
       }
     },
     {
-      "id": "tx3r",
+      "id": "tx3n",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -2850,7 +2770,7 @@
       }
     },
     {
-      "id": "tx3s",
+      "id": "tx3o",
       "cat": "bumper",
       "kind": "bumper",
       "params": {
@@ -2872,7 +2792,7 @@
   ],
   "devices": [
     {
-      "id": "dx4p",
+      "id": "dx4v",
       "type": "signal3",
       "name": "Signal – 3 aspect",
       "x": 0,
@@ -2892,7 +2812,7 @@
       }
     },
     {
-      "id": "dx4q",
+      "id": "dx4w",
       "type": "signal3",
       "name": "Signal – 3 aspect",
       "x": 0,
@@ -2900,7 +2820,7 @@
       "rot": 0,
       "side": 1,
       "flip": false,
-      "pieceId": "tx1g",
+      "pieceId": "tx1c",
       "route": 0,
       "d": 3,
       "props": {
@@ -2912,7 +2832,7 @@
       }
     },
     {
-      "id": "dx4r",
+      "id": "dx4x",
       "type": "signal2",
       "name": "Signal – 2 aspect",
       "x": 0,
@@ -2920,7 +2840,7 @@
       "rot": 0,
       "side": 1,
       "flip": false,
-      "pieceId": "tx22",
+      "pieceId": "tx1y",
       "route": 0,
       "d": 2.4854368216052265,
       "props": {
@@ -2932,7 +2852,7 @@
       }
     },
     {
-      "id": "dx4s",
+      "id": "dx4y",
       "type": "sensor",
       "name": "Train passing sensor",
       "x": 0,
@@ -2940,7 +2860,7 @@
       "rot": 0,
       "side": 1,
       "flip": false,
-      "pieceId": "tx2b",
+      "pieceId": "tx27",
       "route": 0,
       "d": 3.056987437817469,
       "props": {
@@ -2951,7 +2871,7 @@
       }
     },
     {
-      "id": "dx4t",
+      "id": "dx4z",
       "type": "sensor",
       "name": "Train passing sensor",
       "x": 0,
@@ -2959,7 +2879,7 @@
       "rot": 0,
       "side": 1,
       "flip": false,
-      "pieceId": "tx3e",
+      "pieceId": "tx3a",
       "route": 0,
       "d": 4,
       "props": {
@@ -2970,7 +2890,7 @@
       }
     },
     {
-      "id": "dx4u",
+      "id": "dx50",
       "type": "block",
       "name": "Occupancy detection block",
       "x": 0,
@@ -2989,7 +2909,7 @@
       }
     },
     {
-      "id": "dx4v",
+      "id": "dx51",
       "type": "home",
       "name": "Home / end-of-travel sensor",
       "x": 0,
@@ -2997,7 +2917,7 @@
       "rot": 0,
       "side": 1,
       "flip": false,
-      "pieceId": "tx13",
+      "pieceId": "tx12",
       "route": 0,
       "d": 1,
       "props": {
@@ -3008,7 +2928,7 @@
       }
     },
     {
-      "id": "dx4w",
+      "id": "dx52",
       "type": "home",
       "name": "Home / end-of-travel sensor",
       "x": 0,
@@ -3016,7 +2936,7 @@
       "rot": 0,
       "side": 1,
       "flip": false,
-      "pieceId": "tx16",
+      "pieceId": "tx15",
       "route": 0,
       "d": 1,
       "props": {
@@ -3027,7 +2947,26 @@
       }
     },
     {
-      "id": "dx4x",
+      "id": "dx53",
+      "type": "home",
+      "name": "Home / end-of-travel sensor",
+      "x": 0,
+      "y": 0,
+      "rot": 0,
+      "side": 1,
+      "flip": false,
+      "pieceId": "tx17",
+      "route": 0,
+      "d": 1,
+      "props": {
+        "name": "H3",
+        "address": "D12",
+        "notes": "",
+        "sensorType": "Hall"
+      }
+    },
+    {
+      "id": "dx54",
       "type": "home",
       "name": "Home / end-of-travel sensor",
       "x": 0,
@@ -3039,25 +2978,6 @@
       "route": 0,
       "d": 1,
       "props": {
-        "name": "H3",
-        "address": "D12",
-        "notes": "",
-        "sensorType": "Hall"
-      }
-    },
-    {
-      "id": "dx4y",
-      "type": "home",
-      "name": "Home / end-of-travel sensor",
-      "x": 0,
-      "y": 0,
-      "rot": 0,
-      "side": 1,
-      "flip": false,
-      "pieceId": "tx1c",
-      "route": 0,
-      "d": 1,
-      "props": {
         "name": "H4",
         "address": "D13",
         "notes": "",
@@ -3065,7 +2985,7 @@
       }
     },
     {
-      "id": "dx4z",
+      "id": "dx55",
       "type": "feeder",
       "name": "Power feeder",
       "x": 0,
@@ -3084,7 +3004,7 @@
       }
     },
     {
-      "id": "dx50",
+      "id": "dx56",
       "type": "feeder",
       "name": "Power feeder",
       "x": 0,
@@ -3092,7 +3012,7 @@
       "rot": 0,
       "side": 1,
       "flip": false,
-      "pieceId": "tx1z",
+      "pieceId": "tx1v",
       "route": 0,
       "d": 2.3812035330070174,
       "props": {
@@ -3103,7 +3023,7 @@
       }
     },
     {
-      "id": "dx51",
+      "id": "dx57",
       "type": "gap",
       "name": "Insulated rail gap",
       "x": 0,
@@ -3111,7 +3031,7 @@
       "rot": 0,
       "side": 1,
       "flip": false,
-      "pieceId": "tx1u",
+      "pieceId": "tx1q",
       "route": 0,
       "d": 0.5,
       "props": {
@@ -3124,15 +3044,15 @@
   ],
   "scenery": [
     {
-      "id": "ox3t",
+      "id": "ox3p",
       "type": "mountain",
       "name": "Mountain",
       "shape": "hill",
       "x": 169.7549,
       "y": 51,
       "rot": 0,
-      "w": 64,
-      "d": 60,
+      "w": 80,
+      "d": 84,
       "h": 26,
       "roof": "flat",
       "color": "#7b7262",
@@ -3142,7 +3062,187 @@
       }
     },
     {
+      "id": "ox3q",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 161.7549,
+      "y": 21,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox3r",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 175.7549,
+      "y": 19,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox3s",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 189.7549,
+      "y": 25,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox3t",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 159.7549,
+      "y": 81,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
       "id": "ox3u",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 177.7549,
+      "y": 84,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox3v",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 191.7549,
+      "y": 77,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox3w",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 199.7549,
+      "y": 43,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox3x",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 201.7549,
+      "y": 61,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox3y",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 167.7549,
+      "y": 43,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox3z",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 173.7549,
+      "y": 63,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox40",
       "type": "girder",
       "name": "Bridge – plate girder",
       "shape": "bridge",
@@ -3161,7 +3261,7 @@
       }
     },
     {
-      "id": "ox3v",
+      "id": "ox41",
       "type": "trestle",
       "name": "Trestle (timber)",
       "shape": "trestle",
@@ -3179,7 +3279,7 @@
       }
     },
     {
-      "id": "ox3w",
+      "id": "ox42",
       "type": "river",
       "name": "River / creek (24\")",
       "shape": "river",
@@ -3197,7 +3297,7 @@
       }
     },
     {
-      "id": "ox3x",
+      "id": "ox43",
       "type": "station",
       "name": "Station",
       "shape": "box",
@@ -3215,7 +3315,7 @@
       }
     },
     {
-      "id": "ox3y",
+      "id": "ox44",
       "type": "platform",
       "name": "Platform",
       "shape": "box",
@@ -3233,7 +3333,7 @@
       }
     },
     {
-      "id": "ox3z",
+      "id": "ox45",
       "type": "road",
       "name": "Road (12\")",
       "shape": "flat",
@@ -3251,7 +3351,7 @@
       }
     },
     {
-      "id": "ox40",
+      "id": "ox46",
       "type": "road",
       "name": "Road (12\")",
       "shape": "flat",
@@ -3269,7 +3369,7 @@
       }
     },
     {
-      "id": "ox41",
+      "id": "ox47",
       "type": "house",
       "name": "House",
       "shape": "box",
@@ -3287,7 +3387,7 @@
       }
     },
     {
-      "id": "ox42",
+      "id": "ox48",
       "type": "house",
       "name": "House",
       "shape": "box",
@@ -3305,7 +3405,7 @@
       }
     },
     {
-      "id": "ox43",
+      "id": "ox49",
       "type": "house",
       "name": "House",
       "shape": "box",
@@ -3323,7 +3423,7 @@
       }
     },
     {
-      "id": "ox44",
+      "id": "ox4a",
       "type": "house",
       "name": "House",
       "shape": "box",
@@ -3341,7 +3441,7 @@
       }
     },
     {
-      "id": "ox45",
+      "id": "ox4b",
       "type": "light",
       "name": "Street light",
       "shape": "light",
@@ -3359,7 +3459,7 @@
       }
     },
     {
-      "id": "ox46",
+      "id": "ox4c",
       "type": "light",
       "name": "Street light",
       "shape": "light",
@@ -3377,7 +3477,7 @@
       }
     },
     {
-      "id": "ox47",
+      "id": "ox4d",
       "type": "light",
       "name": "Street light",
       "shape": "light",
@@ -3395,7 +3495,7 @@
       }
     },
     {
-      "id": "ox48",
+      "id": "ox4e",
       "type": "light",
       "name": "Street light",
       "shape": "light",
@@ -3413,7 +3513,7 @@
       }
     },
     {
-      "id": "ox49",
+      "id": "ox4f",
       "type": "enginehouse",
       "name": "Engine house",
       "shape": "box",
@@ -3431,7 +3531,7 @@
       }
     },
     {
-      "id": "ox4a",
+      "id": "ox4g",
       "type": "tower",
       "name": "Water tower",
       "shape": "cyl",
@@ -3449,7 +3549,7 @@
       }
     },
     {
-      "id": "ox4b",
+      "id": "ox4h",
       "type": "factory",
       "name": "Factory",
       "shape": "box",
@@ -3467,7 +3567,7 @@
       }
     },
     {
-      "id": "ox4c",
+      "id": "ox4i",
       "type": "house",
       "name": "House",
       "shape": "box",
@@ -3485,7 +3585,7 @@
       }
     },
     {
-      "id": "ox4d",
+      "id": "ox4j",
       "type": "house",
       "name": "House",
       "shape": "box",
@@ -3503,7 +3603,7 @@
       }
     },
     {
-      "id": "ox4e",
+      "id": "ox4k",
       "type": "water",
       "name": "Pond / water",
       "shape": "water",
@@ -3521,7 +3621,7 @@
       }
     },
     {
-      "id": "ox4f",
+      "id": "ox4l",
       "type": "pine",
       "name": "Tree – pine",
       "shape": "pine",
@@ -3539,7 +3639,7 @@
       }
     },
     {
-      "id": "ox4g",
+      "id": "ox4m",
       "type": "pine",
       "name": "Tree – pine",
       "shape": "pine",
@@ -3557,7 +3657,7 @@
       }
     },
     {
-      "id": "ox4h",
+      "id": "ox4n",
       "type": "pine",
       "name": "Tree – pine",
       "shape": "pine",
@@ -3575,7 +3675,7 @@
       }
     },
     {
-      "id": "ox4i",
+      "id": "ox4o",
       "type": "pine",
       "name": "Tree – pine",
       "shape": "pine",
@@ -3593,7 +3693,7 @@
       }
     },
     {
-      "id": "ox4j",
+      "id": "ox4p",
       "type": "pine",
       "name": "Tree – pine",
       "shape": "pine",
@@ -3611,7 +3711,7 @@
       }
     },
     {
-      "id": "ox4k",
+      "id": "ox4q",
       "type": "pine",
       "name": "Tree – pine",
       "shape": "pine",
@@ -3629,7 +3729,7 @@
       }
     },
     {
-      "id": "ox4l",
+      "id": "ox4r",
       "type": "pine",
       "name": "Tree – pine",
       "shape": "pine",
@@ -3647,7 +3747,7 @@
       }
     },
     {
-      "id": "ox4m",
+      "id": "ox4s",
       "type": "pine",
       "name": "Tree – pine",
       "shape": "pine",
@@ -3665,7 +3765,7 @@
       }
     },
     {
-      "id": "ox4n",
+      "id": "ox4t",
       "type": "pine",
       "name": "Tree – pine",
       "shape": "pine",
@@ -3683,7 +3783,7 @@
       }
     },
     {
-      "id": "ox4o",
+      "id": "ox4u",
       "type": "pine",
       "name": "Tree – pine",
       "shape": "pine",

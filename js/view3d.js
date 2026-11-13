@@ -3,9 +3,9 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { state, getCache, routeSampleWorld } from './model.js';
 import { HO } from './catalog.js';
-import { DEG, sampleRoute, toWorld } from './geometry.js';
+import { DEG, sampleRoute, toWorld, pointInPoly } from './geometry.js';
 import { devicePose } from './editor2d.js';
-import { supports, onTerrain, hillHeightFn, portalOpening, trestleBents, trestleSpread, moveTrain, autoPortals, TURNOUT_KINDS } from './realism.js';
+import { supports, onTerrain, seated, groundAt, hillHeightFn, portalOpening, trestleBents, trestleSpread, moveTrain, autoPortals, TURNOUT_KINDS } from './realism.js';
 
 let renderer, scene, camera, controls, root, container, active = false, dirty = true;
 let hemi, sun, night = false, train = null, cab = false, clock = new THREE.Clock();
@@ -30,6 +30,7 @@ export function init3D(el) {
   sun = new THREE.DirectionalLight('#ffffff', 1.6);
   sun.castShadow = true;
   sun.shadow.mapSize.set(2048, 2048);
+  sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.02;
   scene.add(hemi, sun, sun.target);
   root = new THREE.Group();
   scene.add(root);
@@ -98,7 +99,7 @@ function rebuild() {
 
   buildBoard(P.board);
   buildTrack();
-  for (const o of P.scenery) buildScenery(o);
+  for (const o of P.scenery) buildScenery(seated(o)); // trees & buildings stand on the terrain
   for (const o of autoPortals()) buildScenery(o); // a portal at every tunnel mouth
   for (const d of P.devices) buildDevice(d);
   applyLighting();
@@ -239,21 +240,21 @@ function buildTerrain(o) {
     const lx = -W0 / 2 + (W0 * i) / nx, ly = -D0 / 2 + (D0 * j) / ny;
     const x = o.x + lx * cs - ly * sn, y = o.y + lx * sn + ly * cs;
     const hgt = f(x, y);
-    const v = V(x, y, Math.max(-0.02, hgt));
+    const v = V(x, y, hgt > 0.01 ? hgt : -2); // flat ground tucks well under the board top (no shadow acne)
     pos.push(v.x, v.y, v.z);
-    inside.push(hgt > 0.01);
+    inside.push(pointInPoly({ x, y }, state.project.board.outline)); // terrain only on the benchwork
   }
   const W = nx + 1;
   for (let j = 0; j < ny; j++) for (let i = 0; i < nx; i++) {
     const a = j * W + i, b = a + 1, c = a + W, d = c + 1;
-    if (!(inside[a] || inside[b] || inside[c] || inside[d])) continue;
+    if (!(inside[a] && inside[b] && inside[c] && inside[d])) continue;
     idx.push(a, b, d, a, d, c);
   }
   const g = new THREE.BufferGeometry();
   g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
   g.setIndex(idx);
   g.computeVertexNormals();
-  const m = new THREE.Mesh(g, mat(o.color, { flatShading: true, side: THREE.DoubleSide }));
+  const m = new THREE.Mesh(g, mat(o.color, { side: THREE.DoubleSide })); // smooth shading: no faceted sawtooth
   m.castShadow = true; m.receiveShadow = true;
   root.add(m);
 }
@@ -354,7 +355,7 @@ function placeObj(m, o, y) {
 
 function buildScenery(o) {
   const c = o.color;
-  if ((o.base || 0) > 0.5 && ['box', 'cyl', 'pine', 'tree', 'light'].includes(o.shape)) {
+  if ((o.base || 0) > 0.5 && ['box', 'cyl', 'pine', 'tree', 'light'].includes(o.shape) && groundAt(o.x, o.y) < o.base - 0.3) { // on a deck, not on the hill
     const pad = new THREE.Mesh(new THREE.BoxGeometry(o.w + 1, 0.5, o.d + 1), mat('#7c8f4e'));
     pad.position.copy(V(o.x, o.y, o.base - 0.25)); pad.rotation.y = (o.rot || 0) * DEG; pad.receiveShadow = true; root.add(pad);
   }

@@ -290,8 +290,8 @@ function spiralLoop() {
   const sid = B.passingSiding(jn.main, 'R', 44); // passing siding on the aisle side
   const main = sid.main;
   main.sTo('x', EAST);
-  main.c(RM, 180, 0, 15);
-  main.s(4);
+  main.c(RM, 180, 0, 15); // east end: in tunnel under Spiral Mountain
+  main.sTo('x', 136); // yard throat clear of the mountain's foot
   const yard = B.ladder(main, 'R', 3, 'x', 58);
   const back = yard.main;
   const s2 = back.sTo('x', 40);
@@ -321,7 +321,10 @@ function spiralLoop() {
 
   // --- scenery
   const cx = O.x + LR / Math.sin(beta * DEG);
-  B.sc('mountain', cx, MID, { w: 64, d: 60, h: 26, name: 'Spiral Mountain' });
+  // the mountain covers the whole east end: the loop spirals inside it in tunnel and only comes
+  // out near the crossing; the main tunnels under its foot round the east curve
+  B.sc('mountain', cx, MID, { w: 80, d: 84, h: 26, name: 'Spiral Mountain' }); // stays on the benchwork
+  for (const [dx, dy] of [[-8, -30], [6, -32], [20, -26], [-10, 30], [8, 33], [22, 26], [30, -8], [32, 10], [-2, -8], [4, 12]]) B.sc('pine', cx + dx, MID + dy);
   B.spanAt('girder', log, sO2, { w: 12, name: 'Loop crossing' });
   const tr = B.spanAt('trestle', log, sO2 + 10, { w: 10, name: 'Canyon trestle' });
   B.sc('river', tr.x, tr.y, { w: 12, d: 3.5, rot: tr.rot + 90, name: 'Canyon creek' });
@@ -430,8 +433,8 @@ export const SAMPLES = [
   },
   {
     id: 'spiral', name: 'Spiral loop mountain division', size: '17½ × 8½ ft island',
-    blurb: 'After the Tehachapi Loop: a branch leaves the valley main, spirals round a mountainside in deep cuttings (R28", 1.8% = 2.94% effective), passes over its own track on a girder bridge and crosses a canyon trestle to a mining town. The valley has a continuous main, passing siding, 4-track yard and engine terminal.',
-    features: ['3 levels', 'track crosses over itself', 'mountainside cuttings', 'passing siding', '4-track yard', 'signals & sensors'],
+    blurb: 'After the Tehachapi Loop: a branch leaves the valley main, spirals up inside a mountain in tunnel (R28", 1.8% = 2.94% effective), comes out and passes over its own track on a girder bridge and crosses a canyon trestle to a mining town. The valley main also tunnels under the foot of the mountain; there is a passing siding, 4-track yard and engine terminal.',
+    features: ['3 levels', 'spiral tunnel', 'track crosses over itself', 'main-line tunnel', 'passing siding', '4-track yard', 'signals & sensors'],
     build: spiralLoop,
   },
   {
