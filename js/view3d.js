@@ -508,10 +508,12 @@ export function startTrain() {
   const probe = { pieceId: pc.id, route: train.route, d: 0, dir: -1, curv: null, straight: Infinity };
   const back = [];
   for (let k = 1; k <= 80; k++) {
-    const ev = moveTrain(probe, 0.5, { autoAlign: false });
+    // placement only: follow the track geometry behind the engine (no hazards / turnout rules)
+    const flipped = probe.dir;
+    moveTrain(probe, 0.5, { geomOnly: true });
+    if (probe.dir !== flipped && k > 1 && back.length && probe.d === back.length) break;
     const w = routeSampleWorld(getCache().map.get(probe.pieceId).pc, probe.route, probe.d);
     back.push({ ...w, h: w.h + (probe.dir < 0 ? 0 : 180), odo: -k * 0.5 });
-    if (ev) break; // end of track behind: remaining cars bunch at the bumper
   }
   train.hist.push(...back);
   return true;
