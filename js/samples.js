@@ -323,7 +323,7 @@ function spiralLoop() {
   const cx = O.x + LR / Math.sin(beta * DEG);
   // the mountain covers the whole east end: the loop spirals inside it in tunnel and only comes
   // out near the crossing; the main tunnels under its foot round the east curve
-  B.sc('mountain', cx, MID, { w: 88, d: 84, h: 26, name: 'Spiral Mountain' });
+  B.sc('mountain', cx, MID, { w: 80, d: 84, h: 26, name: 'Spiral Mountain' }); // stays on the benchwork
   for (const [dx, dy] of [[-8, -30], [6, -32], [20, -26], [-10, 30], [8, 33], [22, 26], [30, -8], [32, 10], [-2, -8], [4, 12]]) B.sc('pine', cx + dx, MID + dy);
   B.spanAt('girder', log, sO2, { w: 12, name: 'Loop crossing' });
   const tr = B.spanAt('trestle', log, sO2 + 10, { w: 10, name: 'Canyon trestle' });

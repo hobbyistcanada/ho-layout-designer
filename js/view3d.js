@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { state, getCache, routeSampleWorld } from './model.js';
 import { HO } from './catalog.js';
-import { DEG, sampleRoute, toWorld } from './geometry.js';
+import { DEG, sampleRoute, toWorld, pointInPoly } from './geometry.js';
 import { devicePose } from './editor2d.js';
 import { supports, onTerrain, seated, groundAt, hillHeightFn, portalOpening, trestleBents, trestleSpread, moveTrain, autoPortals, TURNOUT_KINDS } from './realism.js';
 
@@ -241,12 +241,12 @@ function buildTerrain(o) {
     const hgt = f(x, y);
     const v = V(x, y, Math.max(-0.02, hgt));
     pos.push(v.x, v.y, v.z);
-    inside.push(hgt > 0.01);
+    inside.push(pointInPoly({ x, y }, state.project.board.outline)); // terrain only on the benchwork
   }
   const W = nx + 1;
   for (let j = 0; j < ny; j++) for (let i = 0; i < nx; i++) {
     const a = j * W + i, b = a + 1, c = a + W, d = c + 1;
-    if (!(inside[a] || inside[b] || inside[c] || inside[d])) continue;
+    if (!(inside[a] && inside[b] && inside[c] && inside[d])) continue;
     idx.push(a, b, d, a, d, c);
   }
   const g = new THREE.BufferGeometry();

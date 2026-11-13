@@ -13,7 +13,7 @@
 //    the curves are broad (30"+ radius).
 //  * Track centres >= 2" on parallel track; cars overhang ~0.95" either side of centre.
 import { state, getCache } from './model.js';
-import { advance, segLen, toWorld, norm, DEG } from './geometry.js';
+import { advance, segLen, toWorld, norm, DEG, pointInPoly } from './geometry.js';
 
 export const REAL_DEFAULTS = {
   carHeight: 3.0, // tallest car, top of rail to roof (in)
@@ -452,6 +452,15 @@ export function analyse() {
   // scenery: fouling, floating, bridges, water (auto portals at tunnel mouths included)
   for (const o of [...P.scenery.map(seated), ...autoPortals()]) {
     const label = o.props?.name || o.name;
+    // scenery must stand on the benchwork (a mountain can't hang over the edge into the aisle)
+    if (!o.auto && P.board.outline.length > 2 && !['light'].includes(o.shape)) {
+      const c = Math.cos((o.rot || 0) * DEG), sn = Math.sin((o.rot || 0) * DEG);
+      const pts = o.shape === 'hill' || o.shape === 'water'
+        ? Array.from({ length: 16 }, (_, i) => { const a = (i / 16) * Math.PI * 2; return [Math.cos(a) * o.w / 2, Math.sin(a) * o.d / 2]; })
+        : [[-1, -1], [1, -1], [1, 1], [-1, 1]].map(([a, b]) => [a * o.w / 2, b * o.d / 2]);
+      const off = pts.map(([lx, ly]) => ({ x: o.x + lx * c - ly * sn, y: o.y + lx * sn + ly * c })).find((q) => !pointInPoly(q, P.board.outline));
+      if (off) issue('warn', `${label} hangs over the edge of the benchwork`, off, o.id);
+    }
     const boxes = obstacleBoxes(o);
     const reach = Math.max(o.w, o.d) / 2 + 4;
     const nearby = I.near(o.x, o.y, reach);
