@@ -7,7 +7,6 @@
 import { newProject } from './model.js';
 import { TRACK, TRACK_BY_ID, SCENERY_BY_ID, DEVICE_BY_ID, buildGeometry } from './catalog.js';
 import { advance, routeEnd, routeLen, toWorld, sampleRoute, norm, DEG } from './geometry.js';
-import { REAL_DEFAULTS, tunnelCover } from './realism.js';
 
 const N6 = { len: 11, r: 40, angle: 9.46, tail: 4.49 }; // #6 turnout geometry (catalog n6L/n6R)
 const YARD_GAP = 2.7; // straight between ladder turnouts -> ~2.25" track centres
@@ -179,33 +178,6 @@ function builder(P) {
     const w = toWorld(pc, lp);
     return sc(type, w.x, w.y, { rot: round(norm(w.h)), base: round(pc.z + (pc.grade / 100) * lp.d), ...extra });
   }
-  // Tunnel portals wherever track passes into / out of a hill or mountain
-  function portals(hill, clearance = tunnelCover(REAL_DEFAULTS)) {
-    const c = Math.cos(-hill.rot * DEG), s = Math.sin(-hill.rot * DEG);
-    const surf = (p) => {
-      const dx = p.x - hill.x, dy = p.y - hill.y;
-      const lx = (dx * c - dy * s) / (hill.w / 2), ly = (dx * s + dy * c) / (hill.d / 2);
-      const q = 1 - lx * lx - ly * ly;
-      return q > 0 ? (hill.base || 0) + hill.h * Math.sqrt(q) : -1;
-    };
-    const out = [];
-    for (const pc of P.pieces) {
-      if (pc.kind !== 'straight' && pc.kind !== 'curve') continue;
-      const g = buildGeometry(pc.kind, pc.params);
-      const pts = sampleRoute(g.routes[0], 0.25).map((lp) => ({ ...toWorld(pc, lp), z: pc.z + (pc.grade / 100) * lp.d }));
-      let prev = null;
-      for (const p of pts) {
-        const inside = surf(p) > p.z + clearance;
-        if (prev && inside !== prev.inside) {
-          // portal face sits on the outside of the hill, facing along the track
-          const at = inside ? p : prev.p;
-          out.push(sc('portal', at.x, at.y, { rot: round(norm(at.h + 90)), base: round(at.z) }));
-        }
-        prev = { p, inside };
-      }
-    }
-    return out;
-  }
   // Start logging a turtle's path so its elevations can be set afterwards with profile().
   function path(t) { t.log = []; t.dist = 0; return t.log; }
   // Turn the nominal grades given while laying (in %) into a smooth elevation profile:
@@ -244,7 +216,7 @@ function builder(P) {
   }
   const spanAt = (type, log, s, extra) => { const a = at(log, s); return spanOn(type, a.pc, a.d, extra); };
   const devAt = (type, log, s, props) => { const a = at(log, s); return dev(type, a.pc, a.d, props); };
-  return { Turtle, piece, sc, dev, spanOn, portals, passingSiding, ladder, routeEndWorld, path, profile, at, spanAt, devAt };
+  return { Turtle, piece, sc, dev, spanOn, passingSiding, ladder, routeEndWorld, path, profile, at, spanAt, devAt };
 }
 
 function base(name, outline, levels, settings = {}) {
@@ -264,7 +236,8 @@ function base(name, outline, levels, settings = {}) {
 //  * >= 3.5" rail-to-rail where tracks cross (3" car + 0.5" deck)
 //  * every grade change eased over 24" (3 car lengths), turnouts on level track
 //  * no S-curves sharper than 30" without a car-length straight, 2"+ track centres
-//  * structures, buildings and trees clear of the tracks; tunnels have portals and cuttings
+//  * structures, buildings and trees clear of the tracks; tunnels get portals and cuttings
+//    automatically (js/realism.js tunnelInfo) with rock above every bore
 
 const setLevels = (P, fn) => P.pieces.forEach((pc) => { pc.level = fn(pc.z + Math.max(0, (pc.grade / 100) * 6)); });
 
@@ -286,8 +259,7 @@ function figure8() {
   const L = prof.length, log = prof.log;
   setLevels(P, (z) => (z > 1.85 ? 'L1' : 'L0'));
 
-  const mtn = B.sc('mountain', O.x - D / 2, O.y, { w: 70, d: 68, h: 16, name: 'Bald Knob' });
-  B.portals(mtn);
+  B.sc('mountain', O.x - D / 2, O.y, { w: 70, d: 68, h: 24, name: 'Bald Knob' });
   B.spanAt('girder', log, L / 2, { w: 14, name: 'Crossing girder' });
   B.spanAt('trestle', log, L / 2 - 22, { w: 16, name: 'Gully trestle' });
   B.sc('water', 96, 63, { w: 14, d: 6, name: 'Mill pond' });
@@ -349,8 +321,7 @@ function spiralLoop() {
 
   // --- scenery
   const cx = O.x + LR / Math.sin(beta * DEG);
-  const mtn = B.sc('mountain', cx, MID, { w: 64, d: 60, h: 20, name: 'Spiral Mountain' });
-  B.portals(mtn);
+  B.sc('mountain', cx, MID, { w: 64, d: 60, h: 26, name: 'Spiral Mountain' });
   B.spanAt('girder', log, sO2, { w: 12, name: 'Loop crossing' });
   const tr = B.spanAt('trestle', log, sO2 + 10, { w: 10, name: 'Canyon trestle' });
   B.sc('river', tr.x, tr.y, { w: 12, d: 3.5, rot: tr.rot + 90, name: 'Canyon creek' });
@@ -459,8 +430,8 @@ export const SAMPLES = [
   },
   {
     id: 'spiral', name: 'Spiral loop mountain division', size: '17½ × 8½ ft island',
-    blurb: 'After the Tehachapi Loop: a branch leaves the valley main, spirals round a mountainside (R28", 1.8% = 2.94% effective), passes over its own track on a girder bridge and crosses a canyon trestle to a mining town. The valley has a continuous main, passing siding, 4-track yard and engine terminal.',
-    features: ['3 levels', 'track crosses over itself', 'tunnels + cuttings', 'passing siding', '4-track yard', 'signals & sensors'],
+    blurb: 'After the Tehachapi Loop: a branch leaves the valley main, spirals round a mountainside in deep cuttings (R28", 1.8% = 2.94% effective), passes over its own track on a girder bridge and crosses a canyon trestle to a mining town. The valley has a continuous main, passing siding, 4-track yard and engine terminal.',
+    features: ['3 levels', 'track crosses over itself', 'mountainside cuttings', 'passing siding', '4-track yard', 'signals & sensors'],
     build: spiralLoop,
   },
   {

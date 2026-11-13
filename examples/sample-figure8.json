@@ -1616,7 +1616,7 @@
   ],
   "devices": [
     {
-      "id": "dx2o",
+      "id": "dx2m",
       "type": "signal3",
       "name": "Signal – 3 aspect",
       "x": 0,
@@ -1636,7 +1636,7 @@
       }
     },
     {
-      "id": "dx2p",
+      "id": "dx2n",
       "type": "signal3",
       "name": "Signal – 3 aspect",
       "x": 0,
@@ -1656,7 +1656,7 @@
       }
     },
     {
-      "id": "dx2q",
+      "id": "dx2o",
       "type": "sensor",
       "name": "Train passing sensor",
       "x": 0,
@@ -1675,7 +1675,7 @@
       }
     },
     {
-      "id": "dx2r",
+      "id": "dx2p",
       "type": "feeder",
       "name": "Power feeder",
       "x": 0,
@@ -1705,7 +1705,7 @@
       "rot": 0,
       "w": 70,
       "d": 68,
-      "h": 16,
+      "h": 24,
       "roof": "flat",
       "color": "#7b7262",
       "base": 0,
@@ -1715,42 +1715,6 @@
     },
     {
       "id": "ox26",
-      "type": "portal",
-      "name": "Tunnel portal",
-      "shape": "portal",
-      "x": 58.2917,
-      "y": 57.771,
-      "rot": -120,
-      "w": 4,
-      "d": 1,
-      "h": 4,
-      "roof": "flat",
-      "color": "#7a7a7a",
-      "base": 3.2268,
-      "props": {
-        "name": ""
-      }
-    },
-    {
-      "id": "ox27",
-      "type": "portal",
-      "name": "Tunnel portal",
-      "shape": "portal",
-      "x": 63.7083,
-      "y": 17.3564,
-      "rot": 120,
-      "w": 4,
-      "d": 1,
-      "h": 4,
-      "roof": "flat",
-      "color": "#7a7a7a",
-      "base": 0.561,
-      "props": {
-        "name": ""
-      }
-    },
-    {
-      "id": "ox28",
       "type": "girder",
       "name": "Bridge – plate girder",
       "shape": "bridge",
@@ -1769,7 +1733,7 @@
       }
     },
     {
-      "id": "ox29",
+      "id": "ox27",
       "type": "trestle",
       "name": "Trestle (timber)",
       "shape": "trestle",
@@ -1787,7 +1751,7 @@
       }
     },
     {
-      "id": "ox2a",
+      "id": "ox28",
       "type": "water",
       "name": "Pond / water",
       "shape": "water",
@@ -1805,7 +1769,7 @@
       }
     },
     {
-      "id": "ox2b",
+      "id": "ox29",
       "type": "house",
       "name": "House",
       "shape": "box",
@@ -1823,7 +1787,7 @@
       }
     },
     {
-      "id": "ox2c",
+      "id": "ox2a",
       "type": "house",
       "name": "House",
       "shape": "box",
@@ -1841,7 +1805,7 @@
       }
     },
     {
-      "id": "ox2d",
+      "id": "ox2b",
       "type": "house",
       "name": "House",
       "shape": "box",
@@ -1859,7 +1823,7 @@
       }
     },
     {
-      "id": "ox2e",
+      "id": "ox2c",
       "type": "house",
       "name": "House",
       "shape": "box",
@@ -1877,7 +1841,7 @@
       }
     },
     {
-      "id": "ox2f",
+      "id": "ox2d",
       "type": "tower",
       "name": "Water tower",
       "shape": "cyl",
@@ -1895,7 +1859,7 @@
       }
     },
     {
-      "id": "ox2g",
+      "id": "ox2e",
       "type": "pine",
       "name": "Tree – pine",
       "shape": "pine",
@@ -1913,7 +1877,7 @@
       }
     },
     {
-      "id": "ox2h",
+      "id": "ox2f",
       "type": "pine",
       "name": "Tree – pine",
       "shape": "pine",
@@ -1931,7 +1895,7 @@
       }
     },
     {
-      "id": "ox2i",
+      "id": "ox2g",
       "type": "pine",
       "name": "Tree – pine",
       "shape": "pine",
@@ -1949,11 +1913,47 @@
       }
     },
     {
-      "id": "ox2j",
+      "id": "ox2h",
       "type": "pine",
       "name": "Tree – pine",
       "shape": "pine",
       "x": 186,
+      "y": 66,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox2i",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 186,
+      "y": 6,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox2j",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 126,
       "y": 66,
       "rot": 0,
       "w": 2.5,
@@ -1971,7 +1971,7 @@
       "type": "pine",
       "name": "Tree – pine",
       "shape": "pine",
-      "x": 186,
+      "x": 126,
       "y": 6,
       "rot": 0,
       "w": 2.5,
@@ -1986,42 +1986,6 @@
     },
     {
       "id": "ox2l",
-      "type": "pine",
-      "name": "Tree – pine",
-      "shape": "pine",
-      "x": 126,
-      "y": 66,
-      "rot": 0,
-      "w": 2.5,
-      "d": 2.5,
-      "h": 6,
-      "roof": "flat",
-      "color": "#2f6b3a",
-      "base": 0,
-      "props": {
-        "name": ""
-      }
-    },
-    {
-      "id": "ox2m",
-      "type": "pine",
-      "name": "Tree – pine",
-      "shape": "pine",
-      "x": 126,
-      "y": 6,
-      "rot": 0,
-      "w": 2.5,
-      "d": 2.5,
-      "h": 6,
-      "roof": "flat",
-      "color": "#2f6b3a",
-      "base": 0,
-      "props": {
-        "name": ""
-      }
-    },
-    {
-      "id": "ox2n",
       "type": "pine",
       "name": "Tree – pine",
       "shape": "pine",

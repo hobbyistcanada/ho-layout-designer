@@ -5,7 +5,7 @@ import { state, getCache, routeSampleWorld } from './model.js';
 import { HO } from './catalog.js';
 import { DEG, sampleRoute, toWorld } from './geometry.js';
 import { devicePose } from './editor2d.js';
-import { supports, hillHeightFn, underSpan, portalOpening, trestleBents, trestleSpread, moveTrain, TURNOUT_KINDS } from './realism.js';
+import { supports, onTerrain, hillHeightFn, portalOpening, trestleBents, trestleSpread, moveTrain, autoPortals, TURNOUT_KINDS } from './realism.js';
 
 let renderer, scene, camera, controls, root, container, active = false, dirty = true;
 let hemi, sun, night = false, train = null, cab = false, clock = new THREE.Clock();
@@ -99,6 +99,7 @@ function rebuild() {
   buildBoard(P.board);
   buildTrack();
   for (const o of P.scenery) buildScenery(o);
+  for (const o of autoPortals()) buildScenery(o); // a portal at every tunnel mouth
   for (const d of P.devices) buildDevice(d);
   applyLighting();
   if (!camera.userData.placed) { resetCamera(); camera.userData.placed = true; }
@@ -169,7 +170,13 @@ function buildTrack() {
     c.samples.forEach((pts, ri) => {
       const elevated = pts.some((p) => p.z > 0.3);
       if (!c.g.pit) beam(pts, 0, HO.ballastW, 0, 0.18, ballast);
-      if (elevated) beam(pts, 0, HO.ballastW + 1, -0.6, 0, ply);
+      if (elevated) {
+        // plywood roadbed only where the track is in the air, not where the hill carries it
+        let run = [];
+        const flush = () => { if (run.length > 1) beam(run, 0, HO.ballastW + 1, -0.6, 0, ply); run = []; };
+        for (const p of pts) { if (p.z > 0.3 && !onTerrain(p)) run.push(p); else flush(); }
+        flush();
+      }
       // Rails. On a turnout only the route it is set for runs through the points; the other
       // route's rails start behind the points, which is what you see from the cab.
       const isTurnout = TURNOUT_KINDS.includes(c.pc.kind);
@@ -223,14 +230,15 @@ function strut(g, x0, y0, x1, y1, z, t, m) {
 function buildTerrain(o) {
   const f = hillHeightFn(o);
   const rot = (o.rot || 0) * DEG, cs = Math.cos(rot), sn = Math.sin(rot);
-  const nx = Math.min(110, Math.max(20, Math.round(o.w))), ny = Math.min(110, Math.max(20, Math.round(o.d)));
+  // ~0.5" mesh so cutting walls and portal faces stay crisp; the grid extends past the hill so
+  // ground built up over a tunnel near the hill's edge is not clipped
+  const ext = 14, W0 = o.w + 2 * ext, D0 = o.d + 2 * ext; // room for hillside fill slopes
+  const nx = Math.min(220, Math.max(24, Math.round(W0 * 2))), ny = Math.min(220, Math.max(24, Math.round(D0 * 2)));
   const pos = [], idx = [], inside = [];
-  const noise = (x, y) => (Math.sin(x * 0.9) * Math.cos(y * 0.7) + Math.sin(x * 0.31 + y * 0.53)) * 0.08;
   for (let j = 0; j <= ny; j++) for (let i = 0; i <= nx; i++) {
-    const lx = -o.w / 2 + (o.w * i) / nx, ly = -o.d / 2 + (o.d * j) / ny;
+    const lx = -W0 / 2 + (W0 * i) / nx, ly = -D0 / 2 + (D0 * j) / ny;
     const x = o.x + lx * cs - ly * sn, y = o.y + lx * sn + ly * cs;
-    let hgt = f(x, y);
-    if (hgt > 0.3) hgt += noise(x, y) * Math.min(1, hgt / 3) * o.h * 0.15;
+    const hgt = f(x, y);
     const v = V(x, y, Math.max(-0.02, hgt));
     pos.push(v.x, v.y, v.z);
     inside.push(hgt > 0.01);
@@ -532,5 +540,14 @@ function haltTrain(ev) {
   train.marker = ring; root.add(ring);
   trainListener(ev);
 }
+
+// Point the camera from `eye` at `target` (model coords {x,y,z}); used for inspection and tests
+export function lookAt(eye, target) {
+  cab = false;
+  controls.target.copy(V(target.x, target.y, target.z || 0));
+  camera.position.copy(V(eye.x, eye.y, eye.z));
+  controls.update();
+}
+export function trainPose() { return train?.cabPose || null; }
 
 export function snapshot3D() { return renderer.domElement.toDataURL('image/png'); }

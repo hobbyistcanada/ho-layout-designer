@@ -308,6 +308,7 @@ async function ensure3D() {
     v3d = await import('./view3d.js');
     v3d.init3D($('#view3d'));
     v3d.onTrainEvent(showTrainEvent);
+    window.hoApp.v3d = v3d;
   } catch (e) {
     console.error(e);
     $('#no3d').classList.remove('hidden');
