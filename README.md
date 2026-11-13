@@ -1,5 +1,7 @@
 # 🚂 HO Layout Designer
 
+**Try it:** https://hobbyistcanada.github.io/ho-layout-designer/
+
 A free, browser-based planner for **HO scale (1:87.1)** model railroad layouts. Draw benchwork of any shape, lay generic sectional and flex track, stack multiple levels with grades, place signals and sensors, and check the result in 3D. There's nothing to install and no build step: it's plain HTML and JavaScript.
 
 ![2D plan](docs/screenshot-2d.png)
@@ -24,7 +26,7 @@ A free, browser-based planner for **HO scale (1:87.1)** model railroad layouts. 
 
 The app uses ES modules, so it has to be served over http (opening `index.html` straight from disk won't work).
 
-- **GitHub Pages (easiest):** in the repo go to *Settings → Pages → Deploy from branch → `main` / root*. The app will be at `https://hobbyistcanada.github.io/<repo-name>/`.
+- **GitHub Pages (easiest):** in the repo go to *Settings → Pages → Deploy from branch → `main` / root*. The app will be at **https://hobbyistcanada.github.io/ho-layout-designer/**.
 - **VS Code:** install the *Live Server* extension, right-click `index.html`, then *Open with Live Server*.
 - **Python:** run `python -m http.server 8000` in this folder and open http://localhost:8000.
 
