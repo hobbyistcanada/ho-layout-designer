@@ -503,8 +503,17 @@ export function startTrain() {
     root.add(g); return g;
   });
   train = { pieceId: pc.id, route: TURNOUT_KINDS.includes(pc.kind) ? pc.state || 0 : 0, d: 0, dir: 1, speed: 12, mesh, hist: [], odo: 0, curv: null, straight: Infinity, halted: null };
-  // put the cars on the track behind the locomotive
+  // string the cars out along the track behind the locomotive (not stacked on it)
   train.hist.push({ ...routeSampleWorld(pc, train.route, 0), odo: 0 });
+  const probe = { pieceId: pc.id, route: train.route, d: 0, dir: -1, curv: null, straight: Infinity };
+  const back = [];
+  for (let k = 1; k <= 80; k++) {
+    const ev = moveTrain(probe, 0.5, { autoAlign: false });
+    const w = routeSampleWorld(getCache().map.get(probe.pieceId).pc, probe.route, probe.d);
+    back.push({ ...w, h: w.h + (probe.dir < 0 ? 0 : 180), odo: -k * 0.5 });
+    if (ev) break; // end of track behind: remaining cars bunch at the bumper
+  }
+  train.hist.push(...back);
   return true;
 }
 export function stopTrain() { if (train) { train.mesh.forEach((m) => root.remove(m)); if (train.marker) root.remove(train.marker); } train = null; cab = false; }
