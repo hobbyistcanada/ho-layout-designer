@@ -511,7 +511,7 @@ export function startTrain() {
     // placement only: follow the track geometry behind the engine (no hazards / turnout rules)
     const flipped = probe.dir;
     moveTrain(probe, 0.5, { geomOnly: true });
-    if (probe.dir !== flipped && k > 1 && back.length && probe.d === back.length) break;
+    if (probe.dir !== flipped) break; // reached a bumper behind: the rest of the cars stop there
     const w = routeSampleWorld(getCache().map.get(probe.pieceId).pc, probe.route, probe.d);
     back.push({ ...w, h: w.h + (probe.dir < 0 ? 0 : 180), odo: -k * 0.5 });
   }
