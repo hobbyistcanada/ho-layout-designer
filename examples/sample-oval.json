@@ -1,0 +1,1066 @@
+{
+  "version": 1,
+  "name": "Sample – oval with siding and upper spur",
+  "units": "in",
+  "board": {
+    "outline": [
+      {
+        "x": 0,
+        "y": 0
+      },
+      {
+        "x": 96,
+        "y": 0
+      },
+      {
+        "x": 96,
+        "y": 62
+      },
+      {
+        "x": 56,
+        "y": 62
+      },
+      {
+        "x": 56,
+        "y": 42
+      },
+      {
+        "x": 0,
+        "y": 42
+      }
+    ],
+    "thickness": 0.75,
+    "color": "#c9a66b"
+  },
+  "levels": [
+    {
+      "id": "L0",
+      "name": "Lower level",
+      "elevation": 0,
+      "visible": true,
+      "color": "#3f6fb5"
+    },
+    {
+      "id": "L1",
+      "name": "Upper level",
+      "elevation": 4,
+      "visible": true,
+      "color": "#b5523f"
+    }
+  ],
+  "activeLevel": "L0",
+  "settings": {
+    "minRadius": 18,
+    "maxGrade": 2.5,
+    "clearance": 3.5,
+    "snap": true,
+    "grid": 1
+  },
+  "pieces": [
+    {
+      "id": "t1",
+      "cat": "s9",
+      "kind": "straight",
+      "params": {
+        "len": 9
+      },
+      "x": 24,
+      "y": 3,
+      "rot": 0,
+      "z": 0,
+      "grade": 0,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "t2",
+      "cat": "s9",
+      "kind": "straight",
+      "params": {
+        "len": 9
+      },
+      "x": 33,
+      "y": 3,
+      "rot": 0,
+      "z": 0,
+      "grade": 0,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "t3",
+      "cat": "snapL",
+      "kind": "turnout",
+      "params": {
+        "hand": "L",
+        "len": 9,
+        "r": 18,
+        "angle": 30,
+        "tail": 0
+      },
+      "x": 42,
+      "y": 3,
+      "rot": 0,
+      "z": 0,
+      "grade": 0,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "T1",
+        "address": "Servo 1",
+        "motor": "Servo (Arduino/PCA9685)"
+      }
+    },
+    {
+      "id": "t4",
+      "cat": "s9",
+      "kind": "straight",
+      "params": {
+        "len": 9
+      },
+      "x": 51,
+      "y": 3,
+      "rot": 0,
+      "z": 0,
+      "grade": 0,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "t5",
+      "cat": "s9",
+      "kind": "straight",
+      "params": {
+        "len": 9
+      },
+      "x": 60,
+      "y": 3,
+      "rot": 0,
+      "z": 0,
+      "grade": 0,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "t6",
+      "cat": "r18",
+      "kind": "curve",
+      "params": {
+        "r": 18,
+        "angle": 30
+      },
+      "x": 69,
+      "y": 3,
+      "rot": 0,
+      "z": 0,
+      "grade": 0,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "t7",
+      "cat": "r18",
+      "kind": "curve",
+      "params": {
+        "r": 18,
+        "angle": 30
+      },
+      "x": 78,
+      "y": 5.411542731880104,
+      "rot": 30,
+      "z": 0,
+      "grade": 0,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "t8",
+      "cat": "r18",
+      "kind": "curve",
+      "params": {
+        "r": 18,
+        "angle": 30
+      },
+      "x": 84.5884572681199,
+      "y": 11.999999999999998,
+      "rot": 60,
+      "z": 0,
+      "grade": 0,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "t9",
+      "cat": "r18",
+      "kind": "curve",
+      "params": {
+        "r": 18,
+        "angle": 30
+      },
+      "x": 87,
+      "y": 20.999999999999996,
+      "rot": 90,
+      "z": 0,
+      "grade": 0,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "ta",
+      "cat": "r18",
+      "kind": "curve",
+      "params": {
+        "r": 18,
+        "angle": 30
+      },
+      "x": 84.5884572681199,
+      "y": 29.999999999999993,
+      "rot": 120,
+      "z": 0,
+      "grade": 0,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tb",
+      "cat": "r18",
+      "kind": "curve",
+      "params": {
+        "r": 18,
+        "angle": 30
+      },
+      "x": 78,
+      "y": 36.58845726811989,
+      "rot": 150,
+      "z": 0,
+      "grade": 0,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tc",
+      "cat": "s9",
+      "kind": "straight",
+      "params": {
+        "len": 9
+      },
+      "x": 69,
+      "y": 38.99999999999999,
+      "rot": -180,
+      "z": 0,
+      "grade": 0,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "td",
+      "cat": "s9",
+      "kind": "straight",
+      "params": {
+        "len": 9
+      },
+      "x": 60,
+      "y": 38.99999999999999,
+      "rot": -180,
+      "z": 0,
+      "grade": 0,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "te",
+      "cat": "s9",
+      "kind": "straight",
+      "params": {
+        "len": 9
+      },
+      "x": 51,
+      "y": 38.99999999999999,
+      "rot": -180,
+      "z": 0,
+      "grade": 0,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tf",
+      "cat": "s9",
+      "kind": "straight",
+      "params": {
+        "len": 9
+      },
+      "x": 42,
+      "y": 38.99999999999999,
+      "rot": -180,
+      "z": 0,
+      "grade": 0,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tg",
+      "cat": "s9",
+      "kind": "straight",
+      "params": {
+        "len": 9
+      },
+      "x": 33,
+      "y": 38.99999999999999,
+      "rot": -180,
+      "z": 0,
+      "grade": 0,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "th",
+      "cat": "r18",
+      "kind": "curve",
+      "params": {
+        "r": 18,
+        "angle": 30
+      },
+      "x": 24,
+      "y": 38.99999999999999,
+      "rot": -180,
+      "z": 0,
+      "grade": 0,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "ti",
+      "cat": "r18",
+      "kind": "curve",
+      "params": {
+        "r": 18,
+        "angle": 30
+      },
+      "x": 15.000000000000002,
+      "y": 36.58845726811989,
+      "rot": -150,
+      "z": 0,
+      "grade": 0,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tj",
+      "cat": "r18",
+      "kind": "curve",
+      "params": {
+        "r": 18,
+        "angle": 30
+      },
+      "x": 8.411542731880106,
+      "y": 29.999999999999993,
+      "rot": -120,
+      "z": 0,
+      "grade": 0,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tk",
+      "cat": "r18",
+      "kind": "curve",
+      "params": {
+        "r": 18,
+        "angle": 30
+      },
+      "x": 6.0000000000000036,
+      "y": 20.999999999999993,
+      "rot": -90,
+      "z": 0,
+      "grade": 0,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tl",
+      "cat": "r18",
+      "kind": "curve",
+      "params": {
+        "r": 18,
+        "angle": 30
+      },
+      "x": 8.411542731880107,
+      "y": 11.999999999999995,
+      "rot": -60,
+      "z": 0,
+      "grade": 0,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tm",
+      "cat": "r18",
+      "kind": "curve",
+      "params": {
+        "r": 18,
+        "angle": 30
+      },
+      "x": 15.000000000000004,
+      "y": 5.4115427318801,
+      "rot": -30,
+      "z": 0,
+      "grade": 0,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tn",
+      "cat": "r18",
+      "kind": "curve",
+      "params": {
+        "r": 18,
+        "angle": 30
+      },
+      "x": 60,
+      "y": 7.823085463760209,
+      "rot": -180,
+      "z": 0,
+      "grade": 0,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "to",
+      "cat": "s9",
+      "kind": "straight",
+      "params": {
+        "len": 9
+      },
+      "x": 60,
+      "y": 7.823085463760209,
+      "rot": 0,
+      "z": 0,
+      "grade": 0,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tp",
+      "cat": "s6",
+      "kind": "straight",
+      "params": {
+        "len": 6
+      },
+      "x": 69,
+      "y": 7.823085463760209,
+      "rot": 0,
+      "z": 0,
+      "grade": 0,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tq",
+      "cat": "bumper",
+      "kind": "bumper",
+      "params": {
+        "len": 2
+      },
+      "x": 75,
+      "y": 7.823085463760209,
+      "rot": 0,
+      "z": 0,
+      "grade": 0,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tr",
+      "cat": "s9",
+      "kind": "straight",
+      "params": {
+        "len": 9
+      },
+      "x": 58,
+      "y": 52,
+      "rot": 0,
+      "z": 4,
+      "grade": 0,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "ts",
+      "cat": "s9",
+      "kind": "straight",
+      "params": {
+        "len": 9
+      },
+      "x": 67,
+      "y": 52,
+      "rot": 0,
+      "z": 4,
+      "grade": 0,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tt",
+      "cat": "s9",
+      "kind": "straight",
+      "params": {
+        "len": 9
+      },
+      "x": 76,
+      "y": 52,
+      "rot": 0,
+      "z": 4,
+      "grade": 0,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tu",
+      "cat": "bumper",
+      "kind": "bumper",
+      "params": {
+        "len": 2
+      },
+      "x": 85,
+      "y": 52,
+      "rot": 0,
+      "z": 4,
+      "grade": 0,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    }
+  ],
+  "devices": [
+    {
+      "id": "d1mm32",
+      "type": "signal3",
+      "name": "Signal – 3 aspect",
+      "x": 0,
+      "y": 0,
+      "rot": 0,
+      "side": 1,
+      "flip": false,
+      "pieceId": "t1",
+      "route": 0,
+      "d": 2,
+      "props": {
+        "name": "SIG1",
+        "address": "D4",
+        "notes": "",
+        "heads": 3,
+        "aspect": "Red"
+      }
+    },
+    {
+      "id": "db6c6j",
+      "type": "sensor",
+      "name": "Train passing sensor",
+      "x": 0,
+      "y": 0,
+      "rot": 0,
+      "side": 1,
+      "flip": false,
+      "pieceId": "te",
+      "route": 0,
+      "d": 4.5,
+      "props": {
+        "name": "PS1",
+        "address": "A0",
+        "notes": "",
+        "sensorType": "IR"
+      }
+    },
+    {
+      "id": "dd63ez",
+      "type": "home",
+      "name": "Home / end-of-travel sensor",
+      "x": 0,
+      "y": 0,
+      "rot": 0,
+      "side": 1,
+      "flip": false,
+      "pieceId": "tq",
+      "route": 0,
+      "d": 1,
+      "props": {
+        "name": "H1",
+        "address": "D7",
+        "notes": "",
+        "sensorType": "Hall"
+      }
+    },
+    {
+      "id": "dhguny",
+      "type": "feeder",
+      "name": "Power feeder",
+      "x": 0,
+      "y": 0,
+      "rot": 0,
+      "side": 1,
+      "flip": false,
+      "pieceId": "tc",
+      "route": 0,
+      "d": 4,
+      "props": {
+        "name": "F1",
+        "address": "",
+        "notes": "",
+        "bus": "Main"
+      }
+    },
+    {
+      "id": "d1jnyl",
+      "type": "gap",
+      "name": "Insulated rail gap",
+      "x": 0,
+      "y": 0,
+      "rot": 0,
+      "side": 1,
+      "flip": false,
+      "pieceId": "t3",
+      "route": 0,
+      "d": 8.9,
+      "props": {
+        "name": "G1",
+        "address": "",
+        "notes": "",
+        "rails": "Both"
+      }
+    }
+  ],
+  "scenery": [
+    {
+      "id": "owbdog",
+      "type": "station",
+      "name": "Station",
+      "shape": "box",
+      "x": 50,
+      "y": 32,
+      "rot": 0,
+      "w": 12,
+      "d": 5,
+      "h": 4.5,
+      "roof": "gable",
+      "color": "#c0785a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "oz0pw7",
+      "type": "platform",
+      "name": "Platform",
+      "shape": "box",
+      "x": 50,
+      "y": 36.6,
+      "rot": 0,
+      "w": 20,
+      "d": 2.5,
+      "h": 0.5,
+      "roof": "flat",
+      "color": "#b0b0b0",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ok82kq",
+      "type": "enginehouse",
+      "name": "Engine house",
+      "shape": "box",
+      "x": 74,
+      "y": 57,
+      "rot": 0,
+      "w": 16,
+      "d": 7,
+      "h": 6,
+      "roof": "gable",
+      "color": "#a0522d",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "oj5f44",
+      "type": "house",
+      "name": "House",
+      "shape": "box",
+      "x": 30,
+      "y": 22,
+      "rot": 0,
+      "w": 5,
+      "d": 4,
+      "h": 4,
+      "roof": "gable",
+      "color": "#d9b38c",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "oetjrf",
+      "type": "house",
+      "name": "House",
+      "shape": "box",
+      "x": 38,
+      "y": 22,
+      "rot": 90,
+      "w": 5,
+      "d": 4,
+      "h": 4,
+      "roof": "gable",
+      "color": "#d9b38c",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "o9bliy",
+      "type": "factory",
+      "name": "Factory",
+      "shape": "box",
+      "x": 62,
+      "y": 20,
+      "rot": 0,
+      "w": 14,
+      "d": 8,
+      "h": 7,
+      "roof": "flat",
+      "color": "#8d8d8d",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "oar9ie",
+      "type": "road",
+      "name": "Road (12\")",
+      "shape": "flat",
+      "x": 36,
+      "y": 16,
+      "rot": 0,
+      "w": 12,
+      "d": 3,
+      "h": 0.05,
+      "roof": "flat",
+      "color": "#3d3d3d",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "oovzt6",
+      "type": "light",
+      "name": "Street light",
+      "shape": "light",
+      "x": 30,
+      "y": 18,
+      "rot": 0,
+      "w": 0.5,
+      "d": 0.5,
+      "h": 4,
+      "roof": "flat",
+      "color": "#ffd76a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "o33hu6",
+      "type": "light",
+      "name": "Street light",
+      "shape": "light",
+      "x": 44,
+      "y": 18,
+      "rot": 0,
+      "w": 0.5,
+      "d": 0.5,
+      "h": 4,
+      "roof": "flat",
+      "color": "#ffd76a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "o1bbue",
+      "type": "light",
+      "name": "Street light",
+      "shape": "light",
+      "x": 58,
+      "y": 28,
+      "rot": 0,
+      "w": 0.5,
+      "d": 0.5,
+      "h": 4,
+      "roof": "flat",
+      "color": "#ffd76a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "oxexbl",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 14,
+      "y": 21,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "oyv7an",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 17,
+      "y": 25,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "orski7",
+      "type": "oak",
+      "name": "Tree – deciduous",
+      "shape": "tree",
+      "x": 82,
+      "y": 24,
+      "rot": 0,
+      "w": 3.5,
+      "d": 3.5,
+      "h": 5,
+      "roof": "flat",
+      "color": "#4c8a3a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "o7gj65",
+      "type": "water",
+      "name": "Pond / water",
+      "shape": "water",
+      "x": 22,
+      "y": 30,
+      "rot": 0,
+      "w": 10,
+      "d": 6,
+      "h": 0.05,
+      "roof": "flat",
+      "color": "#3a7bbf",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "okz6s5",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 62,
+      "y": 59,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ooqz7y",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 90,
+      "y": 46,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    }
+  ]
+}

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HO Layout Designer</title>
+<link rel="stylesheet" href="css/style.css">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<header id="topbar">
+  <div class="brand">🚂 HO Layout Designer</div>
+  <input id="projName" title="Project name">
+  <div class="btns">
+    <button id="bNew" title="New project">New</button>
+    <button id="bDemo" title="Load a small sample layout">Sample</button>
+    <button id="bOpen" title="Open a .json project">Open…</button>
+    <button id="bSave" title="Save project as .json">Save</button>
+    <button id="bPng" title="Export the current view as an image">Image</button>
+    <button id="bBom" title="Parts list (bill of materials)">Parts list</button>
+    <button id="bSched" title="Turnout / signal / sensor address table">Control table</button>
+    <span class="sep"></span>
+    <button id="bUndo" title="Undo (Ctrl+Z)">↶</button>
+    <button id="bRedo" title="Redo (Ctrl+Y)">↷</button>
+    <span class="sep"></span>
+    <select id="units" title="Units"><option value="in">inches</option><option value="cm">cm</option></select>
+    <div class="seg" id="viewSeg">
+      <button data-view="2d" class="on">2D plan</button>
+      <button data-view="split">Split</button>
+      <button data-view="3d">3D view</button>
+    </div>
+    <button id="bHelp">?</button>
+  </div>
+  <input type="file" id="fileIn" accept=".json,application/json" hidden>
+</header>
+
+<main>
+  <aside id="left">
+    <div class="tabs" id="leftTabs">
+      <button data-tab="track" class="on">Track</button>
+      <button data-tab="devices">Control</button>
+      <button data-tab="scenery">Scenery</button>
+      <button data-tab="board">Board</button>
+    </div>
+    <section data-pane="track" class="pane on">
+      <div class="hint">Click a <b class="red">red</b> track end to select it (turns <b class="green">green</b>), then click parts below to keep laying track. <b>F</b> flips the last part.</div>
+      <label class="row">Laying grade
+        <select id="gradeSel"></select>
+      </label>
+      <div id="trackList" class="catalog"></div>
+    </section>
+    <section data-pane="devices" class="pane">
+      <div class="hint">Pick an item, then click on a track to place it. It snaps to the nearest track. Esc to stop.</div>
+      <div id="deviceList" class="catalog"></div>
+    </section>
+    <section data-pane="scenery" class="pane">
+      <div class="hint">Pick an item, then click on the board. Keep clicking to place more; Esc to stop.</div>
+      <div id="sceneryList" class="catalog"></div>
+    </section>
+    <section data-pane="board" class="pane">
+      <label class="row">Shape preset <select id="presetSel"></select></label>
+      <div id="presetFields"></div>
+      <button id="bApplyPreset" class="wide">Apply shape</button>
+      <div class="hint">Or draw any shape: click corners, double-click to finish. In edit mode drag corners, double-click an edge to add a corner, right-click a corner to delete it.</div>
+      <button id="bDrawBoard" class="wide">✏️ Draw custom outline</button>
+      <button id="bEditBoard" class="wide">⬚ Edit corners</button>
+      <label class="row">Board colour <input type="color" id="boardColor"></label>
+      <label class="row">Thickness (in) <input type="number" id="boardThick" step="0.25" min="0.25"></label>
+      <div id="boardInfo" class="hint"></div>
+    </section>
+  </aside>
+
+  <div id="center">
+    <div id="toolbar">
+      <button data-mode="select" class="on" title="Select / move (V)">↖ Select</button>
+      <button data-mode="measure" title="Measure distance (M)">📏 Measure</button>
+      <span class="sep"></span>
+      <button id="tRotL" title="Rotate left 15° (Shift+R)">⟲</button>
+      <button id="tRotR" title="Rotate right 15° (R)">⟳</button>
+      <button id="tFlip" title="Flip last placed part (F)">⇄ Flip</button>
+      <button id="tToggle" title="Throw turnout (T or double-click)">⑂ Throw</button>
+      <button id="tDel" title="Delete (Del)">🗑</button>
+      <span class="sep"></span>
+      <button id="tFit" title="Fit board to view">⤢ Fit</button>
+      <label class="chk"><input type="checkbox" id="cElev" checked> elevations</label>
+      <label class="chk"><input type="checkbox" id="cDim" checked> dim other levels</label>
+      <label class="chk"><input type="checkbox" id="cSnap" checked> snap</label>
+      <span id="tool3d" class="hidden">
+        <span class="sep"></span>
+        <button id="b3Reset">Reset cam</button>
+        <button id="b3Top">Top</button>
+        <button id="b3Night">🌙 Night</button>
+        <button id="b3Train">▶ Test train</button>
+        <button id="b3Cab">🎥 Cab ride</button>
+        <input type="range" id="b3Speed" min="2" max="40" value="12" title="Train speed">
+      </span>
+    </div>
+    <div id="views" class="v-2d">
+      <div id="view2d"><canvas id="plan"></canvas></div>
+      <div id="view3d"><div id="no3d" class="hidden">3D view needs an internet connection to load three.js.</div></div>
+    </div>
+    <footer id="status"><span id="stCursor"></span><span id="stMode"></span><span id="stInfo"></span></footer>
+  </div>
+
+  <aside id="right">
+    <details open><summary>Properties</summary><div id="props" class="props"></div></details>
+    <details open><summary>Levels</summary><div id="levels"></div><button id="bAddLevel" class="wide">+ Add level</button></details>
+    <details open><summary>Checks <span id="issueCount" class="badge"></span></summary><div id="issues"></div></details>
+    <details><summary>Design rules</summary><div id="rules" class="props"></div></details>
+  </aside>
+</main>
+
+<div id="modal" class="hidden">
+  <div class="dialog">
+    <h3 id="mTitle"></h3>
+    <div id="mBody"></div>
+    <div class="mBtns"><button id="mCopy">Copy</button><button id="mDownload">Download</button><button id="mClose">Close</button></div>
+  </div>
+</div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
