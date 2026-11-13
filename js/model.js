@@ -128,7 +128,10 @@ export function freeEndpoints(excludeId) {
   const out = [];
   for (const c of getCache().map.values()) {
     if (c.pc.id === excludeId) continue;
-    c.eps.forEach((e, i) => { if (!c.links[i]) out.push({ pieceId: c.pc.id, ep: i, ...e }); });
+    // an end joined only to the excluded piece counts as free: while dragging, the piece's own
+    // snap must not "use up" the end it is snapping to (otherwise the next mouse move drops the
+    // snap and the piece falls back to its old height)
+    c.eps.forEach((e, i) => { const l = c.links[i]; if (!l || l.id === excludeId) out.push({ pieceId: c.pc.id, ep: i, ...e }); });
   }
   return out;
 }
@@ -163,6 +166,24 @@ export function alignTo(pc, k, T, gradePct = 0, keepGrade = false) {
   pc.z = T.z - (ref.end === 'e' ? (pc.grade / 100) * len : 0);
 }
 
+// Slope (%) of the track as you travel OUT of a piece through endpoint `epIndex`
+// (positive = still climbing in that direction).
+export function slopeOut(c, epIndex) {
+  const r = c?.eps[epIndex]?.refs[0];
+  return r ? (r.end === 'e' ? 1 : -1) * c.pc.grade : 0;
+}
+// Laying grade for the next piece. state.grade is 'auto' (keep following the grade of the track
+// you're extending) or a target grade in %. The grade moves towards the target by at most
+// GRADE_STEP per piece, so levelling off or turning downhill builds a vertical easement
+// instead of a kink.
+export const GRADE_STEP = 1.0;
+export function nextGrade(fromSlope) {
+  const from = Math.round((fromSlope || 0) * 1000) / 1000;
+  if (state.grade === 'auto' || state.grade === undefined || state.grade === null || Number.isNaN(+state.grade)) return from;
+  const target = +state.grade, d = target - from;
+  return Math.abs(d) <= GRADE_STEP + 1e-9 ? target : from + Math.sign(d) * GRADE_STEP;
+}
+
 export function addPiece(catId, at) {
   begin();
   const P = state.project;
@@ -171,9 +192,10 @@ export function addPiece(catId, at) {
     const c = getCache().map.get(state.target.pieceId);
     const T = c && c.eps[state.target.ep];
     if (T) {
-      alignTo(pc, 0, T, state.grade);
+      const g = nextGrade(slopeOut(c, state.target.ep));
+      alignTo(pc, 0, T, g);
       pc.level = P.activeLevel;
-      state.lastAttach = { id: pc.id, T: { ...T }, k: 0 };
+      state.lastAttach = { id: pc.id, T: { ...T }, k: 0, g };
     }
   } else if (at) {
     pc.x = at.x; pc.y = at.y;
@@ -208,7 +230,7 @@ export function flipLast() {
   begin();
   const n = pieceEndpoints(pc).length;
   la.k = (la.k + 1) % n;
-  alignTo(pc, la.k, la.T, state.grade);
+  alignTo(pc, la.k, la.T, la.g ?? 0);
   invalidate();
   advanceTarget(pc, la.T);
   changed();

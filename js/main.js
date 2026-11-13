@@ -3,7 +3,7 @@ import { TRACK, TRACK_BY_ID, DEVICES, DEVICE_BY_ID, SCENERY, BOARD_PRESETS, buil
 import { state, emit, begin, changed, commit, doUndo, doRedo, addPiece, flipLast, deleteSelection, findItem, itemType, loadAutosave, loadProject, newProject, resetProject, getCache, alignTo, invalidate, advanceTarget } from './model.js';
 import { ed, initEditor, draw, fitView, setMode, rotateSelection, toggleTurnout, centerOn, fmt, exportPNG } from './editor2d.js';
 import { runChecks, billOfMaterials, controlSchedule, toCSV } from './checks.js';
-import { sampleRoute, polyArea, toWorld } from './geometry.js';
+import { sampleRoute, polyArea, toWorld, routeLen } from './geometry.js';
 import { SAMPLES } from './samples.js';
 
 const $ = (s) => document.querySelector(s);
@@ -53,9 +53,15 @@ function buildCatalogs() {
   const sl = $('#sceneryList');
   for (const o of SCENERY) sl.append(h('button', { class: 'item', 'data-place': 'scenery:' + o.id, onclick: () => startPlace('scenery', o.id) }, h('span', { class: 'dot', style: `background:${o.color}; border-radius:4px` }, ''), o.name));
   const gs = $('#gradeSel');
-  for (let g = -4; g <= 4; g += 0.5) gs.append(h('option', { value: g, selected: g === 0 }, g === 0 ? 'Level (0%)' : `${g > 0 ? '+' : ''}${g}%`));
-  gs.onchange = () => { state.grade = +gs.value; };
+  gs.append(h('option', { value: 'auto', selected: true }, 'Auto – follow the track'));
+  for (let g = -4; g <= 4; g += 0.5) gs.append(h('option', { value: g }, g === 0 ? 'Level (0%)' : `${g > 0 ? '+' : ''}${g}%`));
+  gs.title = 'Auto: new track keeps the grade of the track you extend. Pick a grade to change it – the track eases towards it by up to 1% per piece (vertical easement), then holds it.';
+  gs.onchange = () => { state.grade = readGrade(); };
+  state.grade = readGrade();
 }
+
+const r3 = (v) => Math.round(v * 1000) / 1000;
+function readGrade() { const v = $('#gradeSel').value; return v === 'auto' ? 'auto' : +v; }
 
 function placeTrack(id) {
   setMode('select'); markPlace(null);
@@ -132,8 +138,15 @@ function renderProps() {
     el.append(field('X (in)', r2(it.x), (v) => (it.x = v), { type: 'number' }));
     el.append(field('Y (in)', r2(it.y), (v) => (it.y = v), { type: 'number' }));
     el.append(field('Rotation (°)', r2(it.rot), (v) => (it.rot = v), { type: 'number' }));
-    el.append(field('Start height (in)', r2(it.z), (v) => (it.z = v), { type: 'number', step: 0.125 }));
-    if (it.kind === 'straight' || it.kind === 'curve') el.append(field('Grade (%)', r2(it.grade), (v) => (it.grade = v), { type: 'number', step: 0.25 }));
+    const graded = it.kind === 'straight' || it.kind === 'curve';
+    const len = routeLen(buildGeometry(it.kind, it.params).routes[0]);
+    const endZ = it.z + (it.grade / 100) * len;
+    el.append(field('Height at end A (in)', r3(it.z), (v) => { if (graded) { const e = it.z + (it.grade / 100) * len; it.z = v; it.grade = Math.round(((e - v) / len) * 100000) / 1000; } else it.z = v; }, { type: 'number', step: 0.125 }));
+    if (graded) {
+      el.append(field('Height at end B (in)', r3(endZ), (v) => { it.grade = Math.round(((v - it.z) / len) * 100000) / 1000; }, { type: 'number', step: 0.125 }));
+      el.append(field('Grade A→B (%)', r3(it.grade), (v) => (it.grade = v), { type: 'number', step: 0.25 }));
+      el.append(h('div', { class: 'hint' }, 'Ends A and B are labelled on the plan. Change either height and the grade follows; the other end stays put.'));
+    }
     el.append(field('Level', it.level, (v) => (it.level = v), { options: state.project.levels.map((l) => [l.id, l.name]) }));
     const nRoutes = buildGeometry(it.kind, it.params).routes.length;
     if (['turnout', 'wye', 'curvedTurnout'].includes(it.kind)) {
@@ -293,7 +306,7 @@ function help() {
     h('li', {}, 'Board tab: choose a shape preset (your 96×42 + 20×40 L is the default) or draw any outline.'),
     h('li', {}, 'Track tab: click a part to drop it. Click a red track end to select it (green) – every part you click then attaches there and the next free end is selected automatically.'),
     h('li', {}, 'F flips the last part (e.g. which way a curve or turnout goes). R / Shift+R rotate. Del deletes. T or double-click throws a turnout.'),
-    h('li', {}, 'Multi-level: add a level on the right, make it active, set a laying grade (e.g. +2%) and lay track – it climbs. Elevations and grades show on the plan; the 3D view adds piers.'),
+    h('li', {}, 'Grades: with Laying grade on "Auto" new track (clicked or dragged onto an end) keeps the grade of the track it continues. Pick a grade (e.g. +2%) to climb, Level to level off, or a minus grade to go down – the track changes by at most 1% per piece, which gives a smooth vertical easement, then holds the new grade. Select a piece to see the heights at its ends A and B; you can type either one and the grade follows.'),
     h('li', {}, 'Control tab: place signals, passing sensors, home sensors, detection blocks, feeders and gaps on the track. Give each an address/pin; "Control table" lists them all as CSV for wiring, Arduino or JMRI.'),
     h('li', {}, 'Checks panel flags tight radii, steep grades, low clearance where tracks cross, overlaps, track off the board and open ends.'),
     h('li', {}, '3D view: orbit with the mouse, run a test train to check that routes connect, try the cab ride and night mode.'),
@@ -481,7 +494,7 @@ function showSamples() {
   for (const S of SAMPLES) {
     let P = null;
     try { P = S.build(); } catch (err) { console.error(S.id, err); continue; }
-    cards.push(card(S.name, S.size, S.blurb, S.features, planThumb(P), () => { begin(); loadProject(S.build()); state.grade = +$('#gradeSel').value || 0; changed(); }));
+    cards.push(card(S.name, S.size, S.blurb, S.features, planThumb(P), () => { begin(); loadProject(S.build()); state.grade = readGrade(); changed(); }));
   }
   modal('Sample layouts', h('div', {}, h('div', { class: 'hint' }, 'Loading a sample replaces the current plan (Undo brings it back). Open the 3D view and press Test train to explore it.'), h('div', { class: 'sampleGrid' }, cards)));
 }
@@ -494,7 +507,7 @@ function buildDemo() {
   P.name = 'Sample – oval with siding and upper spur';
   const lay = (id, k = 0) => {
     const pc = addPiece(id, null);
-    if (k && state.lastAttach) { const T = state.lastAttach.T; alignTo(pc, k, T, state.grade); state.lastAttach.k = k; invalidate(); advanceTarget(pc, T); }
+    if (k && state.lastAttach) { const T = state.lastAttach.T; alignTo(pc, k, T, state.lastAttach.g ?? 0); state.lastAttach.k = k; invalidate(); advanceTarget(pc, T); }
     return pc;
   };
   const endOf = (pc, route) => { const c = getCache().map.get(pc.id); return c.eps.findIndex((e) => e.refs.some((r) => r.route === route && r.end === 'e')); };
@@ -524,7 +537,7 @@ function buildDemo() {
   state.target = { pieceId: spur.id, ep: 0 };
   lay('bumper');
   P.activeLevel = 'L0';
-  state.grade = +$('#gradeSel').value || 0;
+  state.grade = readGrade();
   // devices
   const dev = (type, pc, d, extra = {}) => {
     const cat = DEVICE_BY_ID[type];

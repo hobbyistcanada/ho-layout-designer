@@ -1,5 +1,5 @@
 // 2D plan editor on a <canvas>: pan/zoom, track laying, snapping, board editing, placing items.
-import { state, getCache, begin, changed, invalidate, freeEndpoints, alignTo, pieceEndpoints, nearestTrack, routeSampleWorld, findItem, itemType, uid, emit } from './model.js';
+import { state, getCache, begin, changed, invalidate, freeEndpoints, alignTo, slopeOut, nextGrade, pieceEndpoints, nearestTrack, routeSampleWorld, findItem, itemType, uid, emit } from './model.js';
 import { HO, DEVICE_BY_ID, SCENERY_BY_ID, TRACK_BY_ID, SPAN_SHAPES, buildGeometry } from './catalog.js';
 import { DEG, dist, distToSeg, sampleRoute, toWorld, toLocal, routeLen } from './geometry.js';
 
@@ -266,7 +266,8 @@ function snapPiece(pc) {
     const d = dist(e, f);
     if (d < tol && (!best || d < best.d)) best = { d, k, f };
   }));
-  if (best) alignTo(pc, best.k, best.f, 0, true);
+  // a snapped piece continues the grade of the track it joins (or eases toward the laying grade)
+  if (best) alignTo(pc, best.k, best.f, nextGrade(slopeOut(getCache().map.get(best.f.pieceId), best.f.ep)));
 }
 
 function attachDevice(d, near, fallback) {
@@ -448,6 +449,20 @@ function drawPiece(c) {
     const tw = ctx.measureText(txt).width + 6;
     ctx.fillStyle = 'rgba(0,0,0,0.65)'; ctx.fillRect(s.x - tw / 2, s.y - 7, tw, 13);
     ctx.fillStyle = '#ffe28a'; ctx.fillText(txt, s.x, s.y + 3);
+  }
+  // selected piece: label its ends A and B with their rail heights (matches the Properties panel)
+  if (sel && state.selection.size === 1 && c.samples[0]?.length > 1) {
+    const pts = c.samples[0];
+    [['A', pts[0], pts[1]], ['B', pts[pts.length - 1], pts[pts.length - 2]]].forEach(([tag, p, q]) => {
+      // place the tag just inside the end, offset to the side of the track
+      const dx = q.x - p.x, dy = q.y - p.y, L = Math.hypot(dx, dy) || 1;
+      const at = W2S({ x: p.x + (dx / L) * 1.2 - (dy / L) * 1.6, y: p.y + (dy / L) * 1.2 + (dx / L) * 1.6 });
+      const txt = `${tag} ${fmt(p.z, 2)}`;
+      ctx.font = 'bold 11px system-ui'; ctx.textAlign = 'center';
+      const tw = ctx.measureText(txt).width + 8;
+      ctx.fillStyle = 'rgba(20,40,70,0.9)'; ctx.fillRect(at.x - tw / 2, at.y - 8, tw, 15);
+      ctx.fillStyle = '#9fd3ff'; ctx.fillText(txt, at.x, at.y + 4);
+    });
   }
   ctx.globalAlpha = 1;
 }
