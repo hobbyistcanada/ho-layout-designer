@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "name": "Sample – Two-deck helix railroad (14×11 ft room)",
+  "name": "Sample – Two-deck helix railroad (14½×11 ft room)",
   "units": "in",
   "board": {
     "outline": [
@@ -17,19 +17,19 @@
         "y": 102
       },
       {
-        "x": 104,
+        "x": 100,
         "y": 102
       },
       {
-        "x": 104,
-        "y": 57
+        "x": 100,
+        "y": 49
       },
       {
-        "x": 168,
-        "y": 57
+        "x": 172,
+        "y": 49
       },
       {
-        "x": 168,
+        "x": 172,
         "y": 132
       },
       {
@@ -58,7 +58,7 @@
     {
       "id": "L2",
       "name": "Upper deck",
-      "elevation": 15.2,
+      "elevation": 14.3,
       "visible": true,
       "color": "#b5523f"
     }
@@ -68,6 +68,10 @@
     "minRadius": 24,
     "maxGrade": 2.5,
     "clearance": 3.5,
+    "carHeight": 3,
+    "deckThickness": 0.5,
+    "carLength": 8,
+    "maxEffGrade": 3,
     "snap": true,
     "grid": 1
   },
@@ -556,7 +560,7 @@
       "cat": "flex",
       "kind": "straight",
       "params": {
-        "len": 29
+        "len": 31.5
       },
       "x": 49,
       "y": 117,
@@ -576,9 +580,9 @@
       "cat": "flex",
       "kind": "straight",
       "params": {
-        "len": 29
+        "len": 31.5
       },
-      "x": 78,
+      "x": 80.5,
       "y": 117,
       "rot": 0,
       "z": 0,
@@ -593,12 +597,12 @@
     },
     {
       "id": "txq",
-      "cat": "flex",
+      "cat": "s6",
       "kind": "straight",
       "params": {
-        "len": 29
+        "len": 6
       },
-      "x": 107,
+      "x": 112,
       "y": 117,
       "rot": 0,
       "z": 0,
@@ -613,18 +617,17 @@
     },
     {
       "id": "txr",
-      "cat": "cflex",
-      "kind": "curve",
+      "cat": "s6",
+      "kind": "straight",
       "params": {
-        "r": 28,
-        "angle": 30
+        "len": 6
       },
-      "x": 150,
-      "y": 113.2487,
-      "rot": 150,
-      "z": 0.3372,
-      "grade": -2.3,
-      "level": "L1",
+      "x": 118,
+      "y": 117,
+      "rot": 0,
+      "z": 0,
+      "grade": 0,
+      "level": "L0",
       "state": 0,
       "props": {
         "name": "",
@@ -634,18 +637,17 @@
     },
     {
       "id": "txs",
-      "cat": "cflex",
-      "kind": "curve",
+      "cat": "s6",
+      "kind": "straight",
       "params": {
-        "r": 28,
-        "angle": 30
+        "len": 6
       },
-      "x": 160.2487,
-      "y": 103,
-      "rot": 120,
-      "z": 0.6744,
-      "grade": -2.3,
-      "level": "L1",
+      "x": 124,
+      "y": 117,
+      "rot": 0,
+      "z": 0,
+      "grade": 0.24,
+      "level": "L0",
       "state": 0,
       "props": {
         "name": "",
@@ -655,18 +657,17 @@
     },
     {
       "id": "txt",
-      "cat": "cflex",
-      "kind": "curve",
+      "cat": "s6",
+      "kind": "straight",
       "params": {
-        "r": 28,
-        "angle": 30
+        "len": 6
       },
-      "x": 164,
-      "y": 89,
-      "rot": 90,
-      "z": 1.0116,
-      "grade": -2.3,
-      "level": "L1",
+      "x": 130,
+      "y": 117,
+      "rot": 0,
+      "z": 0.0147,
+      "grade": 0.71,
+      "level": "L0",
       "state": 0,
       "props": {
         "name": "",
@@ -679,15 +680,15 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 160.2487,
-      "y": 75,
-      "rot": 60,
-      "z": 1.3488,
-      "grade": -2.3,
-      "level": "L1",
+      "x": 142.2429,
+      "y": 116.3851,
+      "rot": 168.75,
+      "z": 0.133,
+      "grade": -1.2,
+      "level": "L0",
       "state": 0,
       "props": {
         "name": "",
@@ -700,14 +701,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 150,
-      "y": 64.7513,
-      "rot": 30,
-      "z": 1.686,
-      "grade": -2.3,
+      "x": 148.2459,
+      "y": 114.5641,
+      "rot": 157.5,
+      "z": 0.2389,
+      "grade": -1.69,
       "level": "L1",
       "state": 0,
       "props": {
@@ -721,14 +722,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 136,
-      "y": 61,
-      "rot": 0,
-      "z": 2.0232,
-      "grade": -2.3,
+      "x": 153.7782,
+      "y": 111.607,
+      "rot": 146.25,
+      "z": 0.3581,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -742,14 +743,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 122,
-      "y": 64.7513,
-      "rot": -30,
-      "z": 2.3604,
-      "grade": -2.3,
+      "x": 158.6274,
+      "y": 107.6274,
+      "rot": 135,
+      "z": 0.4775,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -763,14 +764,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 111.7513,
-      "y": 75,
-      "rot": -60,
-      "z": 2.6976,
-      "grade": -2.3,
+      "x": 162.607,
+      "y": 102.7782,
+      "rot": 123.75,
+      "z": 0.5969,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -784,14 +785,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 108,
-      "y": 89,
-      "rot": -90,
-      "z": 3.0348,
-      "grade": -2.3,
+      "x": 165.5641,
+      "y": 97.2459,
+      "rot": 112.5,
+      "z": 0.7163,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -805,14 +806,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 111.7513,
-      "y": 103,
-      "rot": -120,
-      "z": 3.372,
-      "grade": -2.3,
+      "x": 167.3851,
+      "y": 91.2429,
+      "rot": 101.25,
+      "z": 0.8357,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -826,14 +827,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 122,
-      "y": 113.2487,
-      "rot": -150,
-      "z": 3.7092,
-      "grade": -2.3,
+      "x": 168,
+      "y": 85,
+      "rot": 90,
+      "z": 0.955,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -847,14 +848,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 136,
-      "y": 117,
-      "rot": -180,
-      "z": 4.0464,
-      "grade": -2.3,
+      "x": 167.3851,
+      "y": 78.7571,
+      "rot": 78.75,
+      "z": 1.0744,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -868,14 +869,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 150,
-      "y": 113.2487,
-      "rot": 150,
-      "z": 4.3836,
-      "grade": -2.3,
+      "x": 165.5641,
+      "y": 72.7541,
+      "rot": 67.5,
+      "z": 1.1938,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -889,14 +890,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 160.2487,
-      "y": 103,
-      "rot": 120,
-      "z": 4.7208,
-      "grade": -2.3,
+      "x": 162.607,
+      "y": 67.2218,
+      "rot": 56.25,
+      "z": 1.3132,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -910,14 +911,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 164,
-      "y": 89,
-      "rot": 90,
-      "z": 5.058,
-      "grade": -2.3,
+      "x": 158.6274,
+      "y": 62.3726,
+      "rot": 45,
+      "z": 1.4326,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -931,14 +932,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 160.2487,
-      "y": 75,
-      "rot": 60,
-      "z": 5.3952,
-      "grade": -2.3,
+      "x": 153.7782,
+      "y": 58.393,
+      "rot": 33.75,
+      "z": 1.5519,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -952,14 +953,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 150,
-      "y": 64.7513,
-      "rot": 30,
-      "z": 5.7324,
-      "grade": -2.3,
+      "x": 148.2459,
+      "y": 55.4359,
+      "rot": 22.5,
+      "z": 1.6713,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -973,14 +974,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 136,
-      "y": 61,
-      "rot": 0,
-      "z": 6.0696,
-      "grade": -2.3,
+      "x": 142.2429,
+      "y": 53.6149,
+      "rot": 11.25,
+      "z": 1.7907,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -994,14 +995,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 122,
-      "y": 64.7513,
-      "rot": -30,
-      "z": 6.4068,
-      "grade": -2.3,
+      "x": 136,
+      "y": 53,
+      "rot": 0,
+      "z": 1.9101,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -1015,14 +1016,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 111.7513,
-      "y": 75,
-      "rot": -60,
-      "z": 6.744,
-      "grade": -2.3,
+      "x": 129.7571,
+      "y": 53.6149,
+      "rot": -11.25,
+      "z": 2.0295,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -1036,14 +1037,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 108,
-      "y": 89,
-      "rot": -90,
-      "z": 7.0811,
-      "grade": -2.3,
+      "x": 123.7541,
+      "y": 55.4359,
+      "rot": -22.5,
+      "z": 2.1488,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -1057,14 +1058,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 111.7513,
-      "y": 103,
-      "rot": -120,
-      "z": 7.4183,
-      "grade": -2.3,
+      "x": 118.2218,
+      "y": 58.393,
+      "rot": -33.75,
+      "z": 2.2682,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -1078,14 +1079,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 122,
-      "y": 113.2487,
-      "rot": -150,
-      "z": 7.7555,
-      "grade": -2.3,
+      "x": 113.3726,
+      "y": 62.3726,
+      "rot": -45,
+      "z": 2.3876,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -1099,14 +1100,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 136,
-      "y": 117,
-      "rot": -180,
-      "z": 8.0927,
-      "grade": -2.3,
+      "x": 109.393,
+      "y": 67.2218,
+      "rot": -56.25,
+      "z": 2.507,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -1120,14 +1121,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 150,
-      "y": 113.2487,
-      "rot": 150,
-      "z": 8.4299,
-      "grade": -2.3,
+      "x": 106.4359,
+      "y": 72.7541,
+      "rot": -67.5,
+      "z": 2.6264,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -1141,14 +1142,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 160.2487,
-      "y": 103,
-      "rot": 120,
-      "z": 8.7671,
-      "grade": -2.3,
+      "x": 104.6149,
+      "y": 78.7571,
+      "rot": -78.75,
+      "z": 2.7458,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -1162,14 +1163,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 164,
-      "y": 89,
-      "rot": 90,
-      "z": 9.1043,
-      "grade": -2.3,
+      "x": 104,
+      "y": 85,
+      "rot": -90,
+      "z": 2.8651,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -1183,14 +1184,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 160.2487,
-      "y": 75,
-      "rot": 60,
-      "z": 9.4415,
-      "grade": -2.3,
+      "x": 104.6149,
+      "y": 91.2429,
+      "rot": -101.25,
+      "z": 2.9845,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -1204,14 +1205,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 150,
-      "y": 64.7513,
-      "rot": 30,
-      "z": 9.7787,
-      "grade": -2.3,
+      "x": 106.4359,
+      "y": 97.2459,
+      "rot": -112.5,
+      "z": 3.1039,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -1225,14 +1226,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 136,
-      "y": 61,
-      "rot": 0,
-      "z": 10.1159,
-      "grade": -2.3,
+      "x": 109.393,
+      "y": 102.7782,
+      "rot": -123.75,
+      "z": 3.2233,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -1246,14 +1247,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 122,
-      "y": 64.7513,
-      "rot": -30,
-      "z": 10.4531,
-      "grade": -2.3,
+      "x": 113.3726,
+      "y": 107.6274,
+      "rot": -135,
+      "z": 3.3427,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -1267,14 +1268,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 111.7513,
-      "y": 75,
-      "rot": -60,
-      "z": 10.7903,
-      "grade": -2.3,
+      "x": 118.2218,
+      "y": 111.607,
+      "rot": -146.25,
+      "z": 3.462,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -1288,14 +1289,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 108,
-      "y": 89,
-      "rot": -90,
-      "z": 11.1275,
-      "grade": -2.3,
+      "x": 123.7541,
+      "y": 114.5641,
+      "rot": -157.5,
+      "z": 3.5814,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -1309,14 +1310,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 111.7513,
-      "y": 103,
-      "rot": -120,
-      "z": 11.4647,
-      "grade": -2.3,
+      "x": 129.7571,
+      "y": 116.3851,
+      "rot": -168.75,
+      "z": 3.7008,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -1330,14 +1331,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 122,
-      "y": 113.2487,
-      "rot": -150,
-      "z": 11.8019,
-      "grade": -2.3,
+      "x": 136,
+      "y": 117,
+      "rot": -180,
+      "z": 3.8202,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -1351,14 +1352,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 136,
-      "y": 117,
-      "rot": -180,
-      "z": 12.1391,
-      "grade": -2.3,
+      "x": 142.2429,
+      "y": 116.3851,
+      "rot": 168.75,
+      "z": 3.9396,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -1372,14 +1373,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 150,
-      "y": 113.2487,
-      "rot": 150,
-      "z": 12.4763,
-      "grade": -2.3,
+      "x": 148.2459,
+      "y": 114.5641,
+      "rot": 157.5,
+      "z": 4.0589,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -1393,14 +1394,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 160.2487,
-      "y": 103,
-      "rot": 120,
-      "z": 12.8135,
-      "grade": -2.3,
+      "x": 153.7782,
+      "y": 111.607,
+      "rot": 146.25,
+      "z": 4.1783,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -1414,14 +1415,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 164,
-      "y": 89,
-      "rot": 90,
-      "z": 13.1507,
-      "grade": -2.3,
+      "x": 158.6274,
+      "y": 107.6274,
+      "rot": 135,
+      "z": 4.2977,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -1435,14 +1436,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 160.2487,
-      "y": 75,
-      "rot": 60,
-      "z": 13.4879,
-      "grade": -2.3,
+      "x": 162.607,
+      "y": 102.7782,
+      "rot": 123.75,
+      "z": 4.4171,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -1456,14 +1457,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 150,
-      "y": 64.7513,
-      "rot": 30,
-      "z": 13.8251,
-      "grade": -2.3,
+      "x": 165.5641,
+      "y": 97.2459,
+      "rot": 112.5,
+      "z": 4.5365,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -1477,14 +1478,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 136,
-      "y": 61,
-      "rot": 0,
-      "z": 14.1623,
-      "grade": -2.3,
+      "x": 167.3851,
+      "y": 91.2429,
+      "rot": 101.25,
+      "z": 4.6558,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -1498,14 +1499,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 122,
-      "y": 64.7513,
-      "rot": -30,
-      "z": 14.4995,
-      "grade": -2.3,
+      "x": 168,
+      "y": 85,
+      "rot": 90,
+      "z": 4.7752,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -1519,14 +1520,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 111.7513,
-      "y": 75,
-      "rot": -60,
-      "z": 14.8367,
-      "grade": -2.3,
+      "x": 167.3851,
+      "y": 78.7571,
+      "rot": 78.75,
+      "z": 4.8946,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -1540,14 +1541,14 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 28,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 108,
-      "y": 89,
-      "rot": -90,
-      "z": 15.1739,
-      "grade": -2.3,
+      "x": 165.5641,
+      "y": 72.7541,
+      "rot": 67.5,
+      "z": 5.014,
+      "grade": -1.9,
       "level": "L1",
       "state": 0,
       "props": {
@@ -1558,17 +1559,18 @@
     },
     {
       "id": "tx20",
-      "cat": "s9",
-      "kind": "straight",
+      "cat": "cflex",
+      "kind": "curve",
       "params": {
-        "len": 9
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 108,
-      "y": 89,
-      "rot": 90,
-      "z": 15.1739,
-      "grade": 0,
-      "level": "L2",
+      "x": 162.607,
+      "y": 67.2218,
+      "rot": 56.25,
+      "z": 5.1334,
+      "grade": -1.9,
+      "level": "L1",
       "state": 0,
       "props": {
         "name": "",
@@ -1581,15 +1583,15 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 24,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 108,
-      "y": 98,
-      "rot": 90,
-      "z": 15.1739,
-      "grade": 0,
-      "level": "L2",
+      "x": 158.6274,
+      "y": 62.3726,
+      "rot": 45,
+      "z": 5.2527,
+      "grade": -1.9,
+      "level": "L1",
       "state": 0,
       "props": {
         "name": "",
@@ -1602,15 +1604,15 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 24,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 104.7846,
-      "y": 110,
-      "rot": 120,
-      "z": 15.1739,
-      "grade": 0,
-      "level": "L2",
+      "x": 153.7782,
+      "y": 58.393,
+      "rot": 33.75,
+      "z": 5.3721,
+      "grade": -1.9,
+      "level": "L1",
       "state": 0,
       "props": {
         "name": "",
@@ -1623,15 +1625,15 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 24,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 96,
-      "y": 118.7846,
-      "rot": 150,
-      "z": 15.1739,
-      "grade": 0,
-      "level": "L2",
+      "x": 148.2459,
+      "y": 55.4359,
+      "rot": 22.5,
+      "z": 5.4915,
+      "grade": -1.9,
+      "level": "L1",
       "state": 0,
       "props": {
         "name": "",
@@ -1641,17 +1643,18 @@
     },
     {
       "id": "tx24",
-      "cat": "flex",
-      "kind": "straight",
+      "cat": "cflex",
+      "kind": "curve",
       "params": {
-        "len": 26
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 84,
-      "y": 122,
-      "rot": -180,
-      "z": 15.1739,
-      "grade": 0,
-      "level": "L2",
+      "x": 142.2429,
+      "y": 53.6149,
+      "rot": 11.25,
+      "z": 5.6109,
+      "grade": -1.9,
+      "level": "L1",
       "state": 0,
       "props": {
         "name": "",
@@ -1661,17 +1664,18 @@
     },
     {
       "id": "tx25",
-      "cat": "flex",
-      "kind": "straight",
+      "cat": "cflex",
+      "kind": "curve",
       "params": {
-        "len": 26
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 58,
-      "y": 122,
-      "rot": -180,
-      "z": 15.1739,
-      "grade": 0,
-      "level": "L2",
+      "x": 136,
+      "y": 53,
+      "rot": 0,
+      "z": 5.7303,
+      "grade": -1.9,
+      "level": "L1",
       "state": 0,
       "props": {
         "name": "",
@@ -1684,15 +1688,15 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 24,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 32,
-      "y": 122,
-      "rot": -180,
-      "z": 15.1739,
-      "grade": 0,
-      "level": "L2",
+      "x": 129.7571,
+      "y": 53.6149,
+      "rot": -11.25,
+      "z": 5.8496,
+      "grade": -1.9,
+      "level": "L1",
       "state": 0,
       "props": {
         "name": "",
@@ -1705,15 +1709,15 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 24,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 20,
-      "y": 118.7846,
-      "rot": -150,
-      "z": 15.1739,
-      "grade": 0,
-      "level": "L2",
+      "x": 123.7541,
+      "y": 55.4359,
+      "rot": -22.5,
+      "z": 5.969,
+      "grade": -1.9,
+      "level": "L1",
       "state": 0,
       "props": {
         "name": "",
@@ -1726,15 +1730,15 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 24,
-        "angle": 30
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 11.2154,
-      "y": 110,
-      "rot": -120,
-      "z": 15.1739,
-      "grade": 0,
-      "level": "L2",
+      "x": 118.2218,
+      "y": 58.393,
+      "rot": -33.75,
+      "z": 6.0884,
+      "grade": -1.9,
+      "level": "L1",
       "state": 0,
       "props": {
         "name": "",
@@ -1744,17 +1748,18 @@
     },
     {
       "id": "tx29",
-      "cat": "flex",
-      "kind": "straight",
+      "cat": "cflex",
+      "kind": "curve",
       "params": {
-        "len": 28
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 8,
-      "y": 98,
-      "rot": -90,
-      "z": 15.1739,
-      "grade": 0,
-      "level": "L2",
+      "x": 113.3726,
+      "y": 62.3726,
+      "rot": -45,
+      "z": 6.2078,
+      "grade": -1.9,
+      "level": "L1",
       "state": 0,
       "props": {
         "name": "",
@@ -1764,41 +1769,39 @@
     },
     {
       "id": "tx2a",
-      "cat": "n6L",
-      "kind": "turnout",
+      "cat": "cflex",
+      "kind": "curve",
       "params": {
-        "hand": "L",
-        "len": 11,
-        "r": 40,
-        "angle": 9.46,
-        "tail": 4.49
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 8,
-      "y": 70,
-      "rot": -90,
-      "z": 15.1739,
-      "grade": 0,
-      "level": "L2",
+      "x": 109.393,
+      "y": 67.2218,
+      "rot": -56.25,
+      "z": 6.3272,
+      "grade": -1.9,
+      "level": "L1",
       "state": 0,
       "props": {
-        "name": "T4",
-        "address": "Servo 4",
-        "motor": "Servo (Arduino/PCA9685)"
+        "name": "",
+        "address": "",
+        "motor": ""
       }
     },
     {
       "id": "tx2b",
-      "cat": "flex",
-      "kind": "straight",
+      "cat": "cflex",
+      "kind": "curve",
       "params": {
-        "len": 2.7
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 9.2819,
-      "y": 58.9967,
-      "rot": -80.54,
-      "z": 15.1739,
-      "grade": 0,
-      "level": "L2",
+      "x": 106.4359,
+      "y": 72.7541,
+      "rot": -67.5,
+      "z": 6.4465,
+      "grade": -1.9,
+      "level": "L1",
       "state": 0,
       "props": {
         "name": "",
@@ -1808,41 +1811,39 @@
     },
     {
       "id": "tx2c",
-      "cat": "n6R",
-      "kind": "turnout",
+      "cat": "cflex",
+      "kind": "curve",
       "params": {
-        "hand": "R",
-        "len": 11,
-        "r": 40,
-        "angle": 9.46,
-        "tail": 4.49
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 9.7257,
-      "y": 56.3334,
-      "rot": -80.54,
-      "z": 15.1739,
-      "grade": 0,
-      "level": "L2",
+      "x": 104.6149,
+      "y": 78.7571,
+      "rot": -78.75,
+      "z": 6.5659,
+      "grade": -1.9,
+      "level": "L1",
       "state": 0,
       "props": {
-        "name": "T5",
-        "address": "Servo 5",
-        "motor": "Servo (Arduino/PCA9685)"
+        "name": "",
+        "address": "",
+        "motor": ""
       }
     },
     {
       "id": "tx2d",
-      "cat": "flex",
-      "kind": "straight",
+      "cat": "cflex",
+      "kind": "curve",
       "params": {
-        "len": 2.7
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 11.5336,
-      "y": 45.483,
-      "rot": -80.54,
-      "z": 15.1739,
-      "grade": 0,
-      "level": "L2",
+      "x": 104,
+      "y": 85,
+      "rot": -90,
+      "z": 6.6853,
+      "grade": -1.9,
+      "level": "L1",
       "state": 0,
       "props": {
         "name": "",
@@ -1855,15 +1856,15 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 40,
-        "angle": 9.46
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 12.5214,
-      "y": 36.2454,
-      "rot": 90,
-      "z": 15.1739,
-      "grade": 0,
-      "level": "L2",
+      "x": 104.6149,
+      "y": 91.2429,
+      "rot": -101.25,
+      "z": 6.8047,
+      "grade": -1.9,
+      "level": "L1",
       "state": 0,
       "props": {
         "name": "",
@@ -1873,17 +1874,18 @@
     },
     {
       "id": "tx2f",
-      "cat": "flex",
-      "kind": "straight",
+      "cat": "cflex",
+      "kind": "curve",
       "params": {
-        "len": 35.269
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 10.2697,
-      "y": 45.269,
-      "rot": -90,
-      "z": 15.1739,
-      "grade": 0,
-      "level": "L2",
+      "x": 106.4359,
+      "y": 97.2459,
+      "rot": -112.5,
+      "z": 6.9241,
+      "grade": -1.9,
+      "level": "L1",
       "state": 0,
       "props": {
         "name": "",
@@ -1893,17 +1895,18 @@
     },
     {
       "id": "tx2g",
-      "cat": "bumper",
-      "kind": "bumper",
+      "cat": "cflex",
+      "kind": "curve",
       "params": {
-        "len": 2
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 10.2697,
-      "y": 10,
-      "rot": -90,
-      "z": 15.1739,
-      "grade": 0,
-      "level": "L2",
+      "x": 109.393,
+      "y": 102.7782,
+      "rot": -123.75,
+      "z": 7.0435,
+      "grade": -1.9,
+      "level": "L1",
       "state": 0,
       "props": {
         "name": "",
@@ -1913,17 +1916,18 @@
     },
     {
       "id": "tx2h",
-      "cat": "flex",
-      "kind": "straight",
+      "cat": "cflex",
+      "kind": "curve",
       "params": {
-        "len": 26.2454
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 12.5214,
-      "y": 36.2454,
-      "rot": -90,
-      "z": 15.1739,
-      "grade": 0,
-      "level": "L2",
+      "x": 113.3726,
+      "y": 107.6274,
+      "rot": -135,
+      "z": 7.1628,
+      "grade": -1.9,
+      "level": "L1",
       "state": 0,
       "props": {
         "name": "",
@@ -1933,17 +1937,18 @@
     },
     {
       "id": "tx2i",
-      "cat": "bumper",
-      "kind": "bumper",
+      "cat": "cflex",
+      "kind": "curve",
       "params": {
-        "len": 2
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 12.5214,
-      "y": 10,
-      "rot": -90,
-      "z": 15.1739,
-      "grade": 0,
-      "level": "L2",
+      "x": 118.2218,
+      "y": 111.607,
+      "rot": -146.25,
+      "z": 7.2822,
+      "grade": -1.9,
+      "level": "L1",
       "state": 0,
       "props": {
         "name": "",
@@ -1953,17 +1958,18 @@
     },
     {
       "id": "tx2j",
-      "cat": "flex",
-      "kind": "straight",
+      "cat": "cflex",
+      "kind": "curve",
       "params": {
-        "len": 24.5
+        "r": 32,
+        "angle": 11.25
       },
-      "x": 8,
-      "y": 59,
-      "rot": -90,
-      "z": 15.1739,
-      "grade": 0,
-      "level": "L2",
+      "x": 123.7541,
+      "y": 114.5641,
+      "rot": -157.5,
+      "z": 7.4016,
+      "grade": -1.9,
+      "level": "L1",
       "state": 0,
       "props": {
         "name": "",
@@ -1973,15 +1979,1294 @@
     },
     {
       "id": "tx2k",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 129.7571,
+      "y": 116.3851,
+      "rot": -168.75,
+      "z": 7.521,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx2l",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 136,
+      "y": 117,
+      "rot": -180,
+      "z": 7.6404,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx2m",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 142.2429,
+      "y": 116.3851,
+      "rot": 168.75,
+      "z": 7.7597,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx2n",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 148.2459,
+      "y": 114.5641,
+      "rot": 157.5,
+      "z": 7.8791,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx2o",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 153.7782,
+      "y": 111.607,
+      "rot": 146.25,
+      "z": 7.9985,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx2p",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 158.6274,
+      "y": 107.6274,
+      "rot": 135,
+      "z": 8.1179,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx2q",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 162.607,
+      "y": 102.7782,
+      "rot": 123.75,
+      "z": 8.2373,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx2r",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 165.5641,
+      "y": 97.2459,
+      "rot": 112.5,
+      "z": 8.3566,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx2s",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 167.3851,
+      "y": 91.2429,
+      "rot": 101.25,
+      "z": 8.476,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx2t",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 168,
+      "y": 85,
+      "rot": 90,
+      "z": 8.5954,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx2u",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 167.3851,
+      "y": 78.7571,
+      "rot": 78.75,
+      "z": 8.7148,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx2v",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 165.5641,
+      "y": 72.7541,
+      "rot": 67.5,
+      "z": 8.8342,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx2w",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 162.607,
+      "y": 67.2218,
+      "rot": 56.25,
+      "z": 8.9535,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx2x",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 158.6274,
+      "y": 62.3726,
+      "rot": 45,
+      "z": 9.0729,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx2y",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 153.7782,
+      "y": 58.393,
+      "rot": 33.75,
+      "z": 9.1923,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx2z",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 148.2459,
+      "y": 55.4359,
+      "rot": 22.5,
+      "z": 9.3117,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx30",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 142.2429,
+      "y": 53.6149,
+      "rot": 11.25,
+      "z": 9.4311,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx31",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 136,
+      "y": 53,
+      "rot": 0,
+      "z": 9.5504,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx32",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 129.7571,
+      "y": 53.6149,
+      "rot": -11.25,
+      "z": 9.6698,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx33",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 123.7541,
+      "y": 55.4359,
+      "rot": -22.5,
+      "z": 9.7892,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx34",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 118.2218,
+      "y": 58.393,
+      "rot": -33.75,
+      "z": 9.9086,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx35",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 113.3726,
+      "y": 62.3726,
+      "rot": -45,
+      "z": 10.028,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx36",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 109.393,
+      "y": 67.2218,
+      "rot": -56.25,
+      "z": 10.1473,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx37",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 106.4359,
+      "y": 72.7541,
+      "rot": -67.5,
+      "z": 10.2667,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx38",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 104.6149,
+      "y": 78.7571,
+      "rot": -78.75,
+      "z": 10.3861,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx39",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 104,
+      "y": 85,
+      "rot": -90,
+      "z": 10.5055,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3a",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 104.6149,
+      "y": 91.2429,
+      "rot": -101.25,
+      "z": 10.6249,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3b",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 106.4359,
+      "y": 97.2459,
+      "rot": -112.5,
+      "z": 10.7442,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3c",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 109.393,
+      "y": 102.7782,
+      "rot": -123.75,
+      "z": 10.8636,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3d",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 113.3726,
+      "y": 107.6274,
+      "rot": -135,
+      "z": 10.983,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3e",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 118.2218,
+      "y": 111.607,
+      "rot": -146.25,
+      "z": 11.1024,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3f",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 123.7541,
+      "y": 114.5641,
+      "rot": -157.5,
+      "z": 11.2218,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3g",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 129.7571,
+      "y": 116.3851,
+      "rot": -168.75,
+      "z": 11.3411,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3h",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 136,
+      "y": 117,
+      "rot": -180,
+      "z": 11.4605,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3i",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 142.2429,
+      "y": 116.3851,
+      "rot": 168.75,
+      "z": 11.5799,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3j",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 148.2459,
+      "y": 114.5641,
+      "rot": 157.5,
+      "z": 11.6993,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3k",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 153.7782,
+      "y": 111.607,
+      "rot": 146.25,
+      "z": 11.8187,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3l",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 158.6274,
+      "y": 107.6274,
+      "rot": 135,
+      "z": 11.9381,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3m",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 162.607,
+      "y": 102.7782,
+      "rot": 123.75,
+      "z": 12.0574,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3n",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 165.5641,
+      "y": 97.2459,
+      "rot": 112.5,
+      "z": 12.1768,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3o",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 167.3851,
+      "y": 91.2429,
+      "rot": 101.25,
+      "z": 12.2962,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3p",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 168,
+      "y": 85,
+      "rot": 90,
+      "z": 12.4156,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3q",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 167.3851,
+      "y": 78.7571,
+      "rot": 78.75,
+      "z": 12.535,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3r",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 165.5641,
+      "y": 72.7541,
+      "rot": 67.5,
+      "z": 12.6543,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3s",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 162.607,
+      "y": 67.2218,
+      "rot": 56.25,
+      "z": 12.7737,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3t",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 158.6274,
+      "y": 62.3726,
+      "rot": 45,
+      "z": 12.8931,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3u",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 153.7782,
+      "y": 58.393,
+      "rot": 33.75,
+      "z": 13.0125,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3v",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 148.2459,
+      "y": 55.4359,
+      "rot": 22.5,
+      "z": 13.1319,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3w",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 142.2429,
+      "y": 53.6149,
+      "rot": 11.25,
+      "z": 13.2512,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3x",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 136,
+      "y": 53,
+      "rot": 0,
+      "z": 13.3706,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3y",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 129.7571,
+      "y": 53.6149,
+      "rot": -11.25,
+      "z": 13.49,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3z",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 123.7541,
+      "y": 55.4359,
+      "rot": -22.5,
+      "z": 13.6094,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx40",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 118.2218,
+      "y": 58.393,
+      "rot": -33.75,
+      "z": 13.7288,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx41",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 113.3726,
+      "y": 62.3726,
+      "rot": -45,
+      "z": 13.8481,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx42",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 109.393,
+      "y": 67.2218,
+      "rot": -56.25,
+      "z": 13.9675,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx43",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 106.4359,
+      "y": 72.7541,
+      "rot": -67.5,
+      "z": 14.0869,
+      "grade": -1.9,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx44",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 104.6149,
+      "y": 78.7571,
+      "rot": -78.75,
+      "z": 14.1931,
+      "grade": -1.69,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx45",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 32,
+        "angle": 11.25
+      },
+      "x": 104,
+      "y": 85,
+      "rot": -90,
+      "z": 14.2684,
+      "grade": -1.2,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx46",
       "cat": "flex",
       "kind": "straight",
       "params": {
-        "len": 24.5
+        "len": 5
       },
-      "x": 8,
-      "y": 34.5,
-      "rot": -90,
-      "z": 15.1739,
+      "x": 104,
+      "y": 85,
+      "rot": 90,
+      "z": 14.2682,
+      "grade": 0.76,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx47",
+      "cat": "flex",
+      "kind": "straight",
+      "params": {
+        "len": 5
+      },
+      "x": 104,
+      "y": 90,
+      "rot": 90,
+      "z": 14.306,
+      "grade": 0.36,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx48",
+      "cat": "flex",
+      "kind": "straight",
+      "params": {
+        "len": 5
+      },
+      "x": 104,
+      "y": 95,
+      "rot": 90,
+      "z": 14.3242,
+      "grade": 0.04,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx49",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 24,
+        "angle": 30
+      },
+      "x": 104,
+      "y": 100,
+      "rot": 90,
+      "z": 14.326,
       "grade": 0,
       "level": "L2",
       "state": 0,
@@ -1992,7 +3277,401 @@
       }
     },
     {
-      "id": "tx2l",
+      "id": "tx4a",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 24,
+        "angle": 30
+      },
+      "x": 100.7846,
+      "y": 112,
+      "rot": 120,
+      "z": 14.326,
+      "grade": 0,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx4b",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 24,
+        "angle": 30
+      },
+      "x": 92,
+      "y": 120.7846,
+      "rot": 150,
+      "z": 14.326,
+      "grade": 0,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx4c",
+      "cat": "flex",
+      "kind": "straight",
+      "params": {
+        "len": 24
+      },
+      "x": 80,
+      "y": 124,
+      "rot": -180,
+      "z": 14.326,
+      "grade": 0,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx4d",
+      "cat": "flex",
+      "kind": "straight",
+      "params": {
+        "len": 24
+      },
+      "x": 56,
+      "y": 124,
+      "rot": -180,
+      "z": 14.326,
+      "grade": 0,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx4e",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 24,
+        "angle": 30
+      },
+      "x": 32,
+      "y": 124,
+      "rot": -180,
+      "z": 14.326,
+      "grade": 0,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx4f",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 24,
+        "angle": 30
+      },
+      "x": 20,
+      "y": 120.7846,
+      "rot": -150,
+      "z": 14.326,
+      "grade": 0,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx4g",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 24,
+        "angle": 30
+      },
+      "x": 11.2154,
+      "y": 112,
+      "rot": -120,
+      "z": 14.326,
+      "grade": 0,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx4h",
+      "cat": "flex",
+      "kind": "straight",
+      "params": {
+        "len": 30
+      },
+      "x": 8,
+      "y": 100,
+      "rot": -90,
+      "z": 14.326,
+      "grade": 0,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx4i",
+      "cat": "n6L",
+      "kind": "turnout",
+      "params": {
+        "hand": "L",
+        "len": 11,
+        "r": 40,
+        "angle": 9.46,
+        "tail": 4.49
+      },
+      "x": 8,
+      "y": 70,
+      "rot": -90,
+      "z": 14.326,
+      "grade": 0,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "T4",
+        "address": "Servo 4",
+        "motor": "Servo (Arduino/PCA9685)"
+      }
+    },
+    {
+      "id": "tx4j",
+      "cat": "flex",
+      "kind": "straight",
+      "params": {
+        "len": 2.7
+      },
+      "x": 9.2819,
+      "y": 58.9967,
+      "rot": -80.54,
+      "z": 14.326,
+      "grade": 0,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx4k",
+      "cat": "n6R",
+      "kind": "turnout",
+      "params": {
+        "hand": "R",
+        "len": 11,
+        "r": 40,
+        "angle": 9.46,
+        "tail": 4.49
+      },
+      "x": 9.7257,
+      "y": 56.3334,
+      "rot": -80.54,
+      "z": 14.326,
+      "grade": 0,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "T5",
+        "address": "Servo 5",
+        "motor": "Servo (Arduino/PCA9685)"
+      }
+    },
+    {
+      "id": "tx4l",
+      "cat": "flex",
+      "kind": "straight",
+      "params": {
+        "len": 2.7
+      },
+      "x": 11.5336,
+      "y": 45.483,
+      "rot": -80.54,
+      "z": 14.326,
+      "grade": 0,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx4m",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 40,
+        "angle": 9.46
+      },
+      "x": 12.5214,
+      "y": 36.2454,
+      "rot": 90,
+      "z": 14.326,
+      "grade": 0,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx4n",
+      "cat": "flex",
+      "kind": "straight",
+      "params": {
+        "len": 35.269
+      },
+      "x": 10.2697,
+      "y": 45.269,
+      "rot": -90,
+      "z": 14.326,
+      "grade": 0,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx4o",
+      "cat": "bumper",
+      "kind": "bumper",
+      "params": {
+        "len": 2
+      },
+      "x": 10.2697,
+      "y": 10,
+      "rot": -90,
+      "z": 14.326,
+      "grade": 0,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx4p",
+      "cat": "flex",
+      "kind": "straight",
+      "params": {
+        "len": 26.2454
+      },
+      "x": 12.5214,
+      "y": 36.2454,
+      "rot": -90,
+      "z": 14.326,
+      "grade": 0,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx4q",
+      "cat": "bumper",
+      "kind": "bumper",
+      "params": {
+        "len": 2
+      },
+      "x": 12.5214,
+      "y": 10,
+      "rot": -90,
+      "z": 14.326,
+      "grade": 0,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx4r",
+      "cat": "flex",
+      "kind": "straight",
+      "params": {
+        "len": 24.5
+      },
+      "x": 8,
+      "y": 59,
+      "rot": -90,
+      "z": 14.326,
+      "grade": 0,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx4s",
+      "cat": "flex",
+      "kind": "straight",
+      "params": {
+        "len": 24.5
+      },
+      "x": 8,
+      "y": 34.5,
+      "rot": -90,
+      "z": 14.326,
+      "grade": 0,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx4t",
       "cat": "bumper",
       "kind": "bumper",
       "params": {
@@ -2001,7 +3680,7 @@
       "x": 8,
       "y": 10,
       "rot": -90,
-      "z": 15.1739,
+      "z": 14.326,
       "grade": 0,
       "level": "L2",
       "state": 0,
@@ -2014,7 +3693,7 @@
   ],
   "devices": [
     {
-      "id": "dx3a",
+      "id": "dx5h",
       "type": "signal3",
       "name": "Signal – 3 aspect",
       "x": 0,
@@ -2034,7 +3713,7 @@
       }
     },
     {
-      "id": "dx3b",
+      "id": "dx5i",
       "type": "signal3",
       "name": "Signal – 3 aspect",
       "x": 0,
@@ -2042,7 +3721,7 @@
       "rot": 0,
       "side": 1,
       "flip": false,
-      "pieceId": "txq",
+      "pieceId": "txp",
       "route": 0,
       "d": 4,
       "props": {
@@ -2054,7 +3733,7 @@
       }
     },
     {
-      "id": "dx3c",
+      "id": "dx5j",
       "type": "sensor",
       "name": "Train passing sensor",
       "x": 0,
@@ -2062,9 +3741,9 @@
       "rot": 0,
       "side": 1,
       "flip": false,
-      "pieceId": "txt",
+      "pieceId": "txu",
       "route": 0,
-      "d": 2,
+      "d": 4.283185307179586,
       "props": {
         "name": "PS helix in",
         "address": "A0",
@@ -2073,7 +3752,7 @@
       }
     },
     {
-      "id": "dx3d",
+      "id": "dx5k",
       "type": "sensor",
       "name": "Train passing sensor",
       "x": 0,
@@ -2081,9 +3760,9 @@
       "rot": 0,
       "side": 1,
       "flip": false,
-      "pieceId": "tx1z",
+      "pieceId": "tx46",
       "route": 0,
-      "d": 10,
+      "d": 4,
       "props": {
         "name": "PS helix out",
         "address": "A1",
@@ -2092,7 +3771,7 @@
       }
     },
     {
-      "id": "dx3e",
+      "id": "dx5l",
       "type": "signal2",
       "name": "Signal – 2 aspect",
       "x": 0,
@@ -2100,7 +3779,7 @@
       "rot": 0,
       "side": 1,
       "flip": false,
-      "pieceId": "tx20",
+      "pieceId": "tx4d",
       "route": 0,
       "d": 6,
       "props": {
@@ -2112,7 +3791,7 @@
       }
     },
     {
-      "id": "dx3f",
+      "id": "dx5m",
       "type": "block",
       "name": "Occupancy detection block",
       "x": 0,
@@ -2120,7 +3799,7 @@
       "rot": 0,
       "side": 1,
       "flip": false,
-      "pieceId": "tx29",
+      "pieceId": "tx4h",
       "route": 0,
       "d": 10,
       "props": {
@@ -2131,7 +3810,7 @@
       }
     },
     {
-      "id": "dx3g",
+      "id": "dx5n",
       "type": "home",
       "name": "Home / end-of-travel sensor",
       "x": 0,
@@ -2150,7 +3829,7 @@
       }
     },
     {
-      "id": "dx3h",
+      "id": "dx5o",
       "type": "home",
       "name": "Home / end-of-travel sensor",
       "x": 0,
@@ -2169,7 +3848,7 @@
       }
     },
     {
-      "id": "dx3i",
+      "id": "dx5p",
       "type": "home",
       "name": "Home / end-of-travel sensor",
       "x": 0,
@@ -2188,7 +3867,7 @@
       }
     },
     {
-      "id": "dx3j",
+      "id": "dx5q",
       "type": "home",
       "name": "Home / end-of-travel sensor",
       "x": 0,
@@ -2196,7 +3875,7 @@
       "rot": 0,
       "side": 1,
       "flip": false,
-      "pieceId": "tx2g",
+      "pieceId": "tx4o",
       "route": 0,
       "d": 1,
       "props": {
@@ -2207,7 +3886,7 @@
       }
     },
     {
-      "id": "dx3k",
+      "id": "dx5r",
       "type": "feeder",
       "name": "Power feeder",
       "x": 0,
@@ -2226,7 +3905,7 @@
       }
     },
     {
-      "id": "dx3l",
+      "id": "dx5s",
       "type": "feeder",
       "name": "Power feeder",
       "x": 0,
@@ -2234,7 +3913,7 @@
       "rot": 0,
       "side": 1,
       "flip": false,
-      "pieceId": "tx25",
+      "pieceId": "tx4d",
       "route": 0,
       "d": 10,
       "props": {
@@ -2247,422 +3926,7 @@
   ],
   "scenery": [
     {
-      "id": "ox2m",
-      "type": "station",
-      "name": "Station",
-      "shape": "box",
-      "x": 50,
-      "y": 108,
-      "rot": 0,
-      "w": 12,
-      "d": 5,
-      "h": 4.5,
-      "roof": "gable",
-      "color": "#c0785a",
-      "base": 0,
-      "props": {
-        "name": "Junction City"
-      }
-    },
-    {
-      "id": "ox2n",
-      "type": "platform",
-      "name": "Platform",
-      "shape": "box",
-      "x": 50,
-      "y": 113.6,
-      "rot": 0,
-      "w": 18,
-      "d": 2.5,
-      "h": 0.5,
-      "roof": "flat",
-      "color": "#b0b0b0",
-      "base": 0,
-      "props": {
-        "name": ""
-      }
-    },
-    {
-      "id": "ox2o",
-      "type": "factory",
-      "name": "Factory",
-      "shape": "box",
-      "x": 76,
-      "y": 108,
-      "rot": 0,
-      "w": 14,
-      "d": 7,
-      "h": 7,
-      "roof": "flat",
-      "color": "#8d8d8d",
-      "base": 0,
-      "props": {
-        "name": ""
-      }
-    },
-    {
-      "id": "ox2p",
-      "type": "house",
-      "name": "House",
-      "shape": "box",
-      "x": 90,
-      "y": 107,
-      "rot": 0,
-      "w": 5,
-      "d": 4,
-      "h": 4,
-      "roof": "gable",
-      "color": "#d9b38c",
-      "base": 0,
-      "props": {
-        "name": ""
-      }
-    },
-    {
-      "id": "ox2q",
-      "type": "house",
-      "name": "House",
-      "shape": "box",
-      "x": 97,
-      "y": 107,
-      "rot": 0,
-      "w": 5,
-      "d": 4,
-      "h": 4,
-      "roof": "gable",
-      "color": "#d9b38c",
-      "base": 0,
-      "props": {
-        "name": ""
-      }
-    },
-    {
-      "id": "ox2r",
-      "type": "pine",
-      "name": "Tree – pine",
-      "shape": "pine",
-      "x": 110,
-      "y": 62,
-      "rot": 0,
-      "w": 2.5,
-      "d": 2.5,
-      "h": 6,
-      "roof": "flat",
-      "color": "#2f6b3a",
-      "base": 0,
-      "props": {
-        "name": ""
-      }
-    },
-    {
-      "id": "ox2s",
-      "type": "pine",
-      "name": "Tree – pine",
-      "shape": "pine",
-      "x": 162,
-      "y": 62,
-      "rot": 0,
-      "w": 2.5,
-      "d": 2.5,
-      "h": 6,
-      "roof": "flat",
-      "color": "#2f6b3a",
-      "base": 0,
-      "props": {
-        "name": ""
-      }
-    },
-    {
-      "id": "ox2t",
-      "type": "pine",
-      "name": "Tree – pine",
-      "shape": "pine",
-      "x": 162,
-      "y": 126,
-      "rot": 0,
-      "w": 2.5,
-      "d": 2.5,
-      "h": 6,
-      "roof": "flat",
-      "color": "#2f6b3a",
-      "base": 0,
-      "props": {
-        "name": ""
-      }
-    },
-    {
-      "id": "ox2u",
-      "type": "pine",
-      "name": "Tree – pine",
-      "shape": "pine",
-      "x": 110,
-      "y": 126,
-      "rot": 0,
-      "w": 2.5,
-      "d": 2.5,
-      "h": 6,
-      "roof": "flat",
-      "color": "#2f6b3a",
-      "base": 0,
-      "props": {
-        "name": ""
-      }
-    },
-    {
-      "id": "ox2v",
-      "type": "pine",
-      "name": "Tree – pine",
-      "shape": "pine",
-      "x": 136,
-      "y": 89,
-      "rot": 0,
-      "w": 2.5,
-      "d": 2.5,
-      "h": 6,
-      "roof": "flat",
-      "color": "#2f6b3a",
-      "base": 0,
-      "props": {
-        "name": ""
-      }
-    },
-    {
-      "id": "ox2w",
-      "type": "pine",
-      "name": "Tree – pine",
-      "shape": "pine",
-      "x": 130,
-      "y": 95,
-      "rot": 0,
-      "w": 2.5,
-      "d": 2.5,
-      "h": 6,
-      "roof": "flat",
-      "color": "#2f6b3a",
-      "base": 0,
-      "props": {
-        "name": ""
-      }
-    },
-    {
-      "id": "ox2x",
-      "type": "pine",
-      "name": "Tree – pine",
-      "shape": "pine",
-      "x": 142,
-      "y": 83,
-      "rot": 0,
-      "w": 2.5,
-      "d": 2.5,
-      "h": 6,
-      "roof": "flat",
-      "color": "#2f6b3a",
-      "base": 0,
-      "props": {
-        "name": ""
-      }
-    },
-    {
-      "id": "ox2y",
-      "type": "river",
-      "name": "River / creek (24\")",
-      "shape": "river",
-      "x": 136,
-      "y": 60,
-      "rot": 0,
-      "w": 50,
-      "d": 4,
-      "h": 0.05,
-      "roof": "flat",
-      "color": "#3a7bbf",
-      "base": 0,
-      "props": {
-        "name": "Cascade creek"
-      }
-    },
-    {
-      "id": "ox2z",
-      "type": "trestle",
-      "name": "Trestle (timber)",
-      "shape": "trestle",
-      "x": 108,
-      "y": 93.5,
-      "rot": 90,
-      "w": 9,
-      "d": 2.6,
-      "h": 0.2,
-      "roof": "flat",
-      "color": "#6b4f3a",
-      "base": 15.1739,
-      "props": {
-        "name": "Helix trestle"
-      }
-    },
-    {
-      "id": "ox30",
-      "type": "truss",
-      "name": "Bridge – through truss",
-      "shape": "bridge",
-      "x": 38,
-      "y": 122,
-      "rot": -180,
-      "w": 18,
-      "d": 2.8,
-      "h": 3.8,
-      "roof": "flat",
-      "color": "#55606b",
-      "base": 15.1739,
-      "style": "truss",
-      "props": {
-        "name": "Back-wall truss"
-      }
-    },
-    {
-      "id": "ox31",
-      "type": "factory",
-      "name": "Factory",
-      "shape": "box",
-      "x": 3.8,
-      "y": 28,
-      "rot": 90,
-      "w": 10,
-      "d": 6.5,
-      "h": 6,
-      "roof": "flat",
-      "color": "#7d6b55",
-      "base": 15.17389251683871,
-      "props": {
-        "name": "Copper mine"
-      }
-    },
-    {
-      "id": "ox32",
-      "type": "house",
-      "name": "House",
-      "shape": "box",
-      "x": 3.5,
-      "y": 44,
-      "rot": 90,
-      "w": 5,
-      "d": 4,
-      "h": 4,
-      "roof": "gable",
-      "color": "#d9b38c",
-      "base": 15.17389251683871,
-      "props": {
-        "name": "Bunkhouse"
-      }
-    },
-    {
-      "id": "ox33",
-      "type": "tower",
-      "name": "Water tower",
-      "shape": "cyl",
-      "x": 3.5,
-      "y": 58,
-      "rot": 0,
-      "w": 3,
-      "d": 3,
-      "h": 9,
-      "roof": "flat",
-      "color": "#6b4f3a",
-      "base": 15.17389251683871,
-      "props": {
-        "name": ""
-      }
-    },
-    {
-      "id": "ox34",
-      "type": "pine",
-      "name": "Tree – pine",
-      "shape": "pine",
-      "x": 3,
-      "y": 16,
-      "rot": 0,
-      "w": 2.5,
-      "d": 2.5,
-      "h": 6,
-      "roof": "flat",
-      "color": "#2f6b3a",
-      "base": 15.17389251683871,
-      "props": {
-        "name": ""
-      }
-    },
-    {
-      "id": "ox35",
-      "type": "pine",
-      "name": "Tree – pine",
-      "shape": "pine",
-      "x": 3,
-      "y": 82,
-      "rot": 0,
-      "w": 2.5,
-      "d": 2.5,
-      "h": 6,
-      "roof": "flat",
-      "color": "#2f6b3a",
-      "base": 15.17389251683871,
-      "props": {
-        "name": ""
-      }
-    },
-    {
-      "id": "ox36",
-      "type": "pine",
-      "name": "Tree – pine",
-      "shape": "pine",
-      "x": 40,
-      "y": 128.5,
-      "rot": 0,
-      "w": 2.5,
-      "d": 2.5,
-      "h": 6,
-      "roof": "flat",
-      "color": "#2f6b3a",
-      "base": 15.17389251683871,
-      "props": {
-        "name": ""
-      }
-    },
-    {
-      "id": "ox37",
-      "type": "pine",
-      "name": "Tree – pine",
-      "shape": "pine",
-      "x": 70,
-      "y": 128.5,
-      "rot": 0,
-      "w": 2.5,
-      "d": 2.5,
-      "h": 6,
-      "roof": "flat",
-      "color": "#2f6b3a",
-      "base": 15.17389251683871,
-      "props": {
-        "name": ""
-      }
-    },
-    {
-      "id": "ox38",
-      "type": "pine",
-      "name": "Tree – pine",
-      "shape": "pine",
-      "x": 95,
-      "y": 128.5,
-      "rot": 0,
-      "w": 2.5,
-      "d": 2.5,
-      "h": 6,
-      "roof": "flat",
-      "color": "#2f6b3a",
-      "base": 15.17389251683871,
-      "props": {
-        "name": ""
-      }
-    },
-    {
-      "id": "ox39",
+      "id": "ox4u",
       "type": "enginehouse",
       "name": "Engine house",
       "shape": "box",
@@ -2677,6 +3941,403 @@
       "base": 0,
       "props": {
         "name": "Engine house"
+      }
+    },
+    {
+      "id": "ox4v",
+      "type": "station",
+      "name": "Station",
+      "shape": "box",
+      "x": 60,
+      "y": 110.6,
+      "rot": 0,
+      "w": 12,
+      "d": 5,
+      "h": 4.5,
+      "roof": "gable",
+      "color": "#c0785a",
+      "base": 0,
+      "props": {
+        "name": "Junction City"
+      }
+    },
+    {
+      "id": "ox4w",
+      "type": "platform",
+      "name": "Platform",
+      "shape": "box",
+      "x": 60,
+      "y": 114.4,
+      "rot": 0,
+      "w": 18,
+      "d": 2.5,
+      "h": 0.5,
+      "roof": "flat",
+      "color": "#b0b0b0",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox4x",
+      "type": "factory",
+      "name": "Factory",
+      "shape": "box",
+      "x": 84,
+      "y": 107.5,
+      "rot": 0,
+      "w": 14,
+      "d": 7,
+      "h": 7,
+      "roof": "flat",
+      "color": "#8d8d8d",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox4y",
+      "type": "house",
+      "name": "House",
+      "shape": "box",
+      "x": 40,
+      "y": 106,
+      "rot": 0,
+      "w": 5,
+      "d": 4,
+      "h": 4,
+      "roof": "gable",
+      "color": "#d9b38c",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox4z",
+      "type": "house",
+      "name": "House",
+      "shape": "box",
+      "x": 46,
+      "y": 106,
+      "rot": 0,
+      "w": 5,
+      "d": 4,
+      "h": 4,
+      "roof": "gable",
+      "color": "#d9b38c",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox50",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 106,
+      "y": 55,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox51",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 166,
+      "y": 55,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox52",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 166,
+      "y": 126,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox53",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 136,
+      "y": 85,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox54",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 128,
+      "y": 92,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox55",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 144,
+      "y": 78,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox56",
+      "type": "river",
+      "name": "River / creek (24\")",
+      "shape": "river",
+      "x": 136,
+      "y": 51,
+      "rot": 0,
+      "w": 50,
+      "d": 3.5,
+      "h": 0.05,
+      "roof": "flat",
+      "color": "#3a7bbf",
+      "base": 0,
+      "props": {
+        "name": "Cascade creek"
+      }
+    },
+    {
+      "id": "ox57",
+      "type": "truss",
+      "name": "Bridge – through truss",
+      "shape": "bridge",
+      "x": 44,
+      "y": 124,
+      "rot": -180,
+      "w": 18,
+      "d": 2.8,
+      "h": 3.8,
+      "roof": "flat",
+      "color": "#55606b",
+      "base": 14.326,
+      "style": "truss",
+      "props": {
+        "name": "Gorge truss"
+      }
+    },
+    {
+      "id": "ox58",
+      "type": "river",
+      "name": "River / creek (24\")",
+      "shape": "river",
+      "x": 44,
+      "y": 124,
+      "rot": 90,
+      "w": 10,
+      "d": 3,
+      "h": 0.05,
+      "roof": "flat",
+      "color": "#3a7bbf",
+      "base": 0,
+      "props": {
+        "name": "Gorge creek"
+      }
+    },
+    {
+      "id": "ox59",
+      "type": "factory",
+      "name": "Factory",
+      "shape": "box",
+      "x": 3.3,
+      "y": 28,
+      "rot": 90,
+      "w": 10,
+      "d": 6,
+      "h": 6,
+      "roof": "flat",
+      "color": "#7d6b55",
+      "base": 14.32599999999915,
+      "props": {
+        "name": "Copper mine"
+      }
+    },
+    {
+      "id": "ox5a",
+      "type": "house",
+      "name": "House",
+      "shape": "box",
+      "x": 3.3,
+      "y": 44,
+      "rot": 90,
+      "w": 5,
+      "d": 4,
+      "h": 4,
+      "roof": "gable",
+      "color": "#d9b38c",
+      "base": 14.32599999999915,
+      "props": {
+        "name": "Bunkhouse"
+      }
+    },
+    {
+      "id": "ox5b",
+      "type": "tower",
+      "name": "Water tower",
+      "shape": "cyl",
+      "x": 3,
+      "y": 58,
+      "rot": 0,
+      "w": 3,
+      "d": 3,
+      "h": 9,
+      "roof": "flat",
+      "color": "#6b4f3a",
+      "base": 14.32599999999915,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox5c",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 3,
+      "y": 16,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 14.32599999999915,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox5d",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 3,
+      "y": 84,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 14.32599999999915,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox5e",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 44,
+      "y": 129,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 14.32599999999915,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox5f",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 60,
+      "y": 129,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 14.32599999999915,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox5g",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 95,
+      "y": 129,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 14.32599999999915,
+      "props": {
+        "name": ""
       }
     }
   ]

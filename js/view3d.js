@@ -5,6 +5,7 @@ import { state, getCache, routeSampleWorld } from './model.js';
 import { HO } from './catalog.js';
 import { DEG, sampleRoute, toWorld } from './geometry.js';
 import { devicePose } from './editor2d.js';
+import { supports, hillHeightFn, underSpan, portalOpening, trestleBents, trestleSpread, moveTrain, TURNOUT_KINDS } from './realism.js';
 
 let renderer, scene, camera, controls, root, container, active = false, dirty = true;
 let hemi, sun, night = false, train = null, cab = false, clock = new THREE.Clock();
@@ -101,7 +102,7 @@ function rebuild() {
   for (const d of P.devices) buildDevice(d);
   applyLighting();
   if (!camera.userData.placed) { resetCamera(); camera.userData.placed = true; }
-  if (train) train.mesh.forEach((m) => root.add(m));
+  if (train) { train.mesh.forEach((m) => root.add(m)); if (train.marker) root.add(train.marker); }
 }
 
 function buildBoard(B) {
@@ -168,18 +169,14 @@ function buildTrack() {
     c.samples.forEach((pts, ri) => {
       const elevated = pts.some((p) => p.z > 0.3);
       if (!c.g.pit) beam(pts, 0, HO.ballastW, 0, 0.18, ballast);
-      if (elevated) {
-        beam(pts, 0, HO.ballastW + 1, -0.6, 0, ply);
-        // piers every ~8"
-        for (let i = 0; i < pts.length; i += 16) {
-          const p = pts[i];
-          if (p.z < 1 || underSpan(p)) continue;
-          const h = p.z - 0.6;
-          const m = new THREE.Mesh(new THREE.BoxGeometry(0.8, h, 0.8), pier);
-          m.position.copy(V(p.x, p.y, h / 2)); m.castShadow = true; root.add(m);
-        }
-      }
-      for (const s of [HO.gauge / 2, -HO.gauge / 2]) beam(pts, s, 0.07, 0.25, 0.42, rail, false);
+      if (elevated) beam(pts, 0, HO.ballastW + 1, -0.6, 0, ply);
+      // Rails. On a turnout only the route it is set for runs through the points; the other
+      // route's rails start behind the points, which is what you see from the cab.
+      const isTurnout = TURNOUT_KINDS.includes(c.pc.kind);
+      const active = (c.pc.state || 0) === ri;
+      const railPts = isTurnout && !active ? pts.filter((p) => p.d >= 2.6) : pts;
+      if (railPts.length > 1) for (const s of [HO.gauge / 2, -HO.gauge / 2]) beam(railPts, s, 0.07, 0.25, 0.42, rail, false);
+      if (isTurnout && ri === 0) switchStand(c);
       // ties
       const r = c.g.routes[ri];
       for (const lp of sampleRoute(r, HO.tieSpacing)) {
@@ -188,6 +185,7 @@ function buildTrack() {
       }
     });
   }
+  buildSupports(pier);
   if (ties.length) {
     const im = new THREE.InstancedMesh(tieGeo, mat('#4a3626'), ties.length);
     const o = new THREE.Object3D();
@@ -195,17 +193,6 @@ function buildTrack() {
     im.receiveShadow = true;
     root.add(im);
   }
-}
-
-// true if a point lies on the deck of a bridge or trestle (no generic piers needed there)
-function underSpan(p) {
-  for (const o of state.project.scenery) {
-    if (o.shape !== 'bridge' && o.shape !== 'trestle') continue;
-    const c = Math.cos(-(o.rot || 0) * DEG), s = Math.sin(-(o.rot || 0) * DEG);
-    const dx = p.x - o.x, dy = p.y - o.y;
-    if (Math.abs(dx * c - dy * s) <= o.w / 2 + 0.5 && Math.abs(dx * s + dy * c) <= o.d / 2 + 0.5) return true;
-  }
-  return false;
 }
 
 // A group placed and rotated like a scenery item; children use local coords
@@ -230,6 +217,39 @@ function strut(g, x0, y0, x1, y1, z, t, m) {
   return gbox(g, L, t, t, (x0 + x1) / 2, (y0 + y1) / 2, z, m, Math.atan2(y1 - y0, x1 - x0));
 }
 
+// Mountain / hill as a height field. Where track runs into the slope without being deep enough for
+// a tunnel, the ground is dug out to track level with sloping sides (a railway cutting), so trains
+// run through cuttings into the portals instead of through solid ground.
+function buildTerrain(o) {
+  const f = hillHeightFn(o);
+  const rot = (o.rot || 0) * DEG, cs = Math.cos(rot), sn = Math.sin(rot);
+  const nx = Math.min(110, Math.max(20, Math.round(o.w))), ny = Math.min(110, Math.max(20, Math.round(o.d)));
+  const pos = [], idx = [], inside = [];
+  const noise = (x, y) => (Math.sin(x * 0.9) * Math.cos(y * 0.7) + Math.sin(x * 0.31 + y * 0.53)) * 0.08;
+  for (let j = 0; j <= ny; j++) for (let i = 0; i <= nx; i++) {
+    const lx = -o.w / 2 + (o.w * i) / nx, ly = -o.d / 2 + (o.d * j) / ny;
+    const x = o.x + lx * cs - ly * sn, y = o.y + lx * sn + ly * cs;
+    let hgt = f(x, y);
+    if (hgt > 0.3) hgt += noise(x, y) * Math.min(1, hgt / 3) * o.h * 0.15;
+    const v = V(x, y, Math.max(-0.02, hgt));
+    pos.push(v.x, v.y, v.z);
+    inside.push(hgt > 0.01);
+  }
+  const W = nx + 1;
+  for (let j = 0; j < ny; j++) for (let i = 0; i < nx; i++) {
+    const a = j * W + i, b = a + 1, c = a + W, d = c + 1;
+    if (!(inside[a] || inside[b] || inside[c] || inside[d])) continue;
+    idx.push(a, b, d, a, d, c);
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  g.setIndex(idx);
+  g.computeVertexNormals();
+  const m = new THREE.Mesh(g, mat(o.color, { flatShading: true, side: THREE.DoubleSide }));
+  m.castShadow = true; m.receiveShadow = true;
+  root.add(m);
+}
+
 function buildSpan(o) {
   const g = itemGroup(o);
   const steel = mat(o.color, { metalness: 0.3, roughness: 0.6 });
@@ -238,13 +258,11 @@ function buildSpan(o) {
   if (o.shape === 'trestle') {
     const wood = mat(o.color);
     gbox(g, o.w, 0.2, o.d * 0.9, 0, deckY - 0.1, 0, wood); // stringers / deck
-    const n = Math.max(2, Math.round(o.w / 1.8));
     const legH = Math.max(0.2, H + deckY - 0.2);
-    for (let i = 0; i <= n; i++) {
-      const x = -half + (o.w * i) / n;
+    for (const x of trestleBents(o)) {
       gbox(g, 0.18, 0.16, o.d + 0.4, x, deckY - 0.28, 0, wood); // cap
       if (H < 0.9) continue;
-      const spread = Math.min(1.6, 0.25 + legH * 0.12); // battered outer posts
+      const spread = trestleSpread(o); // battered outer posts
       const base = -H, top = deckY - 0.36;
       for (const zz of [-0.35, 0.35]) gbox(g, 0.14, legH, 0.14, x, (base + top) / 2, zz, wood);
       for (const sgn of [-1, 1]) {
@@ -287,6 +305,37 @@ function buildSpan(o) {
   }
 }
 
+// Posts under raised track (computed in realism.js so they never stand on a lower track):
+// a single post, a two-post bent with a cap beam, or a post with a bracket arm.
+function buildSupports(m) {
+  for (const sp of supports().supports) {
+    const top = sp.top;
+    for (const q of sp.posts) {
+      const post = new THREE.Mesh(new THREE.BoxGeometry(0.7, top, 0.7), m);
+      post.position.copy(V(q.x, q.y, top / 2)); post.castShadow = true; root.add(post);
+    }
+    if (sp.cap) {
+      const [a, b] = sp.cap;
+      const L = Math.hypot(b.x - a.x, b.y - a.y) + 0.7;
+      const cap = new THREE.Mesh(new THREE.BoxGeometry(L, 0.35, 0.6), m);
+      cap.position.copy(V((a.x + b.x) / 2, (a.y + b.y) / 2, top - 0.17));
+      cap.rotation.y = Math.atan2(b.y - a.y, b.x - a.x);
+      cap.castShadow = true; root.add(cap);
+    }
+  }
+}
+
+// Switch stand beside the points: green target = normal (straight), red = reverse (diverging)
+function switchStand(c) {
+  const pc = c.pc, a = pc.rot * DEG, side = -1.5;
+  const x = pc.x + Math.cos(a) * 1.2 - Math.sin(a) * side, y = pc.y + Math.sin(a) * 1.2 + Math.cos(a) * side;
+  const post = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.8, 6), mat('#333'));
+  post.position.copy(V(x, y, pc.z + 0.4)); root.add(post);
+  const on = (pc.state || 0) === 0 ? '#20d060' : '#e03030';
+  const tgt = new THREE.Mesh(new THREE.BoxGeometry(0.35, 0.35, 0.06), new THREE.MeshStandardMaterial({ color: on, emissive: on, emissiveIntensity: 0.6 }));
+  tgt.position.copy(V(x, y, pc.z + 0.9)); tgt.rotation.y = a; root.add(tgt);
+}
+
 function placeObj(m, o, y) {
   m.position.copy(V(o.x, o.y, (o.base || 0) + y));
   m.rotation.y = (o.rot || 0) * DEG;
@@ -297,6 +346,10 @@ function placeObj(m, o, y) {
 
 function buildScenery(o) {
   const c = o.color;
+  if ((o.base || 0) > 0.5 && ['box', 'cyl', 'pine', 'tree', 'light'].includes(o.shape)) {
+    const pad = new THREE.Mesh(new THREE.BoxGeometry(o.w + 1, 0.5, o.d + 1), mat('#7c8f4e'));
+    pad.position.copy(V(o.x, o.y, o.base - 0.25)); pad.rotation.y = (o.rot || 0) * DEG; pad.receiveShadow = true; root.add(pad);
+  }
   switch (o.shape) {
     case 'box': {
       placeObj(new THREE.Mesh(new THREE.BoxGeometry(o.w, o.h, o.d), mat(c)), o, o.h / 2);
@@ -341,12 +394,7 @@ function buildScenery(o) {
       m.scale.set(o.w, 1, o.d);
       break;
     }
-    case 'hill': {
-      const g = new THREE.SphereGeometry(1, 28, 14, 0, Math.PI * 2, 0, Math.PI / 2);
-      const m = placeObj(new THREE.Mesh(g, mat(c)), o, 0);
-      m.scale.set(o.w / 2, o.h, o.d / 2);
-      break;
-    }
+    case 'hill': buildTerrain(o); break;
     case 'river': {
       placeObj(new THREE.Mesh(new THREE.BoxGeometry(o.w, 0.06, o.d), mat(c, { roughness: 0.1, metalness: 0.2, transparent: true, opacity: 0.85 })), o, 0.04);
       break;
@@ -356,9 +404,12 @@ function buildScenery(o) {
       buildSpan(o);
       break;
     case 'portal': {
-      placeObj(new THREE.Mesh(new THREE.BoxGeometry(o.w, o.h, o.d), mat(c)), o, o.h / 2);
-      const hole = new THREE.Mesh(new THREE.BoxGeometry(o.w * 0.55, o.h * 0.7, o.d + 0.05), mat('#111'));
-      placeObj(hole, o, o.h * 0.35);
+      // stone face with an arched bore sized from portalOpening() (the same numbers the checks use)
+      const op = portalOpening(o), g = itemGroup(o), stone = mat(c), dark = mat('#0c0c0c');
+      const side = (o.w - op.w) / 2;
+      for (const sx of [-1, 1]) gbox(g, side, o.h, o.d, sx * (op.w / 2 + side / 2), o.h / 2, 0, stone);
+      gbox(g, op.w, o.h - op.h, o.d, 0, op.h + (o.h - op.h) / 2, 0, stone);
+      gbox(g, op.w, op.h, 0.1, 0, op.h / 2, 0.3, dark);
       break;
     }
   }
@@ -424,37 +475,26 @@ export function startTrain() {
     if (!i) { const cab = new THREE.Mesh(new THREE.BoxGeometry(1.4, 0.5, 1.2), mat('#222')); cab.position.set(2.2, 1.95, 0); g.add(cab); }
     root.add(g); return g;
   });
-  train = { pieceId: pc.id, route: pc.state || 0, d: 0, dir: 1, speed: 12, mesh, hist: [], odo: 0 };
+  train = { pieceId: pc.id, route: TURNOUT_KINDS.includes(pc.kind) ? pc.state || 0 : 0, d: 0, dir: 1, speed: 12, mesh, hist: [], odo: 0, curv: null, straight: Infinity, halted: null };
+  // put the cars on the track behind the locomotive
+  train.hist.push({ ...routeSampleWorld(pc, train.route, 0), odo: 0 });
   return true;
 }
-export function stopTrain() { if (train) train.mesh.forEach((m) => root.remove(m)); train = null; cab = false; }
+export function stopTrain() { if (train) { train.mesh.forEach((m) => root.remove(m)); if (train.marker) root.remove(train.marker); } train = null; cab = false; }
+let trainListener = () => {};
+export function onTrainEvent(fn) { trainListener = fn; }
+export function trainHalted() { return train?.halted || null; }
 export function trainRunning() { return !!train; }
 export function setCab(v) { cab = v && !!train; if (!cab) resetCamera(); }
 export function setSpeed(v) { if (train) train.speed = v; }
 
 function stepTrain(dt) {
-  const C = getCache();
-  let c = C.map.get(train.pieceId);
+  if (train.halted) { if (cab) placeCab(); return; }
+  // moveTrain follows connections and turnout settings and reports anything a real train
+  // couldn't get past: derailments, collisions with structures, stalls on steep grades …
+  const ev = moveTrain(train, train.speed * dt);
+  const c = getCache().map.get(train.pieceId);
   if (!c) return stopTrain();
-  let move = train.speed * dt;
-  let guard = 0;
-  while (move > 0 && guard++ < 20) {
-    const L = c.g.routes[train.route].len;
-    const nd = train.d + move * train.dir;
-    if (nd >= 0 && nd <= L) { train.d = nd; move = 0; break; }
-    const over = train.dir > 0 ? nd - L : -nd;
-    const end = train.dir > 0 ? 'e' : 's';
-    const epi = c.eps.findIndex((e) => e.refs.some((r) => r.route === train.route && r.end === end));
-    const link = epi >= 0 ? c.links[epi] : null;
-    if (!link) { train.dir *= -1; train.d = train.dir > 0 ? 0 : L; move = over; continue; }
-    const nc = C.map.get(link.id);
-    const ep = nc.eps[link.ep];
-    const ref = ep.refs.find((r) => r.route === (nc.pc.state || 0)) || ep.refs[0];
-    c = nc; train.pieceId = nc.pc.id; train.route = ref.route;
-    train.dir = ref.end === 's' ? 1 : -1;
-    train.d = ref.end === 's' ? 0 : nc.g.routes[ref.route].len;
-    move = over;
-  }
   const pc = c.pc;
   const w = routeSampleWorld(pc, train.route, train.d);
   const h = w.h + (train.dir < 0 ? 180 : 0);
@@ -467,11 +507,30 @@ function stepTrain(dt) {
     m.position.copy(V(hp.x, hp.y, hp.z + 0.3));
     m.rotation.y = hp.h * DEG;
   });
-  if (cab) {
-    const fwd = V(Math.cos(h * DEG), Math.sin(h * DEG), 0);
-    camera.position.copy(V(w.x, w.y, w.z + 2.4)).addScaledVector(fwd, 3.6);
-    camera.lookAt(camera.position.clone().add(fwd.multiplyScalar(10)).add(new THREE.Vector3(0, -0.4, 0)));
+  train.cabPose = { x: w.x, y: w.y, z: w.z, h };
+  if (ev && ev.kind !== 'end') haltTrain(ev); // after positioning, so the derailed cars stay tipped
+  if (cab) placeCab();
+}
+
+function placeCab() {
+  const p = train.cabPose;
+  if (!p) return;
+  const fwd = V(Math.cos(p.h * DEG), Math.sin(p.h * DEG), 0);
+  camera.position.copy(V(p.x, p.y, p.z + 2.4)).addScaledVector(fwd, 3.6);
+  camera.lookAt(camera.position.clone().add(fwd.multiplyScalar(10)).add(new THREE.Vector3(0, -0.4, 0)));
+}
+
+// Stop the train where the problem is. Derailments tip the leading cars off the rails.
+function haltTrain(ev) {
+  train.halted = ev;
+  if (ev.kind === 'derail') {
+    train.mesh.slice(0, 2).forEach((m, i) => { m.rotation.z = (i ? -0.25 : 0.45); m.rotation.x = i ? 0.15 : -0.3; m.position.y -= 0.3; m.position.x += 0.6 * (i ? -1 : 1); });
   }
+  const ring = new THREE.Mesh(new THREE.TorusGeometry(2.2, 0.18, 8, 32), new THREE.MeshStandardMaterial({ color: ev.kind === 'derail' ? '#ff2a2a' : '#ffb02d', emissive: ev.kind === 'derail' ? '#ff2a2a' : '#ffb02d', emissiveIntensity: 1.2 }));
+  ring.rotation.x = Math.PI / 2;
+  ring.position.copy(V(ev.at.x, ev.at.y, (ev.at.z || 0) + 0.5));
+  train.marker = ring; root.add(ring);
+  trainListener(ev);
 }
 
 export function snapshot3D() { return renderer.domElement.toDataURL('image/png'); }

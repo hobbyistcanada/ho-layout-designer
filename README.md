@@ -18,8 +18,9 @@ A free, browser-based planner for **HO scale (1:87.1)** model railroad layouts. 
 | **Control table** | One table of every turnout, signal and sensor with its address or pin, exportable as CSV for wiring, Arduino sketches or JMRI. |
 | **Scenery** | Houses, station, factory, engine house, water tower, platform, street lights, trees, roads, ponds, rivers, hills, mountains and tunnel portals. All are resizable and recolourable, and the real-world size is shown. |
 | **Bridges** | Plate-girder bridge, through-truss bridge and timber trestle. Drop one on a track and it centres itself, lines up with the rails and takes the track's height; the 3D view draws abutments or trestle bents down to the ground instead of plain piers. |
+| **Realism checks** | Physics and civil-engineering rules of thumb: the tallest car must clear the **underside** of the deck or bridge above (car height + deck thickness), **effective grade** on curves (grade + 32/R curve drag, John Allen's rule), **vertical kinks** where the grade changes abruptly, **S-curves** without a car-length straight, parallel tracks closer than 2" (sideswipe), buildings / trees / portals / bridge abutments and trestle bents **fouling the track**, track running through water, floating buildings, tunnel mouths without portals and raised track with no room for supports. |
 | **Design checks** | Flags curves under your minimum radius, grades over your maximum, **too little vertical clearance** where levels cross, tracks overlapping at the same height, track running off the benchwork, open ends, and turnouts without an address. Click an issue to jump to it. |
-| **3D view** | Three.js scene with benchwork, ballast, ties, rails, sub-roadbed and **piers under raised track**, scenery and signals (lit by aspect). Orbit, top view, **night mode** (street lights glow), a **test train** that follows connections and turnout settings, and a **cab ride** camera. |
+| **3D view** | Three.js scene with benchwork, ballast, ties, rails, sub-roadbed and **piers under raised track**, scenery and signals (lit by aspect). Orbit, top view, **night mode** (street lights glow), a **test train** that follows connections and turnout settings and **stops or derails where a real train would** (hits a low deck or structure, runs off an open end or a misaligned joint, runs through a turnout set against it, S-curve, vertical kink, curve too tight, stalls on a steep curved grade, drives into water) with a message and a marker, and a **cab ride** camera in which turnouts show which way they are set. Raised track stands on posts that never land on a lower track (two-post bents beside the track where needed, as on a real helix); mountains get railway **cuttings** leading to the tunnel portals. |
 | **Parts list** | Counts of sectional pieces, flex track needed (with 10% waste), joiners, devices and scenery, exportable as CSV. |
 | **Files** | Autosaves in the browser. Save/Open `.json` projects you can keep in this repo. Export a PNG of the plan or the 3D view. Undo/redo (Ctrl+Z / Ctrl+Y). |
 
@@ -82,6 +83,7 @@ js/checks.js        design-rule checks, parts list, control table
 js/view3d.js        three.js scene, test train, cab ride
 js/main.js          panels, properties, files, keyboard, sample gallery
 js/samples.js       generated sample layouts (figure 8, spiral loop, helix)
+js/realism.js       physics / clearance / structure rules, support posts, terrain cuttings, train movement
 examples/           sample project files
 tests/              sample checks (Node) and a browser smoke test (Playwright)
 tools/              export-samples.mjs regenerates examples/*.json
@@ -90,7 +92,8 @@ tools/              export-samples.mjs regenerates examples/*.json
 ## Tests
 
 ```
-node tests/samples.test.mjs        # builds every sample and runs the design checks
+node tests/samples.test.mjs        # builds every sample, runs all checks and test trains everywhere
+node tests/realism.test.mjs        # one deliberate fault per mini-layout: each must be caught
 python3 tests/browser.test.py      # serves the app, loads each sample in Chrome, fails on JS errors
 ```
 

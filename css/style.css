@@ -85,3 +85,8 @@ summary { padding: 8px 10px; cursor: pointer; font-weight: 600; background: var(
 .sBlurb { color: var(--muted); font-size: 12px; }
 .sTags { display: flex; flex-wrap: wrap; gap: 4px; }
 .sTags span { font-size: 10.5px; background: #1d4a66; color: #cfeaff; border-radius: 10px; padding: 1px 7px; }
+
+#trainMsg { position: absolute; left: 12px; bottom: 12px; max-width: 460px; padding: 10px 12px; border-radius: 8px; background: rgba(20,24,30,0.92); border-left: 4px solid var(--warn); z-index: 2; }
+#trainMsg.derail { border-left-color: var(--err); }
+#trainMsg .tmTitle { font-weight: 700; margin-bottom: 4px; }
+#trainMsg .tmBtns { display: flex; gap: 6px; margin-top: 8px; }

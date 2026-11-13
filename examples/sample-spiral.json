@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "name": "Sample – Spiral loop mountain division (16×8 ft)",
+  "name": "Sample – Spiral loop mountain division (17½×8½ ft)",
   "units": "in",
   "board": {
     "outline": [
@@ -9,16 +9,16 @@
         "y": 0
       },
       {
-        "x": 192,
+        "x": 210,
         "y": 0
       },
       {
-        "x": 192,
-        "y": 96
+        "x": 210,
+        "y": 102
       },
       {
         "x": 0,
-        "y": 96
+        "y": 102
       }
     ],
     "thickness": 0.75,
@@ -42,16 +42,20 @@
     {
       "id": "L2",
       "name": "Mine town",
-      "elevation": 7,
+      "elevation": 5.5,
       "visible": true,
       "color": "#b5523f"
     }
   ],
   "activeLevel": "L0",
   "settings": {
-    "minRadius": 22,
+    "minRadius": 24,
     "maxGrade": 2.5,
     "clearance": 3.5,
+    "carHeight": 3,
+    "deckThickness": 0.5,
+    "carLength": 8,
+    "maxEffGrade": 3,
     "snap": true,
     "grid": 1
   },
@@ -295,7 +299,7 @@
       "cat": "flex",
       "kind": "straight",
       "params": {
-        "len": 17
+        "len": 18.5
       },
       "x": 135,
       "y": 18,
@@ -312,13 +316,12 @@
     },
     {
       "id": "txd",
-      "cat": "r30",
-      "kind": "curve",
+      "cat": "flex",
+      "kind": "straight",
       "params": {
-        "r": 30,
-        "angle": 15
+        "len": 18.5
       },
-      "x": 152,
+      "x": 153.5,
       "y": 18,
       "rot": 0,
       "z": 0,
@@ -333,15 +336,15 @@
     },
     {
       "id": "txe",
-      "cat": "r30",
+      "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 30,
+        "r": 33,
         "angle": 15
       },
-      "x": 159.7646,
-      "y": 19.0222,
-      "rot": 15,
+      "x": 172,
+      "y": 18,
+      "rot": 0,
       "z": 0,
       "grade": 0,
       "level": "L0",
@@ -354,15 +357,15 @@
     },
     {
       "id": "txf",
-      "cat": "r30",
+      "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 30,
+        "r": 33,
         "angle": 15
       },
-      "x": 167,
-      "y": 22.0192,
-      "rot": 30,
+      "x": 180.541,
+      "y": 19.1244,
+      "rot": 15,
       "z": 0,
       "grade": 0,
       "level": "L0",
@@ -375,15 +378,15 @@
     },
     {
       "id": "txg",
-      "cat": "r30",
+      "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 30,
+        "r": 33,
         "angle": 15
       },
-      "x": 173.2132,
-      "y": 26.7868,
-      "rot": 45,
+      "x": 188.5,
+      "y": 22.4212,
+      "rot": 30,
       "z": 0,
       "grade": 0,
       "level": "L0",
@@ -396,15 +399,15 @@
     },
     {
       "id": "txh",
-      "cat": "r30",
+      "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 30,
+        "r": 33,
         "angle": 15
       },
-      "x": 177.9808,
-      "y": 33,
-      "rot": 60,
+      "x": 195.3345,
+      "y": 27.6655,
+      "rot": 45,
       "z": 0,
       "grade": 0,
       "level": "L0",
@@ -417,15 +420,15 @@
     },
     {
       "id": "txi",
-      "cat": "r30",
+      "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 30,
+        "r": 33,
         "angle": 15
       },
-      "x": 180.9778,
-      "y": 40.2354,
-      "rot": 75,
+      "x": 200.5788,
+      "y": 34.5,
+      "rot": 60,
       "z": 0,
       "grade": 0,
       "level": "L0",
@@ -438,15 +441,15 @@
     },
     {
       "id": "txj",
-      "cat": "r30",
+      "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 30,
+        "r": 33,
         "angle": 15
       },
-      "x": 182,
-      "y": 48,
-      "rot": 90,
+      "x": 203.8756,
+      "y": 42.459,
+      "rot": 75,
       "z": 0,
       "grade": 0,
       "level": "L0",
@@ -459,15 +462,15 @@
     },
     {
       "id": "txk",
-      "cat": "r30",
+      "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 30,
+        "r": 33,
         "angle": 15
       },
-      "x": 180.9778,
-      "y": 55.7646,
-      "rot": 105,
+      "x": 205,
+      "y": 51,
+      "rot": 90,
       "z": 0,
       "grade": 0,
       "level": "L0",
@@ -480,15 +483,15 @@
     },
     {
       "id": "txl",
-      "cat": "r30",
+      "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 30,
+        "r": 33,
         "angle": 15
       },
-      "x": 177.9808,
-      "y": 63,
-      "rot": 120,
+      "x": 203.8756,
+      "y": 59.541,
+      "rot": 105,
       "z": 0,
       "grade": 0,
       "level": "L0",
@@ -501,15 +504,15 @@
     },
     {
       "id": "txm",
-      "cat": "r30",
+      "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 30,
+        "r": 33,
         "angle": 15
       },
-      "x": 173.2132,
-      "y": 69.2132,
-      "rot": 135,
+      "x": 200.5788,
+      "y": 67.5,
+      "rot": 120,
       "z": 0,
       "grade": 0,
       "level": "L0",
@@ -522,15 +525,15 @@
     },
     {
       "id": "txn",
-      "cat": "r30",
+      "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 30,
+        "r": 33,
         "angle": 15
       },
-      "x": 167,
-      "y": 73.9808,
-      "rot": 150,
+      "x": 195.3345,
+      "y": 74.3345,
+      "rot": 135,
       "z": 0,
       "grade": 0,
       "level": "L0",
@@ -543,15 +546,15 @@
     },
     {
       "id": "txo",
-      "cat": "r30",
+      "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 30,
+        "r": 33,
         "angle": 15
       },
-      "x": 159.7646,
-      "y": 76.9778,
-      "rot": 165,
+      "x": 188.5,
+      "y": 79.5788,
+      "rot": 150,
       "z": 0,
       "grade": 0,
       "level": "L0",
@@ -564,14 +567,15 @@
     },
     {
       "id": "txp",
-      "cat": "flex",
-      "kind": "straight",
+      "cat": "cflex",
+      "kind": "curve",
       "params": {
-        "len": 4
+        "r": 33,
+        "angle": 15
       },
-      "x": 152,
-      "y": 78,
-      "rot": -180,
+      "x": 180.541,
+      "y": 82.8756,
+      "rot": 165,
       "z": 0,
       "grade": 0,
       "level": "L0",
@@ -584,6 +588,26 @@
     },
     {
       "id": "txq",
+      "cat": "flex",
+      "kind": "straight",
+      "params": {
+        "len": 4
+      },
+      "x": 172,
+      "y": 84,
+      "rot": -180,
+      "z": 0,
+      "grade": 0,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "txr",
       "cat": "n6R",
       "kind": "turnout",
       "params": {
@@ -593,8 +617,8 @@
         "angle": 9.46,
         "tail": 4.49
       },
-      "x": 148,
-      "y": 78,
+      "x": 168,
+      "y": 84,
       "rot": -180,
       "z": 0,
       "grade": 0,
@@ -607,14 +631,14 @@
       }
     },
     {
-      "id": "txr",
+      "id": "txs",
       "cat": "flex",
       "kind": "straight",
       "params": {
         "len": 2.7
       },
-      "x": 136.9967,
-      "y": 79.2819,
+      "x": 156.9967,
+      "y": 85.2819,
       "rot": 170.54,
       "z": 0,
       "grade": 0,
@@ -627,7 +651,7 @@
       }
     },
     {
-      "id": "txs",
+      "id": "txt",
       "cat": "n6L",
       "kind": "turnout",
       "params": {
@@ -637,8 +661,8 @@
         "angle": 9.46,
         "tail": 4.49
       },
-      "x": 134.3334,
-      "y": 79.7257,
+      "x": 154.3334,
+      "y": 85.7257,
       "rot": 170.54,
       "z": 0,
       "grade": 0,
@@ -651,14 +675,14 @@
       }
     },
     {
-      "id": "txt",
+      "id": "txu",
       "cat": "flex",
       "kind": "straight",
       "params": {
         "len": 2.7
       },
-      "x": 123.483,
-      "y": 81.5336,
+      "x": 143.483,
+      "y": 87.5336,
       "rot": 170.54,
       "z": 0,
       "grade": 0,
@@ -671,7 +695,7 @@
       }
     },
     {
-      "id": "txu",
+      "id": "txv",
       "cat": "n6L",
       "kind": "turnout",
       "params": {
@@ -681,8 +705,8 @@
         "angle": 9.46,
         "tail": 4.49
       },
-      "x": 120.8197,
-      "y": 81.9774,
+      "x": 140.8197,
+      "y": 87.9774,
       "rot": 170.54,
       "z": 0,
       "grade": 0,
@@ -695,14 +719,14 @@
       }
     },
     {
-      "id": "txv",
+      "id": "txw",
       "cat": "flex",
       "kind": "straight",
       "params": {
         "len": 2.7
       },
-      "x": 109.9693,
-      "y": 83.7853,
+      "x": 129.9693,
+      "y": 89.7853,
       "rot": 170.54,
       "z": 0,
       "grade": 0,
@@ -715,7 +739,7 @@
       }
     },
     {
-      "id": "txw",
+      "id": "txx",
       "cat": "n6L",
       "kind": "turnout",
       "params": {
@@ -725,8 +749,8 @@
         "angle": 9.46,
         "tail": 4.49
       },
-      "x": 107.306,
-      "y": 84.2291,
+      "x": 127.306,
+      "y": 90.2291,
       "rot": 170.54,
       "z": 0,
       "grade": 0,
@@ -739,35 +763,14 @@
       }
     },
     {
-      "id": "txx",
+      "id": "txy",
       "cat": "flex",
       "kind": "straight",
       "params": {
         "len": 2.7
       },
-      "x": 96.4556,
-      "y": 86.037,
-      "rot": 170.54,
-      "z": 0,
-      "grade": 0,
-      "level": "L0",
-      "state": 0,
-      "props": {
-        "name": "",
-        "address": "",
-        "motor": ""
-      }
-    },
-    {
-      "id": "txy",
-      "cat": "cflex",
-      "kind": "curve",
-      "params": {
-        "r": 40,
-        "angle": 9.46
-      },
-      "x": 93.7923,
-      "y": 86.4808,
+      "x": 116.4556,
+      "y": 92.037,
       "rot": 170.54,
       "z": 0,
       "grade": 0,
@@ -781,14 +784,15 @@
     },
     {
       "id": "txz",
-      "cat": "flex",
-      "kind": "straight",
+      "cat": "cflex",
+      "kind": "curve",
       "params": {
-        "len": 32.6345
+        "r": 40,
+        "angle": 9.46
       },
-      "x": 123.269,
-      "y": 80.2697,
-      "rot": -180,
+      "x": 113.7923,
+      "y": 92.4808,
+      "rot": 170.54,
       "z": 0,
       "grade": 0,
       "level": "L0",
@@ -804,10 +808,10 @@
       "cat": "flex",
       "kind": "straight",
       "params": {
-        "len": 32.6345
+        "len": 28.423
       },
-      "x": 90.6345,
-      "y": 80.2697,
+      "x": 143.269,
+      "y": 86.2697,
       "rot": -180,
       "z": 0,
       "grade": 0,
@@ -821,13 +825,13 @@
     },
     {
       "id": "tx11",
-      "cat": "bumper",
-      "kind": "bumper",
+      "cat": "flex",
+      "kind": "straight",
       "params": {
-        "len": 2
+        "len": 28.423
       },
-      "x": 58,
-      "y": 80.2697,
+      "x": 114.846,
+      "y": 86.2697,
       "rot": -180,
       "z": 0,
       "grade": 0,
@@ -844,10 +848,10 @@
       "cat": "flex",
       "kind": "straight",
       "params": {
-        "len": 25.8777
+        "len": 28.423
       },
-      "x": 109.7553,
-      "y": 82.5214,
+      "x": 86.423,
+      "y": 86.2697,
       "rot": -180,
       "z": 0,
       "grade": 0,
@@ -861,13 +865,13 @@
     },
     {
       "id": "tx13",
-      "cat": "flex",
-      "kind": "straight",
+      "cat": "bumper",
+      "kind": "bumper",
       "params": {
-        "len": 25.8777
+        "len": 2
       },
-      "x": 83.8777,
-      "y": 82.5214,
+      "x": 58,
+      "y": 86.2697,
       "rot": -180,
       "z": 0,
       "grade": 0,
@@ -881,13 +885,13 @@
     },
     {
       "id": "tx14",
-      "cat": "bumper",
-      "kind": "bumper",
+      "cat": "flex",
+      "kind": "straight",
       "params": {
-        "len": 2
+        "len": 35.8777
       },
-      "x": 58,
-      "y": 82.5214,
+      "x": 129.7553,
+      "y": 88.5214,
       "rot": -180,
       "z": 0,
       "grade": 0,
@@ -904,10 +908,10 @@
       "cat": "flex",
       "kind": "straight",
       "params": {
-        "len": 19.1208
+        "len": 35.8777
       },
-      "x": 96.2416,
-      "y": 84.7731,
+      "x": 93.8777,
+      "y": 88.5214,
       "rot": -180,
       "z": 0,
       "grade": 0,
@@ -921,13 +925,13 @@
     },
     {
       "id": "tx16",
-      "cat": "flex",
-      "kind": "straight",
+      "cat": "bumper",
+      "kind": "bumper",
       "params": {
-        "len": 19.1208
+        "len": 2
       },
-      "x": 77.1208,
-      "y": 84.7731,
+      "x": 58,
+      "y": 88.5214,
       "rot": -180,
       "z": 0,
       "grade": 0,
@@ -941,13 +945,13 @@
     },
     {
       "id": "tx17",
-      "cat": "bumper",
-      "kind": "bumper",
+      "cat": "flex",
+      "kind": "straight",
       "params": {
-        "len": 2
+        "len": 29.1208
       },
-      "x": 58,
-      "y": 84.7731,
+      "x": 116.2416,
+      "y": 90.7731,
       "rot": -180,
       "z": 0,
       "grade": 0,
@@ -964,10 +968,10 @@
       "cat": "flex",
       "kind": "straight",
       "params": {
-        "len": 29.218
+        "len": 29.1208
       },
-      "x": 87.218,
-      "y": 87.0248,
+      "x": 87.1208,
+      "y": 90.7731,
       "rot": -180,
       "z": 0,
       "grade": 0,
@@ -987,7 +991,7 @@
         "len": 2
       },
       "x": 58,
-      "y": 87.0248,
+      "y": 90.7731,
       "rot": -180,
       "z": 0,
       "grade": 0,
@@ -1004,10 +1008,10 @@
       "cat": "flex",
       "kind": "straight",
       "params": {
-        "len": 32.3333
+        "len": 24.609
       },
-      "x": 137,
-      "y": 78,
+      "x": 107.218,
+      "y": 93.0248,
       "rot": -180,
       "z": 0,
       "grade": 0,
@@ -1024,10 +1028,10 @@
       "cat": "flex",
       "kind": "straight",
       "params": {
-        "len": 32.3333
+        "len": 24.609
       },
-      "x": 104.6667,
-      "y": 78,
+      "x": 82.609,
+      "y": 93.0248,
       "rot": -180,
       "z": 0,
       "grade": 0,
@@ -1041,13 +1045,13 @@
     },
     {
       "id": "tx1c",
-      "cat": "flex",
-      "kind": "straight",
+      "cat": "bumper",
+      "kind": "bumper",
       "params": {
-        "len": 32.3333
+        "len": 2
       },
-      "x": 72.3333,
-      "y": 78,
+      "x": 58,
+      "y": 93.0248,
       "rot": -180,
       "z": 0,
       "grade": 0,
@@ -1061,14 +1065,13 @@
     },
     {
       "id": "tx1d",
-      "cat": "r30",
-      "kind": "curve",
+      "cat": "flex",
+      "kind": "straight",
       "params": {
-        "r": 30,
-        "angle": 15
+        "len": 29.25
       },
-      "x": 40,
-      "y": 78,
+      "x": 157,
+      "y": 84,
       "rot": -180,
       "z": 0,
       "grade": 0,
@@ -1082,15 +1085,14 @@
     },
     {
       "id": "tx1e",
-      "cat": "r30",
-      "kind": "curve",
+      "cat": "flex",
+      "kind": "straight",
       "params": {
-        "r": 30,
-        "angle": 15
+        "len": 29.25
       },
-      "x": 32.2354,
-      "y": 76.9778,
-      "rot": -165,
+      "x": 127.75,
+      "y": 84,
+      "rot": -180,
       "z": 0,
       "grade": 0,
       "level": "L0",
@@ -1103,15 +1105,14 @@
     },
     {
       "id": "tx1f",
-      "cat": "r30",
-      "kind": "curve",
+      "cat": "flex",
+      "kind": "straight",
       "params": {
-        "r": 30,
-        "angle": 15
+        "len": 29.25
       },
-      "x": 25,
-      "y": 73.9808,
-      "rot": -150,
+      "x": 98.5,
+      "y": 84,
+      "rot": -180,
       "z": 0,
       "grade": 0,
       "level": "L0",
@@ -1124,15 +1125,14 @@
     },
     {
       "id": "tx1g",
-      "cat": "r30",
-      "kind": "curve",
+      "cat": "flex",
+      "kind": "straight",
       "params": {
-        "r": 30,
-        "angle": 15
+        "len": 29.25
       },
-      "x": 18.7868,
-      "y": 69.2132,
-      "rot": -135,
+      "x": 69.25,
+      "y": 84,
+      "rot": -180,
       "z": 0,
       "grade": 0,
       "level": "L0",
@@ -1145,15 +1145,15 @@
     },
     {
       "id": "tx1h",
-      "cat": "r30",
+      "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 30,
+        "r": 33,
         "angle": 15
       },
-      "x": 14.0192,
-      "y": 63,
-      "rot": -120,
+      "x": 40,
+      "y": 84,
+      "rot": -180,
       "z": 0,
       "grade": 0,
       "level": "L0",
@@ -1166,15 +1166,15 @@
     },
     {
       "id": "tx1i",
-      "cat": "r30",
+      "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 30,
+        "r": 33,
         "angle": 15
       },
-      "x": 11.0222,
-      "y": 55.7646,
-      "rot": -105,
+      "x": 31.459,
+      "y": 82.8756,
+      "rot": -165,
       "z": 0,
       "grade": 0,
       "level": "L0",
@@ -1187,15 +1187,15 @@
     },
     {
       "id": "tx1j",
-      "cat": "r30",
+      "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 30,
+        "r": 33,
         "angle": 15
       },
-      "x": 10,
-      "y": 48,
-      "rot": -90,
+      "x": 23.5,
+      "y": 79.5788,
+      "rot": -150,
       "z": 0,
       "grade": 0,
       "level": "L0",
@@ -1208,15 +1208,15 @@
     },
     {
       "id": "tx1k",
-      "cat": "r30",
+      "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 30,
+        "r": 33,
         "angle": 15
       },
-      "x": 11.0222,
-      "y": 40.2354,
-      "rot": -75,
+      "x": 16.6655,
+      "y": 74.3345,
+      "rot": -135,
       "z": 0,
       "grade": 0,
       "level": "L0",
@@ -1229,15 +1229,15 @@
     },
     {
       "id": "tx1l",
-      "cat": "r30",
+      "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 30,
+        "r": 33,
         "angle": 15
       },
-      "x": 14.0192,
-      "y": 33,
-      "rot": -60,
+      "x": 11.4212,
+      "y": 67.5,
+      "rot": -120,
       "z": 0,
       "grade": 0,
       "level": "L0",
@@ -1250,15 +1250,15 @@
     },
     {
       "id": "tx1m",
-      "cat": "r30",
+      "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 30,
+        "r": 33,
         "angle": 15
       },
-      "x": 18.7868,
-      "y": 26.7868,
-      "rot": -45,
+      "x": 8.1244,
+      "y": 59.541,
+      "rot": -105,
       "z": 0,
       "grade": 0,
       "level": "L0",
@@ -1271,15 +1271,15 @@
     },
     {
       "id": "tx1n",
-      "cat": "r30",
+      "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 30,
+        "r": 33,
         "angle": 15
       },
-      "x": 25,
-      "y": 22.0192,
-      "rot": -30,
+      "x": 7,
+      "y": 51,
+      "rot": -90,
       "z": 0,
       "grade": 0,
       "level": "L0",
@@ -1292,15 +1292,15 @@
     },
     {
       "id": "tx1o",
-      "cat": "r30",
+      "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 30,
+        "r": 33,
         "angle": 15
       },
-      "x": 32.2354,
-      "y": 19.0222,
-      "rot": -15,
+      "x": 8.1244,
+      "y": 42.459,
+      "rot": -75,
       "z": 0,
       "grade": 0,
       "level": "L0",
@@ -1313,6 +1313,90 @@
     },
     {
       "id": "tx1p",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 33,
+        "angle": 15
+      },
+      "x": 11.4212,
+      "y": 34.5,
+      "rot": -60,
+      "z": 0,
+      "grade": 0,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx1q",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 33,
+        "angle": 15
+      },
+      "x": 16.6655,
+      "y": 27.6655,
+      "rot": -45,
+      "z": 0,
+      "grade": 0,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx1r",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 33,
+        "angle": 15
+      },
+      "x": 23.5,
+      "y": 22.4212,
+      "rot": -30,
+      "z": 0,
+      "grade": 0,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx1s",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 33,
+        "angle": 15
+      },
+      "x": 31.459,
+      "y": 19.1244,
+      "rot": -15,
+      "z": 0,
+      "grade": 0,
+      "level": "L0",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx1t",
       "cat": "flex",
       "kind": "straight",
       "params": {
@@ -1332,99 +1416,19 @@
       }
     },
     {
-      "id": "tx1q",
+      "id": "tx1u",
       "cat": "cflex",
       "kind": "curve",
       "params": {
         "r": 30,
-        "angle": 20.54
+        "angle": 10.27
       },
       "x": 55.0033,
       "y": 19.2819,
       "rot": 9.46,
       "z": 0,
-      "grade": 2.4,
-      "level": "L1",
-      "state": 0,
-      "props": {
-        "name": "",
-        "address": "",
-        "motor": ""
-      }
-    },
-    {
-      "id": "tx1r",
-      "cat": "flex",
-      "kind": "straight",
-      "params": {
-        "len": 25.1068
-      },
-      "x": 65.0725,
-      "y": 22.8932,
-      "rot": 30,
-      "z": 0.2581,
-      "grade": 2.4,
-      "level": "L1",
-      "state": 0,
-      "props": {
-        "name": "",
-        "address": "",
-        "motor": ""
-      }
-    },
-    {
-      "id": "tx1s",
-      "cat": "flex",
-      "kind": "straight",
-      "params": {
-        "len": 25.1068
-      },
-      "x": 86.8157,
-      "y": 35.4466,
-      "rot": 30,
-      "z": 0.8607,
-      "grade": 2.4,
-      "level": "L1",
-      "state": 0,
-      "props": {
-        "name": "",
-        "address": "",
-        "motor": ""
-      }
-    },
-    {
-      "id": "tx1t",
-      "cat": "flex",
-      "kind": "straight",
-      "params": {
-        "len": 19.0526
-      },
-      "x": 108.5588,
-      "y": 48,
-      "rot": 30,
-      "z": 1.4632,
-      "grade": 2.4,
-      "level": "L1",
-      "state": 0,
-      "props": {
-        "name": "",
-        "address": "",
-        "motor": ""
-      }
-    },
-    {
-      "id": "tx1u",
-      "cat": "flex",
-      "kind": "straight",
-      "params": {
-        "len": 19.0526
-      },
-      "x": 125.0588,
-      "y": 57.5263,
-      "rot": 30,
-      "z": 1.9205,
-      "grade": 2.4,
-      "level": "L1",
+      "grade": 0.3,
+      "level": "L0",
       "state": 0,
       "props": {
         "name": "",
@@ -1437,15 +1441,15 @@
       "cat": "cflex",
       "kind": "curve",
       "params": {
-        "r": 22,
-        "angle": 30
+        "r": 30,
+        "angle": 10.27
       },
-      "x": 152.5588,
-      "y": 70,
-      "rot": -180,
-      "z": 2.6542,
-      "grade": -2.4,
-      "level": "L1",
+      "x": 60.2002,
+      "y": 20.6351,
+      "rot": 19.73,
+      "z": 0.0162,
+      "grade": 0.7,
+      "level": "L0",
       "state": 0,
       "props": {
         "name": "",
@@ -1455,18 +1459,17 @@
     },
     {
       "id": "tx1w",
-      "cat": "cflex",
-      "kind": "curve",
+      "cat": "flex",
+      "kind": "straight",
       "params": {
-        "r": 22,
-        "angle": 30
+        "len": 5.6214
       },
-      "x": 163.5588,
-      "y": 67.0526,
-      "rot": 150,
-      "z": 2.9307,
-      "grade": -2.4,
-      "level": "L1",
+      "x": 65.0725,
+      "y": 22.8932,
+      "rot": 30,
+      "z": 0.0539,
+      "grade": 1.11,
+      "level": "L0",
       "state": 0,
       "props": {
         "name": "",
@@ -1476,17 +1479,16 @@
     },
     {
       "id": "tx1x",
-      "cat": "cflex",
-      "kind": "curve",
+      "cat": "flex",
+      "kind": "straight",
       "params": {
-        "r": 22,
-        "angle": 30
+        "len": 5.6214
       },
-      "x": 171.6113,
-      "y": 59,
-      "rot": 120,
-      "z": 3.2071,
-      "grade": -2.4,
+      "x": 69.9408,
+      "y": 25.7039,
+      "rot": 30,
+      "z": 0.1162,
+      "grade": 1.53,
       "level": "L1",
       "state": 0,
       "props": {
@@ -1497,17 +1499,16 @@
     },
     {
       "id": "tx1y",
-      "cat": "cflex",
-      "kind": "curve",
+      "cat": "flex",
+      "kind": "straight",
       "params": {
-        "r": 22,
-        "angle": 30
+        "len": 5.6214
       },
-      "x": 174.5588,
-      "y": 48,
-      "rot": 90,
-      "z": 3.4836,
-      "grade": -2.4,
+      "x": 74.809,
+      "y": 28.5146,
+      "rot": 30,
+      "z": 0.202,
+      "grade": 1.8,
       "level": "L1",
       "state": 0,
       "props": {
@@ -1518,17 +1519,16 @@
     },
     {
       "id": "tx1z",
-      "cat": "cflex",
-      "kind": "curve",
+      "cat": "flex",
+      "kind": "straight",
       "params": {
-        "r": 22,
-        "angle": 30
+        "len": 5.6214
       },
-      "x": 171.6113,
-      "y": 37,
-      "rot": 60,
-      "z": 3.7601,
-      "grade": -2.4,
+      "x": 79.6772,
+      "y": 31.3252,
+      "rot": 30,
+      "z": 0.3029,
+      "grade": 1.8,
       "level": "L1",
       "state": 0,
       "props": {
@@ -1539,17 +1539,16 @@
     },
     {
       "id": "tx20",
-      "cat": "cflex",
-      "kind": "curve",
+      "cat": "flex",
+      "kind": "straight",
       "params": {
-        "r": 22,
-        "angle": 30
+        "len": 5.6214
       },
-      "x": 163.5588,
-      "y": 28.9474,
+      "x": 84.5455,
+      "y": 34.1359,
       "rot": 30,
-      "z": 4.0365,
-      "grade": -2.4,
+      "z": 0.4041,
+      "grade": 1.8,
       "level": "L1",
       "state": 0,
       "props": {
@@ -1560,17 +1559,16 @@
     },
     {
       "id": "tx21",
-      "cat": "cflex",
-      "kind": "curve",
+      "cat": "flex",
+      "kind": "straight",
       "params": {
-        "r": 22,
-        "angle": 30
+        "len": 5.6214
       },
-      "x": 152.5588,
-      "y": 26,
-      "rot": 0,
-      "z": 4.313,
-      "grade": -2.4,
+      "x": 89.4137,
+      "y": 36.9466,
+      "rot": 30,
+      "z": 0.5053,
+      "grade": 1.8,
       "level": "L1",
       "state": 0,
       "props": {
@@ -1581,17 +1579,16 @@
     },
     {
       "id": "tx22",
-      "cat": "cflex",
-      "kind": "curve",
+      "cat": "flex",
+      "kind": "straight",
       "params": {
-        "r": 22,
-        "angle": 30
+        "len": 5.6214
       },
-      "x": 141.5588,
-      "y": 28.9474,
-      "rot": -30,
-      "z": 4.5894,
-      "grade": -2.4,
+      "x": 94.282,
+      "y": 39.7573,
+      "rot": 30,
+      "z": 0.6065,
+      "grade": 1.8,
       "level": "L1",
       "state": 0,
       "props": {
@@ -1605,13 +1602,13 @@
       "cat": "flex",
       "kind": "straight",
       "params": {
-        "len": 19.0526
+        "len": 5.6214
       },
-      "x": 141.5588,
-      "y": 28.9474,
-      "rot": 150,
-      "z": 4.5894,
-      "grade": 2.4,
+      "x": 99.1502,
+      "y": 42.568,
+      "rot": 30,
+      "z": 0.7077,
+      "grade": 1.8,
       "level": "L1",
       "state": 0,
       "props": {
@@ -1625,13 +1622,13 @@
       "cat": "flex",
       "kind": "straight",
       "params": {
-        "len": 19.0526
+        "len": 5.6214
       },
-      "x": 125.0588,
-      "y": 38.4737,
-      "rot": 150,
-      "z": 5.0467,
-      "grade": 2.4,
+      "x": 104.0184,
+      "y": 45.3786,
+      "rot": 30,
+      "z": 0.8089,
+      "grade": 1.8,
       "level": "L1",
       "state": 0,
       "props": {
@@ -1645,14 +1642,14 @@
       "cat": "flex",
       "kind": "straight",
       "params": {
-        "len": 14
+        "len": 5.6214
       },
-      "x": 108.5588,
-      "y": 48,
-      "rot": 150,
-      "z": 5.504,
-      "grade": 2.4,
-      "level": "L2",
+      "x": 108.8867,
+      "y": 48.1893,
+      "rot": 30,
+      "z": 0.91,
+      "grade": 1.8,
+      "level": "L1",
       "state": 0,
       "props": {
         "name": "",
@@ -1662,18 +1659,17 @@
     },
     {
       "id": "tx26",
-      "cat": "cflex",
-      "kind": "curve",
+      "cat": "flex",
+      "kind": "straight",
       "params": {
-        "r": 30,
-        "angle": 30
+        "len": 5.3886
       },
-      "x": 96.4344,
-      "y": 55,
-      "rot": 150,
-      "z": 5.84,
-      "grade": 2.4,
-      "level": "L2",
+      "x": 113.7549,
+      "y": 51,
+      "rot": 30,
+      "z": 1.0112,
+      "grade": 1.8,
+      "level": "L1",
       "state": 0,
       "props": {
         "name": "",
@@ -1686,14 +1682,14 @@
       "cat": "flex",
       "kind": "straight",
       "params": {
-        "len": 10
+        "len": 5.3886
       },
-      "x": 81.4344,
-      "y": 59.0192,
-      "rot": -180,
-      "z": 6.217,
-      "grade": 0,
-      "level": "L2",
+      "x": 118.4216,
+      "y": 53.6943,
+      "rot": 30,
+      "z": 1.1082,
+      "grade": 1.8,
+      "level": "L1",
       "state": 0,
       "props": {
         "name": "",
@@ -1703,26 +1699,22 @@
     },
     {
       "id": "tx28",
-      "cat": "n6L",
-      "kind": "turnout",
+      "cat": "flex",
+      "kind": "straight",
       "params": {
-        "hand": "L",
-        "len": 11,
-        "r": 40,
-        "angle": 9.46,
-        "tail": 4.49
+        "len": 5.3886
       },
-      "x": 71.4344,
-      "y": 59.0192,
-      "rot": -180,
-      "z": 6.217,
-      "grade": 0,
-      "level": "L2",
+      "x": 123.0883,
+      "y": 56.3886,
+      "rot": 30,
+      "z": 1.2052,
+      "grade": 1.8,
+      "level": "L1",
       "state": 0,
       "props": {
-        "name": "T8",
-        "address": "Servo 8",
-        "motor": "Servo (Arduino/PCA9685)"
+        "name": "",
+        "address": "",
+        "motor": ""
       }
     },
     {
@@ -1730,14 +1722,14 @@
       "cat": "flex",
       "kind": "straight",
       "params": {
-        "len": 2.7
+        "len": 5.3886
       },
-      "x": 60.4311,
-      "y": 57.7373,
-      "rot": -170.54,
-      "z": 6.217,
-      "grade": 0,
-      "level": "L2",
+      "x": 127.7549,
+      "y": 59.0829,
+      "rot": 30,
+      "z": 1.3022,
+      "grade": 1.8,
+      "level": "L1",
       "state": 0,
       "props": {
         "name": "",
@@ -1747,26 +1739,22 @@
     },
     {
       "id": "tx2a",
-      "cat": "n6R",
-      "kind": "turnout",
+      "cat": "flex",
+      "kind": "straight",
       "params": {
-        "hand": "R",
-        "len": 11,
-        "r": 40,
-        "angle": 9.46,
-        "tail": 4.49
+        "len": 5.3886
       },
-      "x": 57.7678,
-      "y": 57.2935,
-      "rot": -170.54,
-      "z": 6.217,
-      "grade": 0,
-      "level": "L2",
+      "x": 132.4216,
+      "y": 61.7772,
+      "rot": 30,
+      "z": 1.3992,
+      "grade": 1.8,
+      "level": "L1",
       "state": 0,
       "props": {
-        "name": "T9",
-        "address": "Servo 9",
-        "motor": "Servo (Arduino/PCA9685)"
+        "name": "",
+        "address": "",
+        "motor": ""
       }
     },
     {
@@ -1774,14 +1762,14 @@
       "cat": "flex",
       "kind": "straight",
       "params": {
-        "len": 2.7
+        "len": 5.3886
       },
-      "x": 46.9174,
-      "y": 55.4856,
-      "rot": -170.54,
-      "z": 6.217,
-      "grade": 0,
-      "level": "L2",
+      "x": 137.0883,
+      "y": 64.4715,
+      "rot": 30,
+      "z": 1.4962,
+      "grade": 1.8,
+      "level": "L1",
       "state": 0,
       "props": {
         "name": "",
@@ -1791,18 +1779,17 @@
     },
     {
       "id": "tx2c",
-      "cat": "cflex",
-      "kind": "curve",
+      "cat": "flex",
+      "kind": "straight",
       "params": {
-        "r": 40,
-        "angle": 9.46
+        "len": 5.3886
       },
-      "x": 37.6798,
-      "y": 54.4978,
-      "rot": 0,
-      "z": 6.217,
-      "grade": 0,
-      "level": "L2",
+      "x": 141.7549,
+      "y": 67.1658,
+      "rot": 30,
+      "z": 1.5932,
+      "grade": 1.8,
+      "level": "L1",
       "state": 0,
       "props": {
         "name": "",
@@ -1815,14 +1802,14 @@
       "cat": "flex",
       "kind": "straight",
       "params": {
-        "len": 26.7034
+        "len": 5.3886
       },
-      "x": 46.7034,
-      "y": 56.7495,
-      "rot": -180,
-      "z": 6.217,
-      "grade": 0,
-      "level": "L2",
+      "x": 146.4216,
+      "y": 69.8601,
+      "rot": 30,
+      "z": 1.6902,
+      "grade": 1.8,
+      "level": "L1",
       "state": 0,
       "props": {
         "name": "",
@@ -1832,17 +1819,17 @@
     },
     {
       "id": "tx2e",
-      "cat": "bumper",
-      "kind": "bumper",
+      "cat": "flex",
+      "kind": "straight",
       "params": {
-        "len": 2
+        "len": 5.3886
       },
-      "x": 20,
-      "y": 56.7495,
-      "rot": -180,
-      "z": 6.217,
-      "grade": 0,
-      "level": "L2",
+      "x": 151.0883,
+      "y": 72.5544,
+      "rot": 30,
+      "z": 1.7872,
+      "grade": 1.8,
+      "level": "L1",
       "state": 0,
       "props": {
         "name": "",
@@ -1852,17 +1839,18 @@
     },
     {
       "id": "tx2f",
-      "cat": "flex",
-      "kind": "straight",
+      "cat": "cflex",
+      "kind": "curve",
       "params": {
-        "len": 17.6798
+        "r": 28,
+        "angle": 12
       },
-      "x": 37.6798,
-      "y": 54.4978,
-      "rot": -180,
-      "z": 6.217,
-      "grade": 0,
-      "level": "L2",
+      "x": 161.1025,
+      "y": 77.6296,
+      "rot": -162,
+      "z": 1.9897,
+      "grade": -1.8,
+      "level": "L1",
       "state": 0,
       "props": {
         "name": "",
@@ -1872,17 +1860,18 @@
     },
     {
       "id": "tx2g",
-      "cat": "bumper",
-      "kind": "bumper",
+      "cat": "cflex",
+      "kind": "curve",
       "params": {
-        "len": 2
+        "r": 28,
+        "angle": 12
       },
-      "x": 20,
-      "y": 54.4978,
-      "rot": -180,
-      "z": 6.217,
-      "grade": 0,
-      "level": "L2",
+      "x": 166.8281,
+      "y": 78.8466,
+      "rot": -174,
+      "z": 2.0953,
+      "grade": -1.8,
+      "level": "L1",
       "state": 0,
       "props": {
         "name": "",
@@ -1892,17 +1881,18 @@
     },
     {
       "id": "tx2h",
-      "cat": "flex",
-      "kind": "straight",
+      "cat": "cflex",
+      "kind": "curve",
       "params": {
-        "len": 20.2172
+        "r": 28,
+        "angle": 12
       },
-      "x": 60.4344,
-      "y": 59.0192,
-      "rot": -180,
-      "z": 6.217,
-      "grade": 0,
-      "level": "L2",
+      "x": 172.6817,
+      "y": 78.8466,
+      "rot": 174,
+      "z": 2.2009,
+      "grade": -1.8,
+      "level": "L1",
       "state": 0,
       "props": {
         "name": "",
@@ -1912,15 +1902,759 @@
     },
     {
       "id": "tx2i",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 28,
+        "angle": 12
+      },
+      "x": 178.4074,
+      "y": 77.6296,
+      "rot": 162,
+      "z": 2.3064,
+      "grade": -1.8,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx2j",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 28,
+        "angle": 12
+      },
+      "x": 183.7549,
+      "y": 75.2487,
+      "rot": 150,
+      "z": 2.412,
+      "grade": -1.8,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx2k",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 28,
+        "angle": 12
+      },
+      "x": 188.4906,
+      "y": 71.8081,
+      "rot": 138,
+      "z": 2.5175,
+      "grade": -1.8,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx2l",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 28,
+        "angle": 12
+      },
+      "x": 192.4074,
+      "y": 67.458,
+      "rot": 126,
+      "z": 2.6231,
+      "grade": -1.8,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx2m",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 28,
+        "angle": 12
+      },
+      "x": 195.3342,
+      "y": 62.3886,
+      "rot": 114,
+      "z": 2.7286,
+      "grade": -1.8,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx2n",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 28,
+        "angle": 12
+      },
+      "x": 197.1431,
+      "y": 56.8215,
+      "rot": 102,
+      "z": 2.8342,
+      "grade": -1.8,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx2o",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 28,
+        "angle": 12
+      },
+      "x": 197.7549,
+      "y": 51,
+      "rot": 90,
+      "z": 2.9398,
+      "grade": -1.8,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx2p",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 28,
+        "angle": 12
+      },
+      "x": 197.1431,
+      "y": 45.1785,
+      "rot": 78,
+      "z": 3.0453,
+      "grade": -1.8,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx2q",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 28,
+        "angle": 12
+      },
+      "x": 195.3342,
+      "y": 39.6114,
+      "rot": 66,
+      "z": 3.1509,
+      "grade": -1.8,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx2r",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 28,
+        "angle": 12
+      },
+      "x": 192.4074,
+      "y": 34.542,
+      "rot": 54,
+      "z": 3.2564,
+      "grade": -1.8,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx2s",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 28,
+        "angle": 12
+      },
+      "x": 188.4906,
+      "y": 30.1919,
+      "rot": 42,
+      "z": 3.362,
+      "grade": -1.8,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx2t",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 28,
+        "angle": 12
+      },
+      "x": 183.7549,
+      "y": 26.7513,
+      "rot": 30,
+      "z": 3.4676,
+      "grade": -1.8,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx2u",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 28,
+        "angle": 12
+      },
+      "x": 178.4074,
+      "y": 24.3704,
+      "rot": 18,
+      "z": 3.5731,
+      "grade": -1.8,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx2v",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 28,
+        "angle": 12
+      },
+      "x": 172.6817,
+      "y": 23.1534,
+      "rot": 6,
+      "z": 3.6787,
+      "grade": -1.8,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx2w",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 28,
+        "angle": 12
+      },
+      "x": 166.8281,
+      "y": 23.1534,
+      "rot": -6,
+      "z": 3.7842,
+      "grade": -1.8,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx2x",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 28,
+        "angle": 12
+      },
+      "x": 161.1025,
+      "y": 24.3704,
+      "rot": -18,
+      "z": 3.8898,
+      "grade": -1.8,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx2y",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 28,
+        "angle": 12
+      },
+      "x": 155.7549,
+      "y": 26.7513,
+      "rot": -30,
+      "z": 3.9953,
+      "grade": -1.8,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx2z",
       "cat": "flex",
       "kind": "straight",
       "params": {
-        "len": 20.2172
+        "len": 5.3886
       },
-      "x": 40.2172,
-      "y": 59.0192,
+      "x": 155.7549,
+      "y": 26.7513,
+      "rot": 150,
+      "z": 3.9953,
+      "grade": 1.8,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx30",
+      "cat": "flex",
+      "kind": "straight",
+      "params": {
+        "len": 5.3886
+      },
+      "x": 151.0883,
+      "y": 29.4456,
+      "rot": 150,
+      "z": 4.0923,
+      "grade": 1.8,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx31",
+      "cat": "flex",
+      "kind": "straight",
+      "params": {
+        "len": 5.3886
+      },
+      "x": 146.4216,
+      "y": 32.1399,
+      "rot": 150,
+      "z": 4.1893,
+      "grade": 1.8,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx32",
+      "cat": "flex",
+      "kind": "straight",
+      "params": {
+        "len": 5.3886
+      },
+      "x": 141.7549,
+      "y": 34.8342,
+      "rot": 150,
+      "z": 4.2863,
+      "grade": 1.8,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx33",
+      "cat": "flex",
+      "kind": "straight",
+      "params": {
+        "len": 5.3886
+      },
+      "x": 137.0883,
+      "y": 37.5285,
+      "rot": 150,
+      "z": 4.3833,
+      "grade": 1.8,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx34",
+      "cat": "flex",
+      "kind": "straight",
+      "params": {
+        "len": 5.3886
+      },
+      "x": 132.4216,
+      "y": 40.2228,
+      "rot": 150,
+      "z": 4.4803,
+      "grade": 1.8,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx35",
+      "cat": "flex",
+      "kind": "straight",
+      "params": {
+        "len": 5.3886
+      },
+      "x": 127.7549,
+      "y": 42.9171,
+      "rot": 150,
+      "z": 4.5773,
+      "grade": 1.8,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx36",
+      "cat": "flex",
+      "kind": "straight",
+      "params": {
+        "len": 5.3886
+      },
+      "x": 123.0883,
+      "y": 45.6114,
+      "rot": 150,
+      "z": 4.6743,
+      "grade": 1.8,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx37",
+      "cat": "flex",
+      "kind": "straight",
+      "params": {
+        "len": 5.3886
+      },
+      "x": 118.4216,
+      "y": 48.3057,
+      "rot": 150,
+      "z": 4.7713,
+      "grade": 1.8,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx38",
+      "cat": "s6",
+      "kind": "straight",
+      "params": {
+        "len": 6
+      },
+      "x": 113.7549,
+      "y": 51,
+      "rot": 150,
+      "z": 4.8683,
+      "grade": 1.8,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx39",
+      "cat": "s6",
+      "kind": "straight",
+      "params": {
+        "len": 6
+      },
+      "x": 108.5588,
+      "y": 54,
+      "rot": 150,
+      "z": 4.9763,
+      "grade": 1.8,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3a",
+      "cat": "s6",
+      "kind": "straight",
+      "params": {
+        "len": 6
+      },
+      "x": 103.3626,
+      "y": 57,
+      "rot": 150,
+      "z": 5.0843,
+      "grade": 1.8,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3b",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 30,
+        "angle": 10
+      },
+      "x": 98.1665,
+      "y": 60,
+      "rot": 150,
+      "z": 5.1923,
+      "grade": 1.78,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3c",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 30,
+        "angle": 10
+      },
+      "x": 93.4271,
+      "y": 62.21,
+      "rot": 160,
+      "z": 5.2856,
+      "grade": 1.49,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3d",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 30,
+        "angle": 10
+      },
+      "x": 88.3759,
+      "y": 63.5635,
+      "rot": 170,
+      "z": 5.3634,
+      "grade": 1.1,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3e",
+      "cat": "flex",
+      "kind": "straight",
+      "params": {
+        "len": 5.3333
+      },
+      "x": 83.1665,
+      "y": 64.0192,
       "rot": -180,
-      "z": 6.217,
+      "z": 5.4209,
+      "grade": 0.71,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3f",
+      "cat": "flex",
+      "kind": "straight",
+      "params": {
+        "len": 5.3333
+      },
+      "x": 77.8331,
+      "y": 64.0192,
+      "rot": -180,
+      "z": 5.4585,
+      "grade": 0.31,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3g",
+      "cat": "flex",
+      "kind": "straight",
+      "params": {
+        "len": 5.3333
+      },
+      "x": 72.4998,
+      "y": 64.0192,
+      "rot": -180,
+      "z": 5.475,
+      "grade": 0.02,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3h",
+      "cat": "n6L",
+      "kind": "turnout",
+      "params": {
+        "hand": "L",
+        "len": 11,
+        "r": 40,
+        "angle": 9.46,
+        "tail": 4.49
+      },
+      "x": 67.1665,
+      "y": 64.0192,
+      "rot": -180,
+      "z": 5.4758,
+      "grade": 0,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "T8",
+        "address": "Servo 8",
+        "motor": "Servo (Arduino/PCA9685)"
+      }
+    },
+    {
+      "id": "tx3i",
+      "cat": "flex",
+      "kind": "straight",
+      "params": {
+        "len": 2.7
+      },
+      "x": 56.1632,
+      "y": 62.7373,
+      "rot": -170.54,
+      "z": 5.4758,
       "grade": 0,
       "level": "L2",
       "state": 0,
@@ -1931,16 +2665,201 @@
       }
     },
     {
-      "id": "tx2j",
+      "id": "tx3j",
+      "cat": "n6R",
+      "kind": "turnout",
+      "params": {
+        "hand": "R",
+        "len": 11,
+        "r": 40,
+        "angle": 9.46,
+        "tail": 4.49
+      },
+      "x": 53.4999,
+      "y": 62.2935,
+      "rot": -170.54,
+      "z": 5.4758,
+      "grade": 0,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "T9",
+        "address": "Servo 9",
+        "motor": "Servo (Arduino/PCA9685)"
+      }
+    },
+    {
+      "id": "tx3k",
+      "cat": "flex",
+      "kind": "straight",
+      "params": {
+        "len": 2.7
+      },
+      "x": 42.6495,
+      "y": 60.4856,
+      "rot": -170.54,
+      "z": 5.4758,
+      "grade": 0,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3l",
+      "cat": "cflex",
+      "kind": "curve",
+      "params": {
+        "r": 40,
+        "angle": 9.46
+      },
+      "x": 33.4119,
+      "y": 59.4978,
+      "rot": 0,
+      "z": 5.4758,
+      "grade": 0,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3m",
+      "cat": "flex",
+      "kind": "straight",
+      "params": {
+        "len": 22.4355
+      },
+      "x": 42.4355,
+      "y": 61.7495,
+      "rot": -180,
+      "z": 5.4758,
+      "grade": 0,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3n",
       "cat": "bumper",
       "kind": "bumper",
       "params": {
         "len": 2
       },
       "x": 20,
-      "y": 59.0192,
+      "y": 61.7495,
       "rot": -180,
-      "z": 6.217,
+      "z": 5.4758,
+      "grade": 0,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3o",
+      "cat": "flex",
+      "kind": "straight",
+      "params": {
+        "len": 13.4119
+      },
+      "x": 33.4119,
+      "y": 59.4978,
+      "rot": -180,
+      "z": 5.4758,
+      "grade": 0,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3p",
+      "cat": "bumper",
+      "kind": "bumper",
+      "params": {
+        "len": 2
+      },
+      "x": 20,
+      "y": 59.4978,
+      "rot": -180,
+      "z": 5.4758,
+      "grade": 0,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3q",
+      "cat": "flex",
+      "kind": "straight",
+      "params": {
+        "len": 18.0833
+      },
+      "x": 56.1665,
+      "y": 64.0192,
+      "rot": -180,
+      "z": 5.4758,
+      "grade": 0,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3r",
+      "cat": "flex",
+      "kind": "straight",
+      "params": {
+        "len": 18.0833
+      },
+      "x": 38.0833,
+      "y": 64.0192,
+      "rot": -180,
+      "z": 5.4758,
+      "grade": 0,
+      "level": "L2",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
+    },
+    {
+      "id": "tx3s",
+      "cat": "bumper",
+      "kind": "bumper",
+      "params": {
+        "len": 2
+      },
+      "x": 20,
+      "y": 64.0192,
+      "rot": -180,
+      "z": 5.4758,
       "grade": 0,
       "level": "L2",
       "state": 0,
@@ -1953,7 +2872,7 @@
   ],
   "devices": [
     {
-      "id": "dx3k",
+      "id": "dx4t",
       "type": "signal3",
       "name": "Signal – 3 aspect",
       "x": 0,
@@ -1973,7 +2892,7 @@
       }
     },
     {
-      "id": "dx3l",
+      "id": "dx4u",
       "type": "signal3",
       "name": "Signal – 3 aspect",
       "x": 0,
@@ -1981,7 +2900,7 @@
       "rot": 0,
       "side": 1,
       "flip": false,
-      "pieceId": "tx1c",
+      "pieceId": "tx1g",
       "route": 0,
       "d": 3,
       "props": {
@@ -1993,7 +2912,7 @@
       }
     },
     {
-      "id": "dx3m",
+      "id": "dx4v",
       "type": "signal2",
       "name": "Signal – 2 aspect",
       "x": 0,
@@ -2001,9 +2920,9 @@
       "rot": 0,
       "side": 1,
       "flip": false,
-      "pieceId": "tx1s",
+      "pieceId": "tx22",
       "route": 0,
-      "d": 4,
+      "d": 2.4854368216052265,
       "props": {
         "name": "SIG3",
         "address": "D6",
@@ -2013,7 +2932,7 @@
       }
     },
     {
-      "id": "dx3n",
+      "id": "dx4w",
       "type": "sensor",
       "name": "Train passing sensor",
       "x": 0,
@@ -2021,9 +2940,9 @@
       "rot": 0,
       "side": 1,
       "flip": false,
-      "pieceId": "tx1u",
+      "pieceId": "tx2b",
       "route": 0,
-      "d": 6,
+      "d": 3.056987437817469,
       "props": {
         "name": "PS1",
         "address": "A0",
@@ -2032,7 +2951,7 @@
       }
     },
     {
-      "id": "dx3o",
+      "id": "dx4x",
       "type": "sensor",
       "name": "Train passing sensor",
       "x": 0,
@@ -2040,9 +2959,9 @@
       "rot": 0,
       "side": 1,
       "flip": false,
-      "pieceId": "tx27",
+      "pieceId": "tx3e",
       "route": 0,
-      "d": 5,
+      "d": 4,
       "props": {
         "name": "PS2",
         "address": "A1",
@@ -2051,7 +2970,7 @@
       }
     },
     {
-      "id": "dx3p",
+      "id": "dx4y",
       "type": "block",
       "name": "Occupancy detection block",
       "x": 0,
@@ -2070,7 +2989,7 @@
       }
     },
     {
-      "id": "dx3q",
+      "id": "dx4z",
       "type": "home",
       "name": "Home / end-of-travel sensor",
       "x": 0,
@@ -2078,7 +2997,7 @@
       "rot": 0,
       "side": 1,
       "flip": false,
-      "pieceId": "tx11",
+      "pieceId": "tx13",
       "route": 0,
       "d": 1,
       "props": {
@@ -2089,7 +3008,7 @@
       }
     },
     {
-      "id": "dx3r",
+      "id": "dx50",
       "type": "home",
       "name": "Home / end-of-travel sensor",
       "x": 0,
@@ -2097,7 +3016,7 @@
       "rot": 0,
       "side": 1,
       "flip": false,
-      "pieceId": "tx14",
+      "pieceId": "tx16",
       "route": 0,
       "d": 1,
       "props": {
@@ -2108,26 +3027,7 @@
       }
     },
     {
-      "id": "dx3s",
-      "type": "home",
-      "name": "Home / end-of-travel sensor",
-      "x": 0,
-      "y": 0,
-      "rot": 0,
-      "side": 1,
-      "flip": false,
-      "pieceId": "tx17",
-      "route": 0,
-      "d": 1,
-      "props": {
-        "name": "H3",
-        "address": "D12",
-        "notes": "",
-        "sensorType": "Hall"
-      }
-    },
-    {
-      "id": "dx3t",
+      "id": "dx51",
       "type": "home",
       "name": "Home / end-of-travel sensor",
       "x": 0,
@@ -2139,6 +3039,25 @@
       "route": 0,
       "d": 1,
       "props": {
+        "name": "H3",
+        "address": "D12",
+        "notes": "",
+        "sensorType": "Hall"
+      }
+    },
+    {
+      "id": "dx52",
+      "type": "home",
+      "name": "Home / end-of-travel sensor",
+      "x": 0,
+      "y": 0,
+      "rot": 0,
+      "side": 1,
+      "flip": false,
+      "pieceId": "tx1c",
+      "route": 0,
+      "d": 1,
+      "props": {
         "name": "H4",
         "address": "D13",
         "notes": "",
@@ -2146,7 +3065,7 @@
       }
     },
     {
-      "id": "dx3u",
+      "id": "dx53",
       "type": "feeder",
       "name": "Power feeder",
       "x": 0,
@@ -2165,7 +3084,7 @@
       }
     },
     {
-      "id": "dx3v",
+      "id": "dx54",
       "type": "feeder",
       "name": "Power feeder",
       "x": 0,
@@ -2173,9 +3092,9 @@
       "rot": 0,
       "side": 1,
       "flip": false,
-      "pieceId": "tx1s",
+      "pieceId": "tx1z",
       "route": 0,
-      "d": 10,
+      "d": 2.3812035330070174,
       "props": {
         "name": "F branch",
         "address": "",
@@ -2184,7 +3103,7 @@
       }
     },
     {
-      "id": "dx3w",
+      "id": "dx55",
       "type": "gap",
       "name": "Insulated rail gap",
       "x": 0,
@@ -2192,7 +3111,7 @@
       "rot": 0,
       "side": 1,
       "flip": false,
-      "pieceId": "tx1s",
+      "pieceId": "tx1u",
       "route": 0,
       "d": 0.5,
       "props": {
@@ -2205,16 +3124,16 @@
   ],
   "scenery": [
     {
-      "id": "ox2k",
+      "id": "ox3t",
       "type": "mountain",
       "name": "Mountain",
       "shape": "hill",
-      "x": 152.5588,
-      "y": 48,
+      "x": 169.7549,
+      "y": 51,
       "rot": 0,
-      "w": 56,
-      "d": 52,
-      "h": 18,
+      "w": 64,
+      "d": 60,
+      "h": 20,
       "roof": "flat",
       "color": "#7b7262",
       "base": 0,
@@ -2223,87 +3142,123 @@
       }
     },
     {
-      "id": "ox2l",
+      "id": "ox3u",
       "type": "portal",
       "name": "Tunnel portal",
       "shape": "portal",
-      "x": 129.3445,
-      "y": 60.0007,
+      "x": 146.4216,
+      "y": 69.8601,
       "rot": 120,
       "w": 4,
       "d": 1,
       "h": 4,
       "roof": "flat",
       "color": "#7a7a7a",
-      "base": 2.0393,
+      "base": 1.6902,
       "props": {
         "name": ""
       }
     },
     {
-      "id": "ox2m",
+      "id": "ox3v",
       "type": "portal",
       "name": "Tunnel portal",
       "shape": "portal",
-      "x": 133.2016,
-      "y": 33.7724,
+      "x": 174.3762,
+      "y": 23.384,
+      "rot": 99.5,
+      "w": 4,
+      "d": 1,
+      "h": 4,
+      "roof": "flat",
+      "color": "#7a7a7a",
+      "base": 3.6479,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox3w",
+      "type": "portal",
+      "name": "Tunnel portal",
+      "shape": "portal",
+      "x": 160.1783,
+      "y": 24.6886,
+      "rot": 70,
+      "w": 4,
+      "d": 1,
+      "h": 4,
+      "roof": "flat",
+      "color": "#7a7a7a",
+      "base": 3.9073,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox3x",
+      "type": "portal",
+      "name": "Tunnel portal",
+      "shape": "portal",
+      "x": 151.7246,
+      "y": 29.0782,
       "rot": -120,
       "w": 4,
       "d": 1,
       "h": 4,
       "roof": "flat",
       "color": "#7a7a7a",
-      "base": 4.821,
+      "base": 4.0791,
       "props": {
         "name": ""
       }
     },
     {
-      "id": "ox2n",
+      "id": "ox3y",
       "type": "girder",
       "name": "Bridge – plate girder",
       "shape": "bridge",
-      "x": 108.5588,
-      "y": 48,
+      "x": 113.7549,
+      "y": 51,
       "rot": 150,
       "w": 12,
       "d": 2.6,
       "h": 1.4,
       "roof": "flat",
       "color": "#3d4148",
-      "base": 5.504,
+      "base": 4.8683,
       "style": "girder",
       "props": {
         "name": "Loop crossing"
       }
     },
     {
-      "id": "ox2o",
+      "id": "ox3z",
       "type": "trestle",
       "name": "Trestle (timber)",
       "shape": "trestle",
-      "x": 102.4966,
-      "y": 51.5,
+      "x": 105.0947,
+      "y": 56,
       "rot": 150,
-      "w": 13,
+      "w": 10,
       "d": 2.6,
       "h": 0.2,
       "roof": "flat",
       "color": "#6b4f3a",
-      "base": 5.672,
+      "base": 5.0483,
       "props": {
         "name": "Canyon trestle"
       }
     },
     {
-      "id": "ox2p",
+      "id": "ox40",
       "type": "river",
       "name": "River / creek (24\")",
       "shape": "river",
-      "x": 102.4966,
-      "y": 51.5,
+      "x": 105.0947,
+      "y": 56,
       "rot": 240,
-      "w": 13,
+      "w": 12,
       "d": 3.5,
       "h": 0.05,
       "roof": "flat",
@@ -2314,12 +3269,12 @@
       }
     },
     {
-      "id": "ox2q",
+      "id": "ox41",
       "type": "station",
       "name": "Station",
       "shape": "box",
       "x": 96,
-      "y": 6,
+      "y": 10,
       "rot": 0,
       "w": 12,
       "d": 5,
@@ -2332,12 +3287,12 @@
       }
     },
     {
-      "id": "ox2r",
+      "id": "ox42",
       "type": "platform",
       "name": "Platform",
       "shape": "box",
       "x": 96,
-      "y": 10.2,
+      "y": 13.2,
       "rot": 0,
       "w": 22,
       "d": 2.5,
@@ -2350,7 +3305,7 @@
       }
     },
     {
-      "id": "ox2s",
+      "id": "ox43",
       "type": "road",
       "name": "Road (12\")",
       "shape": "flat",
@@ -2368,11 +3323,11 @@
       }
     },
     {
-      "id": "ox2t",
+      "id": "ox44",
       "type": "road",
       "name": "Road (12\")",
       "shape": "flat",
-      "x": 130,
+      "x": 136,
       "y": 4,
       "rot": 0,
       "w": 30,
@@ -2386,7 +3341,7 @@
       }
     },
     {
-      "id": "ox2u",
+      "id": "ox45",
       "type": "house",
       "name": "House",
       "shape": "box",
@@ -2404,7 +3359,7 @@
       }
     },
     {
-      "id": "ox2v",
+      "id": "ox46",
       "type": "house",
       "name": "House",
       "shape": "box",
@@ -2422,7 +3377,7 @@
       }
     },
     {
-      "id": "ox2w",
+      "id": "ox47",
       "type": "house",
       "name": "House",
       "shape": "box",
@@ -2440,7 +3395,7 @@
       }
     },
     {
-      "id": "ox2x",
+      "id": "ox48",
       "type": "house",
       "name": "House",
       "shape": "box",
@@ -2458,7 +3413,7 @@
       }
     },
     {
-      "id": "ox2y",
+      "id": "ox49",
       "type": "light",
       "name": "Street light",
       "shape": "light",
@@ -2476,7 +3431,7 @@
       }
     },
     {
-      "id": "ox2z",
+      "id": "ox4a",
       "type": "light",
       "name": "Street light",
       "shape": "light",
@@ -2494,7 +3449,7 @@
       }
     },
     {
-      "id": "ox30",
+      "id": "ox4b",
       "type": "light",
       "name": "Street light",
       "shape": "light",
@@ -2512,7 +3467,7 @@
       }
     },
     {
-      "id": "ox31",
+      "id": "ox4c",
       "type": "light",
       "name": "Street light",
       "shape": "light",
@@ -2530,12 +3485,12 @@
       }
     },
     {
-      "id": "ox32",
+      "id": "ox4d",
       "type": "enginehouse",
       "name": "Engine house",
       "shape": "box",
       "x": 46,
-      "y": 90,
+      "y": 97,
       "rot": 0,
       "w": 16,
       "d": 7,
@@ -2548,12 +3503,12 @@
       }
     },
     {
-      "id": "ox33",
+      "id": "ox4e",
       "type": "tower",
       "name": "Water tower",
       "shape": "cyl",
       "x": 70,
-      "y": 91,
+      "y": 98.5,
       "rot": 0,
       "w": 3,
       "d": 3,
@@ -2566,66 +3521,84 @@
       }
     },
     {
-      "id": "ox34",
+      "id": "ox4f",
       "type": "factory",
       "name": "Factory",
       "shape": "box",
-      "x": 30,
-      "y": 69,
+      "x": 34,
+      "y": 69.7495,
       "rot": 0,
       "w": 12,
       "d": 6,
       "h": 6,
       "roof": "flat",
       "color": "#7d6b55",
-      "base": 6.216957461065976,
+      "base": 5.475804123711446,
       "props": {
         "name": "Gold mine"
       }
     },
     {
-      "id": "ox35",
+      "id": "ox4g",
       "type": "house",
       "name": "House",
       "shape": "box",
-      "x": 44,
-      "y": 74,
+      "x": 50,
+      "y": 68.7495,
       "rot": 0,
       "w": 5,
       "d": 4,
       "h": 4,
       "roof": "gable",
       "color": "#d9b38c",
-      "base": 6.216957461065976,
+      "base": 5.475804123711446,
       "props": {
         "name": ""
       }
     },
     {
-      "id": "ox36",
+      "id": "ox4h",
       "type": "house",
       "name": "House",
       "shape": "box",
-      "x": 52,
-      "y": 74,
+      "x": 58,
+      "y": 68.7495,
       "rot": 90,
       "w": 5,
       "d": 4,
       "h": 4,
       "roof": "gable",
       "color": "#d9b38c",
-      "base": 6.216957461065976,
+      "base": 5.475804123711446,
       "props": {
         "name": ""
       }
     },
     {
-      "id": "ox37",
+      "id": "ox4i",
+      "type": "water",
+      "name": "Pond / water",
+      "shape": "water",
+      "x": 28,
+      "y": 40,
+      "rot": 0,
+      "w": 12,
+      "d": 7,
+      "h": 0.05,
+      "roof": "flat",
+      "color": "#3a7bbf",
+      "base": 0,
+      "props": {
+        "name": "Valley lake"
+      }
+    },
+    {
+      "id": "ox4j",
       "type": "pine",
       "name": "Tree – pine",
       "shape": "pine",
       "x": 90,
-      "y": 30,
+      "y": 32,
       "rot": 0,
       "w": 2.5,
       "d": 2.5,
@@ -2638,30 +3611,12 @@
       }
     },
     {
-      "id": "ox38",
-      "type": "pine",
-      "name": "Tree – pine",
-      "shape": "pine",
-      "x": 86,
-      "y": 40,
-      "rot": 0,
-      "w": 2.5,
-      "d": 2.5,
-      "h": 6,
-      "roof": "flat",
-      "color": "#2f6b3a",
-      "base": 0,
-      "props": {
-        "name": ""
-      }
-    },
-    {
-      "id": "ox39",
+      "id": "ox4k",
       "type": "pine",
       "name": "Tree – pine",
       "shape": "pine",
       "x": 100,
-      "y": 64,
+      "y": 74,
       "rot": 0,
       "w": 2.5,
       "d": 2.5,
@@ -2674,43 +3629,7 @@
       }
     },
     {
-      "id": "ox3a",
-      "type": "pine",
-      "name": "Tree – pine",
-      "shape": "pine",
-      "x": 112,
-      "y": 70,
-      "rot": 0,
-      "w": 2.5,
-      "d": 2.5,
-      "h": 6,
-      "roof": "flat",
-      "color": "#2f6b3a",
-      "base": 0,
-      "props": {
-        "name": ""
-      }
-    },
-    {
-      "id": "ox3b",
-      "type": "pine",
-      "name": "Tree – pine",
-      "shape": "pine",
-      "x": 16,
-      "y": 30,
-      "rot": 0,
-      "w": 2.5,
-      "d": 2.5,
-      "h": 6,
-      "roof": "flat",
-      "color": "#2f6b3a",
-      "base": 0,
-      "props": {
-        "name": ""
-      }
-    },
-    {
-      "id": "ox3c",
+      "id": "ox4l",
       "type": "pine",
       "name": "Tree – pine",
       "shape": "pine",
@@ -2728,11 +3647,29 @@
       }
     },
     {
-      "id": "ox3d",
+      "id": "ox4m",
       "type": "pine",
       "name": "Tree – pine",
       "shape": "pine",
-      "x": 182,
+      "x": 26,
+      "y": 54,
+      "rot": 0,
+      "w": 2.5,
+      "d": 2.5,
+      "h": 6,
+      "roof": "flat",
+      "color": "#2f6b3a",
+      "base": 0,
+      "props": {
+        "name": ""
+      }
+    },
+    {
+      "id": "ox4n",
+      "type": "pine",
+      "name": "Tree – pine",
+      "shape": "pine",
+      "x": 200,
       "y": 8,
       "rot": 0,
       "w": 2.5,
@@ -2746,12 +3683,12 @@
       }
     },
     {
-      "id": "ox3e",
+      "id": "ox4o",
       "type": "pine",
       "name": "Tree – pine",
       "shape": "pine",
-      "x": 182,
-      "y": 88,
+      "x": 204,
+      "y": 96,
       "rot": 0,
       "w": 2.5,
       "d": 2.5,
@@ -2764,7 +3701,7 @@
       }
     },
     {
-      "id": "ox3f",
+      "id": "ox4p",
       "type": "pine",
       "name": "Tree – pine",
       "shape": "pine",
@@ -2782,12 +3719,12 @@
       }
     },
     {
-      "id": "ox3g",
+      "id": "ox4q",
       "type": "pine",
       "name": "Tree – pine",
       "shape": "pine",
       "x": 8,
-      "y": 88,
+      "y": 96,
       "rot": 0,
       "w": 2.5,
       "d": 2.5,
@@ -2800,12 +3737,12 @@
       }
     },
     {
-      "id": "ox3h",
+      "id": "ox4r",
       "type": "pine",
       "name": "Tree – pine",
       "shape": "pine",
       "x": 124,
-      "y": 30,
+      "y": 32,
       "rot": 0,
       "w": 2.5,
       "d": 2.5,
@@ -2818,12 +3755,12 @@
       }
     },
     {
-      "id": "ox3i",
+      "id": "ox4s",
       "type": "pine",
       "name": "Tree – pine",
       "shape": "pine",
-      "x": 126,
-      "y": 66,
+      "x": 76,
+      "y": 44,
       "rot": 0,
       "w": 2.5,
       "d": 2.5,
@@ -2833,24 +3770,6 @@
       "base": 0,
       "props": {
         "name": ""
-      }
-    },
-    {
-      "id": "ox3j",
-      "type": "water",
-      "name": "Pond / water",
-      "shape": "water",
-      "x": 26,
-      "y": 34,
-      "rot": 0,
-      "w": 12,
-      "d": 7,
-      "h": 0.05,
-      "roof": "flat",
-      "color": "#3a7bbf",
-      "base": 0,
-      "props": {
-        "name": "Valley lake"
       }
     }
   ]

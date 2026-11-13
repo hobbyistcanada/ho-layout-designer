@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "name": "Sample – oval with siding and upper spur",
+  "name": "Sample \u2013 oval with siding and upper spur",
   "units": "in",
   "board": {
     "outline": [
@@ -53,6 +53,10 @@
     "minRadius": 18,
     "maxGrade": 2.5,
     "clearance": 3.5,
+    "carHeight": 3,
+    "deckThickness": 0.5,
+    "carLength": 8,
+    "maxEffGrade": 3,
     "snap": true,
     "grid": 1
   },
@@ -515,15 +519,14 @@
     },
     {
       "id": "tn",
-      "cat": "r18",
-      "kind": "curve",
+      "cat": "s9",
+      "kind": "straight",
       "params": {
-        "r": 18,
-        "angle": 30
+        "len": 9
       },
-      "x": 60,
-      "y": 7.823085463760209,
-      "rot": -180,
+      "x": 51,
+      "y": 5.411542731880104,
+      "rot": 30,
       "z": 0,
       "grade": 0,
       "level": "L0",
@@ -536,14 +539,15 @@
     },
     {
       "id": "to",
-      "cat": "s9",
-      "kind": "straight",
+      "cat": "r18",
+      "kind": "curve",
       "params": {
-        "len": 9
+        "r": 18,
+        "angle": 30
       },
-      "x": 60,
-      "y": 7.823085463760209,
-      "rot": 0,
+      "x": 67.79422863405995,
+      "y": 12.323085463760208,
+      "rot": -180,
       "z": 0,
       "grade": 0,
       "level": "L0",
@@ -556,13 +560,13 @@
     },
     {
       "id": "tp",
-      "cat": "s6",
+      "cat": "s9",
       "kind": "straight",
       "params": {
-        "len": 6
+        "len": 9
       },
-      "x": 69,
-      "y": 7.823085463760209,
+      "x": 67.79422863405995,
+      "y": 12.323085463760208,
       "rot": 0,
       "z": 0,
       "grade": 0,
@@ -581,8 +585,8 @@
       "params": {
         "len": 2
       },
-      "x": 75,
-      "y": 7.823085463760209,
+      "x": 76.79422863405995,
+      "y": 12.323085463760208,
       "rot": 0,
       "z": 0,
       "grade": 0,
@@ -673,13 +677,33 @@
         "address": "",
         "motor": ""
       }
+    },
+    {
+      "id": "tv",
+      "cat": "bumper",
+      "kind": "bumper",
+      "params": {
+        "len": 2
+      },
+      "x": 58,
+      "y": 52,
+      "rot": -180,
+      "z": 4,
+      "grade": 0,
+      "level": "L1",
+      "state": 0,
+      "props": {
+        "name": "",
+        "address": "",
+        "motor": ""
+      }
     }
   ],
   "devices": [
     {
-      "id": "d1mm32",
+      "id": "dgbac0",
       "type": "signal3",
-      "name": "Signal – 3 aspect",
+      "name": "Signal \u2013 3 aspect",
       "x": 0,
       "y": 0,
       "rot": 0,
@@ -697,7 +721,7 @@
       }
     },
     {
-      "id": "db6c6j",
+      "id": "doxxgv",
       "type": "sensor",
       "name": "Train passing sensor",
       "x": 0,
@@ -716,7 +740,7 @@
       }
     },
     {
-      "id": "dd63ez",
+      "id": "d05qgh",
       "type": "home",
       "name": "Home / end-of-travel sensor",
       "x": 0,
@@ -735,7 +759,7 @@
       }
     },
     {
-      "id": "dhguny",
+      "id": "diwmch",
       "type": "feeder",
       "name": "Power feeder",
       "x": 0,
@@ -754,7 +778,7 @@
       }
     },
     {
-      "id": "d1jnyl",
+      "id": "d2gtft",
       "type": "gap",
       "name": "Insulated rail gap",
       "x": 0,
@@ -775,7 +799,7 @@
   ],
   "scenery": [
     {
-      "id": "owbdog",
+      "id": "ojc2ab",
       "type": "station",
       "name": "Station",
       "shape": "box",
@@ -793,7 +817,7 @@
       }
     },
     {
-      "id": "oz0pw7",
+      "id": "ogky5o",
       "type": "platform",
       "name": "Platform",
       "shape": "box",
@@ -811,7 +835,7 @@
       }
     },
     {
-      "id": "ok82kq",
+      "id": "oowp9d",
       "type": "enginehouse",
       "name": "Engine house",
       "shape": "box",
@@ -829,7 +853,7 @@
       }
     },
     {
-      "id": "oj5f44",
+      "id": "oq5dnd",
       "type": "house",
       "name": "House",
       "shape": "box",
@@ -847,7 +871,7 @@
       }
     },
     {
-      "id": "oetjrf",
+      "id": "oa08qj",
       "type": "house",
       "name": "House",
       "shape": "box",
@@ -865,7 +889,7 @@
       }
     },
     {
-      "id": "o9bliy",
+      "id": "ow5u0r",
       "type": "factory",
       "name": "Factory",
       "shape": "box",
@@ -883,7 +907,7 @@
       }
     },
     {
-      "id": "oar9ie",
+      "id": "ou01q8",
       "type": "road",
       "name": "Road (12\")",
       "shape": "flat",
@@ -901,7 +925,7 @@
       }
     },
     {
-      "id": "oovzt6",
+      "id": "o20906",
       "type": "light",
       "name": "Street light",
       "shape": "light",
@@ -919,7 +943,7 @@
       }
     },
     {
-      "id": "o33hu6",
+      "id": "otj5jf",
       "type": "light",
       "name": "Street light",
       "shape": "light",
@@ -937,7 +961,7 @@
       }
     },
     {
-      "id": "o1bbue",
+      "id": "on237u",
       "type": "light",
       "name": "Street light",
       "shape": "light",
@@ -955,9 +979,9 @@
       }
     },
     {
-      "id": "oxexbl",
+      "id": "omf6ly",
       "type": "pine",
-      "name": "Tree – pine",
+      "name": "Tree \u2013 pine",
       "shape": "pine",
       "x": 14,
       "y": 21,
@@ -973,9 +997,9 @@
       }
     },
     {
-      "id": "oyv7an",
+      "id": "oe3att",
       "type": "pine",
-      "name": "Tree – pine",
+      "name": "Tree \u2013 pine",
       "shape": "pine",
       "x": 17,
       "y": 25,
@@ -991,9 +1015,9 @@
       }
     },
     {
-      "id": "orski7",
+      "id": "oavtem",
       "type": "oak",
-      "name": "Tree – deciduous",
+      "name": "Tree \u2013 deciduous",
       "shape": "tree",
       "x": 82,
       "y": 24,
@@ -1009,7 +1033,7 @@
       }
     },
     {
-      "id": "o7gj65",
+      "id": "ocbw5u",
       "type": "water",
       "name": "Pond / water",
       "shape": "water",
@@ -1027,9 +1051,9 @@
       }
     },
     {
-      "id": "okz6s5",
+      "id": "om4dfj",
       "type": "pine",
-      "name": "Tree – pine",
+      "name": "Tree \u2013 pine",
       "shape": "pine",
       "x": 62,
       "y": 59,
@@ -1045,9 +1069,9 @@
       }
     },
     {
-      "id": "ooqz7y",
+      "id": "oexwjm",
       "type": "pine",
-      "name": "Tree – pine",
+      "name": "Tree \u2013 pine",
       "shape": "pine",
       "x": 90,
       "y": 46,

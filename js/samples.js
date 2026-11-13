@@ -7,6 +7,7 @@
 import { newProject } from './model.js';
 import { TRACK, TRACK_BY_ID, SCENERY_BY_ID, DEVICE_BY_ID, buildGeometry } from './catalog.js';
 import { advance, routeEnd, routeLen, toWorld, sampleRoute, norm, DEG } from './geometry.js';
+import { REAL_DEFAULTS, tunnelCover } from './realism.js';
 
 const N6 = { len: 11, r: 40, angle: 9.46, tail: 4.49 }; // #6 turnout geometry (catalog n6L/n6R)
 const YARD_GAP = 2.7; // straight between ladder turnouts -> ~2.25" track centres
@@ -44,16 +45,25 @@ function builder(P) {
 
     // straight, split into flex lengths of at most 36"
     s(len, grade = 0, max = 36) {
+      if (this.log) max = Math.min(max, 6);
       const k = Math.max(1, Math.ceil(len / max - 1e-9)), L = len / k;
       let last;
       for (let i = 0; i < k; i++) {
         last = piece(straightCat(round(L)), 'straight', { len: round(L) }, this.pose, this.z, grade, this.level);
+        this.record(last, L, false, grade);
         this.move({ s: L }); this.z += (grade / 100) * L;
       }
       return last;
     }
+    // when a path log is active, remember each piece's place along the path (for profile())
+    record(pc, len, rev, grade) {
+      if (!this.log) return;
+      this.log.push({ pc, s0: this.dist, len, rev, g: grade });
+      this.dist += len;
+    }
     // curve, a > 0 turns left, a < 0 turns right; split into pieces of at most `step` degrees
     c(r, a, grade = 0, step = 30) {
+      if (this.log) step = Math.min(step, 12);
       const k = Math.max(1, Math.ceil(Math.abs(a) / step - 1e-9)), A = a / k, L = Math.abs(A) * DEG * r;
       let last;
       for (let i = 0; i < k; i++) {
@@ -63,6 +73,7 @@ function builder(P) {
         const cat = curveCat(r, absA);
         if (A > 0) last = piece(cat, 'curve', { r, angle: absA }, start, z0, grade, this.level);
         else last = piece(cat, 'curve', { r, angle: absA }, { x: this.x, y: this.y, h: this.h + 180 }, this.z, -grade, this.level);
+        this.record(last, L, A < 0, grade);
       }
       return last;
     }
@@ -169,7 +180,7 @@ function builder(P) {
     return sc(type, w.x, w.y, { rot: round(norm(w.h)), base: round(pc.z + (pc.grade / 100) * lp.d), ...extra });
   }
   // Tunnel portals wherever track passes into / out of a hill or mountain
-  function portals(hill, clearance = 3.6) {
+  function portals(hill, clearance = tunnelCover(REAL_DEFAULTS)) {
     const c = Math.cos(-hill.rot * DEG), s = Math.sin(-hill.rot * DEG);
     const surf = (p) => {
       const dx = p.x - hill.x, dy = p.y - hill.y;
@@ -195,7 +206,45 @@ function builder(P) {
     }
     return out;
   }
-  return { Turtle, piece, sc, dev, spanOn, portals, passingSiding, ladder, routeEndWorld };
+  // Start logging a turtle's path so its elevations can be set afterwards with profile().
+  function path(t) { t.log = []; t.dist = 0; return t.log; }
+  // Turn the nominal grades given while laying (in %) into a smooth elevation profile:
+  // grades are averaged over `ease` inches (box filter), which gives every change of grade a
+  // vertical easement. `rise` rescales the grades so the profile spans exactly that height;
+  // `wrap` treats the path as a closed loop. Sets z / grade on every logged piece.
+  function profile(t, { ease = 24, z0 = 0, rise = null, wrap = false } = {}) {
+    const log = t.log, L = t.dist, step = 0.25, n = Math.ceil(L / step);
+    const nominal = new Float64Array(n);
+    let j = 0;
+    for (let i = 0; i < n; i++) { const s = (i + 0.5) * step; while (j < log.length - 1 && s > log[j].s0 + log[j].len) j++; nominal[i] = log[j].g; }
+    const w = Math.round(ease / step / 2), sm = new Float64Array(n);
+    const at = (i) => (wrap ? nominal[((i % n) + n) % n] : i < 0 || i >= n ? 0 : nominal[i]);
+    let acc = 0;
+    for (let i = -w; i <= w; i++) acc += at(i);
+    for (let i = 0; i < n; i++) { sm[i] = acc / (2 * w + 1); acc += at(i + w + 1) - at(i - w); }
+    const z = new Float64Array(n + 1);
+    for (let i = 0; i < n; i++) z[i + 1] = z[i] + (sm[i] / 100) * step;
+    let lo = Math.min(...z), hi = Math.max(...z);
+    const k = rise ? rise / (hi - lo) : 1;
+    const zAt = (s) => { const f = Math.max(0, Math.min(n, s / step)), i = Math.floor(f); const v = i >= n ? z[n] : z[i] + (z[i + 1] - z[i]) * (f - i); return z0 + (v - (rise ? lo : 0)) * k; };
+    for (const e of log) {
+      const za = zAt(e.s0), zb = zAt(e.s0 + e.len), g = Math.round(((zb - za) / e.len) * 10000) / 100;
+      e.pc.grade = e.rev ? -g : g;
+      e.pc.z = round(e.rev ? za + (g / 100) * e.len : za);
+    }
+    t.log = null;
+    t.z = zAt(L);
+    return { zAt, length: L, log };
+  }
+  // piece and distance-along-piece at path distance s
+  function at(log, s) {
+    const e = log.find((q) => s <= q.s0 + q.len + 1e-9) || log[log.length - 1];
+    const d = Math.max(0, Math.min(e.len, s - e.s0));
+    return { pc: e.pc, d: e.rev ? e.len - d : d };
+  }
+  const spanAt = (type, log, s, extra) => { const a = at(log, s); return spanOn(type, a.pc, a.d, extra); };
+  const devAt = (type, log, s, props) => { const a = at(log, s); return dev(type, a.pc, a.d, props); };
+  return { Turtle, piece, sc, dev, spanOn, portals, passingSiding, ladder, routeEndWorld, path, profile, at, spanAt, devAt };
 }
 
 function base(name, outline, levels, settings = {}) {
@@ -210,187 +259,189 @@ function base(name, outline, levels, settings = {}) {
 }
 
 // ================================================================ samples
+// Design targets used for every sample (see js/realism.js):
+//  * effective grade (grade + 32/R curve drag) <= 3%, raw grade <= 2.5%
+//  * >= 3.5" rail-to-rail where tracks cross (3" car + 0.5" deck)
+//  * every grade change eased over 24" (3 car lengths), turnouts on level track
+//  * no S-curves sharper than 30" without a car-length straight, 2"+ track centres
+//  * structures, buildings and trees clear of the tracks; tunnels have portals and cuttings
+
+const setLevels = (P, fn) => P.pieces.forEach((pc) => { pc.level = fn(pc.z + Math.max(0, (pc.grade / 100) * 6)); });
 
 // 1) Over-and-under figure 8 – the classic "first layout with a bridge".
 function figure8() {
-  const P = base('Sample – Over & under figure 8 (13×5 ft)', [[0, 0], [156, 0], [156, 60], [0, 60]], [
+  const P = base('Sample – Over & under figure 8 (16×6 ft)', [[0, 0], [192, 0], [192, 72], [0, 72]], [
     { id: 'L0', name: 'Ground', elevation: 0, visible: true, color: '#3f6fb5' },
-    { id: 'L1', name: 'High line', elevation: 4.25, visible: true, color: '#b5523f' },
+    { id: 'L1', name: 'High line', elevation: 3.9, visible: true, color: '#b5523f' },
   ], { minRadius: 24, maxGrade: 2.5, clearance: 3.5 });
   const B = builder(P);
-  const R = 24, D = 96, th = Math.asin((2 * R) / D) / DEG; // 30°
-  const T = Math.sqrt((D / 2) ** 2 - R * R);
-  const arc = 180 + 2 * th, H = 4.25;
-  const g = (H / (2 * T + R * arc * DEG)) * 100;
-  const O = { x: 78, y: 30 };
+  const R = 30, D = 120, th = Math.asin((2 * R) / D) / DEG; // 30° crossing
+  const T = Math.sqrt((D / 2) ** 2 - R * R), arc = 180 + 2 * th;
+  const O = { x: 96, y: 36 };
   const t = new B.Turtle(O.x, O.y, th, 0);
-  const climb1 = t.s(T, g, 48);
-  t.c(R, -arc, g); t.on('L1');
-  const high = t.s(T, g, 48);
-  const top = t.s(T, -g, 48);
-  t.on('L0');
-  t.c(R, arc, -g);
-  const last = t.s(T, -g, 48);
+  B.path(t);
+  t.s(T, 1); t.c(R, -arc, 1); t.s(T, 1); // climb: out of O, round the east loop, back over O
+  t.s(T, -1); t.c(R, arc, -1); t.s(T, -1); // descend round the west loop, under the bridge
+  const prof = B.profile(t, { ease: 24, rise: 3.9, wrap: true }); // girder hangs 0.75" below its rails
+  const L = prof.length, log = prof.log;
+  setLevels(P, (z) => (z > 1.85 ? 'L1' : 'L0'));
 
-  // scenery: mountain over the west loop, girder bridge at the crossing, trestle approach
-  const mtn = B.sc('mountain', O.x - D / 2, O.y, { w: 56, d: 54, h: 14, name: 'Bald Knob' });
+  const mtn = B.sc('mountain', O.x - D / 2, O.y, { w: 70, d: 68, h: 16, name: 'Bald Knob' });
   B.portals(mtn);
-  B.spanOn('girder', high, T, { w: 14, name: 'Crossing girder' });
-  B.spanOn('trestle', high, T - 20, { w: 18, name: 'Gully trestle' });
-  B.sc('water', 110, 47, { w: 16, d: 7, name: 'Mill pond' });
-  B.sc('station', 112, 10, { rot: 0, name: 'Figure Eight Jct' });
-  B.sc('platform', 112, 13.5, { w: 16 });
-  for (const [x, y, r] of [[120, 26, 0], [128, 32, 90], [132, 24, 0], [124, 38, 0]]) B.sc('house', x, y, { rot: r });
-  B.sc('tower', 140, 30);
-  for (const [x, y] of [[62, 52], [70, 8], [92, 52], [100, 6], [146, 52], [150, 8], [8, 55], [52, 4]]) B.sc('pine', x, y);
-  B.sc('oak', 96, 44); B.sc('oak', 60, 44);
-  B.dev('signal3', climb1, 3, { name: 'SIG1', address: 'D4' });
-  B.dev('signal3', top, 3, { name: 'SIG2', address: 'D5' });
-  B.dev('sensor', last, 10, { name: 'PS1', address: 'A0' });
-  B.dev('feeder', climb1, 8, { name: 'F1' });
+  B.spanAt('girder', log, L / 2, { w: 14, name: 'Crossing girder' });
+  B.spanAt('trestle', log, L / 2 - 22, { w: 16, name: 'Gully trestle' });
+  B.sc('water', 96, 63, { w: 14, d: 6, name: 'Mill pond' });
+  for (const [x, y, r] of [[150, 30, 0], [160, 41, 90], [148, 43, 0], [164, 28, 0]]) B.sc('house', x, y, { rot: r });
+  B.sc('tower', 156, 35);
+  for (const [x, y] of [[96, 50], [80, 8], [112, 8], [186, 66], [186, 6], [126, 66], [126, 6], [96, 22]]) B.sc('pine', x, y);
+  B.devAt('signal3', log, 4, { name: 'SIG1', address: 'D4' });
+  B.devAt('signal3', log, L / 2 + 4, { name: 'SIG2', address: 'D5' });
+  B.devAt('sensor', log, L - 10, { name: 'PS1', address: 'A0' });
+  B.devAt('feeder', log, 12, { name: 'F1' });
   return P;
 }
 
-// 2) Spiral loop mountain division – inspired by the Tehachapi Loop, where a train passes over
-// its own tail. Lower-level double-ended oval with passing siding and yard; a branch climbs
-// a spiral loop inside a mountain, crosses over itself and ends in a mining town.
+// 2) Spiral loop mountain division – after the Tehachapi Loop, where a train passes over
+// its own tail. A valley oval with passing siding and yard; a branch climbs through a spiral
+// loop on a mountainside, crosses over itself on a girder bridge and ends in a mining town.
 function spiralLoop() {
-  const P = base('Sample – Spiral loop mountain division (16×8 ft)', [[0, 0], [192, 0], [192, 96], [0, 96]], [
+  const P = base('Sample – Spiral loop mountain division (17½×8½ ft)', [[0, 0], [210, 0], [210, 102], [0, 102]], [
     { id: 'L0', name: 'Valley (main)', elevation: 0, visible: true, color: '#3f6fb5' },
     { id: 'L1', name: 'Loop & branch', elevation: 2, visible: true, color: '#c08a2e' },
-    { id: 'L2', name: 'Mine town', elevation: 7, visible: true, color: '#b5523f' },
-  ], { minRadius: 22, maxGrade: 2.5, clearance: 3.5 });
+    { id: 'L2', name: 'Mine town', elevation: 5.5, visible: true, color: '#b5523f' },
+  ], { minRadius: 24, maxGrade: 2.5, clearance: 3.5 });
   const B = builder(P);
-  const R = 30;
-  // --- main oval, built anticlockwise from the branch junction on the front straight
-  const m = new B.Turtle(44, 18, 0, 0);
-  const jn = m.to('n6L', { name: 'T1 Loop jct' });
+  const R = 30, RM = 33, EAST = 172, MID = 51; // R33 oval ends leave 5" between main and loop
+  // --- main oval, anticlockwise from the branch junction on the front straight
+  const jn = new B.Turtle(44, 18, 0, 0).to('n6L', { name: 'T1 Loop jct' });
   const s1 = jn.main.s(14);
   const sid = B.passingSiding(jn.main, 'R', 44); // passing siding on the aisle side
   const main = sid.main;
-  main.sTo('x', 152);
-  main.c(R, 180, 0, 15); // east end
-  // back straight with the yard ladder on the outside (north)
+  main.sTo('x', EAST);
+  main.c(RM, 180, 0, 15);
   main.s(4);
   const yard = B.ladder(main, 'R', 3, 'x', 58);
   const back = yard.main;
   const s2 = back.sTo('x', 40);
-  back.c(R, 180, 0, 15); // west end
-  back.join({ x: 44, y: 18, h: 180, z: 0 }); // closes the oval on the junction turnout
+  back.c(RM, 180, 0, 15);
+  back.join({ x: 44, y: 18, h: 180, z: 0 });
 
-  // --- branch: up through the spiral loop
-  const br = jn.div; br.on('L1');
-  const gB = 2.4;
-  br.c(R, 30 - N6.angle, gB);
-  // straight to the crossing point O on y = 48
-  const O = { x: br.x + (48 - br.y) / Math.tan(30 * DEG), y: 48 };
-  const ap = br.s(Math.hypot(O.x - br.x, O.y - br.y), gB, 40);
-  const LR = 22, beta = 30, tt = (LR / Math.sin(beta * DEG)) * Math.cos(beta * DEG);
-  const in1 = br.s(tt, gB);
-  br.c(LR, -(180 + 2 * beta), gB);
-  const out1 = br.s(tt, gB); // arrives back over O
+  // --- branch: 1.8% (2.94% effective on the R28 loop), eased at both ends
+  const g = 1.8, LR = 28, beta = 30;
+  const br = jn.div;
+  B.path(br);
+  br.c(R, beta - 9.46, 0); // level off the turnout; the climb eases in from here
+  const O = { x: br.x + (MID - br.y) / Math.tan(beta * DEG), y: MID };
+  br.s(Math.hypot(O.x - br.x, O.y - br.y), g);
+  const sO1 = br.dist;
+  const tt = (LR / Math.sin(beta * DEG)) * Math.cos(beta * DEG);
+  br.s(tt, g); br.c(LR, -(180 + 2 * beta), g); br.s(tt, g);
+  const sO2 = br.dist;
+  br.s(18, g); br.c(R, 30, g);
+  const sTown = br.dist;
+  br.s(16, 0); // level run-in so the town turnouts sit on level track
+  const prof = B.profile(br, { ease: 24 });
+  const zTown = br.z, log = prof.log;
+  setLevels(P, (z) => (z < 0.2 ? 'L0' : z < zTown - 0.2 ? 'L1' : 'L2'));
   br.on('L2');
-  const after = br.s(14, gB);
-  br.c(R, 30, gB);
-  // west along the back of the interior to the mine town (flat)
-  const runIn = br.s(10, 0);
-  const zTown = br.z;
   const town = B.ladder(br, 'L', 1, 'x', 20);
-  town.main.sTo('x', 20); const mineBump = town.main.bumper();
+  town.main.sTo('x', 20); town.main.bumper();
 
   // --- scenery
-  const mtn = B.sc('mountain', O.x + tt / Math.cos(beta * DEG), 48, { w: 56, d: 52, h: 18, name: 'Spiral Mountain' });
+  const cx = O.x + LR / Math.sin(beta * DEG);
+  const mtn = B.sc('mountain', cx, MID, { w: 64, d: 60, h: 20, name: 'Spiral Mountain' });
   B.portals(mtn);
-  B.spanOn('girder', out1, tt, { w: 12, name: 'Loop crossing' });
-  const tr = B.spanOn('trestle', after, 7, { w: 13, name: 'Canyon trestle' });
-  B.sc('river', tr.x, tr.y, { w: 13, d: 3.5, rot: tr.rot + 90, name: 'Canyon creek' });
-  B.sc('station', 96, 6, { name: 'Valley City' });
-  B.sc('platform', 96, 10.2, { w: 22 });
-  B.sc('road', 60, 4, { w: 30 }); B.sc('road', 130, 4, { w: 30 });
+  B.spanAt('girder', log, sO2, { w: 12, name: 'Loop crossing' });
+  const tr = B.spanAt('trestle', log, sO2 + 10, { w: 10, name: 'Canyon trestle' });
+  B.sc('river', tr.x, tr.y, { w: 12, d: 3.5, rot: tr.rot + 90, name: 'Canyon creek' });
+  B.sc('station', 96, 10, { name: 'Valley City' });
+  B.sc('platform', 96, 13.2, { w: 22 });
+  B.sc('road', 60, 4, { w: 30 }); B.sc('road', 136, 4, { w: 30 });
   for (const [x, y] of [[66, 7], [74, 7], [120, 7], [128, 7]]) B.sc('house', x, y);
   for (const x of [60, 84, 108, 136]) B.sc('light', x, 2.5);
-  B.sc('enginehouse', 46, 90, { name: 'Engine house' });
-  B.sc('tower', 70, 91);
-  B.sc('factory', 30, 69, { w: 12, d: 6, h: 6, base: zTown, name: 'Gold mine', color: '#7d6b55' });
-  B.sc('house', 44, 74, { base: zTown }); B.sc('house', 52, 74, { base: zTown, rot: 90 });
-  for (const [x, y] of [[90, 30], [86, 40], [100, 64], [112, 70], [16, 30], [22, 44], [182, 8], [182, 88], [8, 8], [8, 88], [124, 30], [126, 66]]) B.sc('pine', x, y);
-  B.sc('water', 26, 34, { w: 12, d: 7, name: 'Valley lake' });
+  B.sc('enginehouse', 46, 97, { name: 'Engine house' });
+  B.sc('tower', 70, 98.5);
+  const ty = town.tracks[0].t.y;
+  B.sc('factory', 34, ty + 8, { w: 12, d: 6, h: 6, base: zTown, name: 'Gold mine', color: '#7d6b55' });
+  B.sc('house', 50, ty + 7, { base: zTown }); B.sc('house', 58, ty + 7, { base: zTown, rot: 90 });
+  B.sc('water', 28, 40, { w: 12, d: 7, name: 'Valley lake' });
+  for (const [x, y] of [[90, 32], [100, 74], [22, 44], [26, 54], [200, 8], [204, 96], [8, 8], [8, 96], [124, 32], [76, 44]]) B.sc('pine', x, y);
 
   // --- control
   B.dev('signal3', s1, 3, { name: 'SIG1', address: 'D4' });
   B.dev('signal3', s2, 3, { name: 'SIG2', address: 'D5' });
-  B.dev('signal2', ap, 4, { name: 'SIG3', address: 'D6' });
-  B.dev('sensor', in1, 6, { name: 'PS1', address: 'A0' });
-  B.dev('sensor', runIn, 5, { name: 'PS2', address: 'A1' });
+  B.devAt('signal2', log, sO1 - 20, { name: 'SIG3', address: 'D6' });
+  B.devAt('sensor', log, sO1 + 30, { name: 'PS1', address: 'A0' });
+  B.devAt('sensor', log, sTown + 4, { name: 'PS2', address: 'A1' });
   B.dev('block', sid.mid, 10, { name: 'BLK siding', address: 'A2' });
   yard.tracks.forEach((t, i) => B.dev('home', t.b, 1, { name: `H${i + 1}`, address: `D${10 + i}` }));
   B.dev('feeder', s1, 8, { name: 'F main' });
-  B.dev('feeder', ap, 10, { name: 'F branch' });
-  B.dev('gap', ap, 0.5, { name: 'G branch' });
+  B.devAt('feeder', log, 30, { name: 'F branch' });
+  B.devAt('gap', log, 0.5, { name: 'G branch' });
   return P;
 }
 
-// 3) Two-deck around-the-walls railroad joined by a 3¾-turn helix (inspired by
-// multi-deck designs such as those in Tony Koester's books): lower-deck yard on the
-// left wall, main along the back wall into a helix in the corner, and an upper-deck
-// logging/mining terminal stacked above the lower deck.
+// 3) Two-deck around-the-walls railroad joined by a 3¾-turn helix (after the multi-deck designs
+// in Tony Koester's books). Lower-deck yard and main run along the walls into an R32 helix in the
+// corner; the upper deck runs above the lower deck along the back wall to a mine terminal.
 function helixTwoDeck() {
-  const outline = [[0, 0], [30, 0], [30, 102], [104, 102], [104, 57], [168, 57], [168, 132], [0, 132]];
-  const P = base('Sample – Two-deck helix railroad (14×11 ft room)', outline, [
+  const outline = [[0, 0], [30, 0], [30, 102], [100, 102], [100, 49], [172, 49], [172, 132], [0, 132]];
+  const P = base('Sample – Two-deck helix railroad (14½×11 ft room)', outline, [
     { id: 'L0', name: 'Lower deck', elevation: 0, visible: true, color: '#3f6fb5' },
     { id: 'L1', name: 'Helix', elevation: 4, visible: true, color: '#7d5fb0' },
-    { id: 'L2', name: 'Upper deck', elevation: 15.2, visible: true, color: '#b5523f' },
+    { id: 'L2', name: 'Upper deck', elevation: 14.3, visible: true, color: '#b5523f' },
   ], { minRadius: 24, maxGrade: 2.5, clearance: 3.5 });
   const B = builder(P);
   // lower-deck yard: throat at the north end, tracks run south to bumpers
-  const ys = new B.Turtle(19, 66, 270, 0);
-  const yard = B.ladder(ys, 'L', 2, 'y', 8);
-  const ad = yard.main; const adLast = ad.sTo('y', 8); ad.bumper(); // arrival/departure track
+  const yard = B.ladder(new B.Turtle(19, 66, 270, 0), 'L', 2, 'y', 8);
+  yard.main.sTo('y', 8); yard.main.bumper();
   // main north along the left wall, round the corner, along the back wall
   const m = new B.Turtle(19, 66, 90, 0);
   const m1 = m.s(21);
   m.c(30, -90, 0, 15);
-  const m2 = m.sTo('x', 136);
-  // helix: R28, 3.75 turns clockwise, 2.3% -> ~4" per turn
-  const HR = 28, turns = 3.75, gH = 2.3;
-  m.on('L1');
-  const hx = [];
-  for (let i = 0; i < turns * 4; i++) hx.push(m.c(HR, -90, gH, 30));
+  const m2 = m.sTo('x', 112);
+  // helix: R32, 1.9% (2.9% effective), 3.82" per turn, eased in and out
+  const HR = 32, turns = 3.75, gH = 1.9;
+  B.path(m);
+  m.s(24, 0);
+  const sIn = m.dist;
+  for (let i = 0; i < turns * 4; i++) m.c(HR, -90, gH);
+  const sOut = m.dist;
+  m.s(15, 0);
+  const prof = B.profile(m, { ease: 24 });
+  const zTop = m.z, log = prof.log;
+  setLevels(P, (z) => (z < 0.2 ? 'L0' : z < zTop - 0.2 ? 'L1' : 'L2'));
   m.on('L2');
-  const zTop = m.z;
-  // upper deck: north out of the helix, curve west, along the back wall above the lower deck
-  const u1 = m.s(9);
+  // upper deck: curve west and run along the back wall above the lower deck, then down the left wall
   m.c(24, 90);
   const u2 = m.sTo('x', 32);
   m.c(24, 90);
   const u3 = m.sTo('y', 70);
   const town = B.ladder(m, 'L', 1, 'y', 10);
-  const uEnd = town.main; uEnd.sTo('y', 10); uEnd.bumper();
+  town.main.sTo('y', 10); town.main.bumper();
 
-  // scenery – lower deck town and yard
-  B.sc('station', 50, 108, { name: 'Junction City' });
-  B.sc('platform', 50, 113.6, { w: 18 });
-  B.sc('factory', 76, 108, { w: 14, d: 7 });
-  for (const [x, y] of [[90, 107], [97, 107]]) B.sc('house', x, y);
-  // helix scenery: trees around the corner, a "Cascade" creek in front of it
-  for (const [x, y] of [[110, 62], [162, 62], [162, 126], [110, 126], [136, 89], [130, 95], [142, 83]]) B.sc('pine', x, y);
-  B.sc('river', 136, 60, { w: 50, d: 4, name: 'Cascade creek' });
-  // upper deck: trestle over the corner, mine and logging camp at the terminal
-  B.spanOn('trestle', u1, 4.5, { w: 9, name: 'Helix trestle' });
-  B.spanOn('truss', u2, 20, { w: 18, name: 'Back-wall truss' });
-  // the upper deck is a shelf along the walls, so its buildings sit on the wall side of its track
-  B.sc('factory', 3.8, 28, { base: zTop, rot: 90, w: 10, d: 6.5, h: 6, color: '#7d6b55', name: 'Copper mine' });
-  B.sc('house', 3.5, 44, { base: zTop, rot: 90, name: 'Bunkhouse' });
-  B.sc('tower', 3.5, 58, { base: zTop });
-  for (const [x, y] of [[3, 16], [3, 82], [40, 128.5], [70, 128.5], [95, 128.5]]) B.sc('pine', x, y, { base: zTop });
+  // scenery – lower deck
   B.sc('enginehouse', 26.5, 92, { rot: 90, w: 12, d: 5, name: 'Engine house' });
+  B.sc('station', 60, 110.6, { name: 'Junction City' });
+  B.sc('platform', 60, 114.4, { w: 18 });
+  B.sc('factory', 84, 107.5, { w: 14, d: 7 });
+  for (const [x, y] of [[40, 106], [46, 106]]) B.sc('house', x, y);
+  for (const [x, y] of [[106, 55], [166, 55], [166, 126], [136, 85], [128, 92], [144, 78]]) B.sc('pine', x, y);
+  B.sc('river', 136, 51, { w: 50, d: 3.5, name: 'Cascade creek' });
+  // upper deck: truss over a gorge, mine and camp on the wall side of the shelf
+  const tb = B.spanOn('truss', u2, 12, { w: 18, name: 'Gorge truss' });
+  B.sc('river', tb.x, tb.y, { w: 10, d: 3, rot: 90, name: 'Gorge creek' });
+  B.sc('factory', 3.3, 28, { base: zTop, rot: 90, w: 10, d: 6, h: 6, color: '#7d6b55', name: 'Copper mine' });
+  B.sc('house', 3.3, 44, { base: zTop, rot: 90, name: 'Bunkhouse' });
+  B.sc('tower', 3, 58, { base: zTop });
+  for (const [x, y] of [[3, 16], [3, 84], [44, 129], [60, 129], [95, 129]]) B.sc('pine', x, y, { base: zTop });
 
   // control
   B.dev('signal3', m1, 3, { name: 'SIG1', address: 'D4' });
   B.dev('signal3', m2, 4, { name: 'SIG2', address: 'D5' });
-  B.dev('sensor', hx[0], 2, { name: 'PS helix in', address: 'A0' });
-  B.dev('sensor', hx[hx.length - 1], 10, { name: 'PS helix out', address: 'A1' });
-  B.dev('signal2', u1, 6, { name: 'SIG3', address: 'D6' });
+  B.devAt('sensor', log, sIn + 2, { name: 'PS helix in', address: 'A0' });
+  B.devAt('sensor', log, sOut + 4, { name: 'PS helix out', address: 'A1' });
+  B.dev('signal2', u2, 6, { name: 'SIG3', address: 'D6' });
   B.dev('block', u3, 10, { name: 'BLK upper', address: 'A2' });
   yard.tracks.forEach((t, i) => B.dev('home', t.b, 1, { name: `H${i + 1}`, address: `D${10 + i}` }));
   B.dev('home', town.tracks[0].b, 1, { name: 'H mine', address: 'D13' });
@@ -401,21 +452,21 @@ function helixTwoDeck() {
 
 export const SAMPLES = [
   {
-    id: 'figure8', name: 'Over & under figure 8', size: '13 × 5 ft table',
-    blurb: 'A figure 8 where one half climbs 4¼" so the track crosses over itself on a girder bridge. The low loop tunnels under a mountain; a trestle carries the climb across a gully.',
-    features: ['2.3% continuous grade', 'girder bridge', 'trestle', 'tunnel through mountain'],
+    id: 'figure8', name: 'Over & under figure 8', size: '16 × 6 ft table',
+    blurb: 'A figure 8 on R30" curves where one half climbs 3.9" so the track crosses over itself on a girder bridge. Grades are eased top and bottom (1.8%, 2.9% effective), the west loop tunnels through a mountain with cuttings at the portals, and a trestle carries the climb over a gully.',
+    features: ['eased 1.8% grade', 'girder bridge', 'trestle', 'tunnel + cuttings'],
     build: figure8,
   },
   {
-    id: 'spiral', name: 'Spiral loop mountain division', size: '16 × 8 ft island',
-    blurb: 'Inspired by the Tehachapi Loop: a branch leaves the valley main, spirals through a mountain and passes over its own track before climbing on a canyon trestle to a mining town. The valley has a continuous main, passing siding, yard and engine terminal.',
-    features: ['3 levels', 'track crosses over itself', 'tunnels', 'passing siding', '4-track yard', 'signals & sensors'],
+    id: 'spiral', name: 'Spiral loop mountain division', size: '17½ × 8½ ft island',
+    blurb: 'After the Tehachapi Loop: a branch leaves the valley main, spirals round a mountainside (R28", 1.8% = 2.94% effective), passes over its own track on a girder bridge and crosses a canyon trestle to a mining town. The valley has a continuous main, passing siding, 4-track yard and engine terminal.',
+    features: ['3 levels', 'track crosses over itself', 'tunnels + cuttings', 'passing siding', '4-track yard', 'signals & sensors'],
     build: spiralLoop,
   },
   {
-    id: 'helix', name: 'Two-deck helix railroad', size: '14 × 11 ft room',
-    blurb: 'An around-the-walls, two-deck railroad. The lower-deck yard and main run along the walls into a 3¾-turn R28" helix in the corner; the upper deck crosses a trestle and a truss bridge and runs above the lower deck to a mine terminal.',
-    features: ['helix (15" rise)', 'stacked decks', 'truss bridge', 'trestle', 'stub yards'],
+    id: 'helix', name: 'Two-deck helix railroad', size: '14½ × 11 ft room',
+    blurb: 'An around-the-walls, two-deck railroad. The lower-deck yard and main run along the walls into a 3¾-turn R32" helix (1.9%, 3.8" per turn, 2.9% effective) in the corner; the upper deck runs above the lower deck, over a truss bridge, to a mine terminal. Helix posts stand beside the track like a real helix.',
+    features: ['helix (14" rise)', 'stacked decks', 'truss bridge', 'stub yards'],
     build: helixTwoDeck,
   },
 ];

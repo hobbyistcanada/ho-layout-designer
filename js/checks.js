@@ -2,6 +2,7 @@
 import { state, getCache } from './model.js';
 import { pointInPoly, segIntersect } from './geometry.js';
 import { TRACK_BY_ID } from './catalog.js';
+import { realismIssues, neededHeadroom, settings as realSettings } from './realism.js';
 
 export function runChecks() {
   const P = state.project, S = P.settings;
@@ -70,9 +71,13 @@ export function runChecks() {
       const za = A.a.z + (A.b.z - A.a.z) * hit.t, zb = B.a.z + (B.b.z - B.a.z) * hit.u;
       const dz = Math.abs(za - zb);
       if (dz < 0.3) add('error', 'Tracks overlap at the same height (use a crossing or turnout)', hit, A.id);
+      else if (dz < neededHeadroom(realSettings())) continue; // reported by the realism checks (train would hit)
       else if (dz < S.clearance) add('warn', `Vertical clearance only ${dz.toFixed(2)}" where tracks cross (need ${S.clearance}")`, hit, za > zb ? A.id : B.id);
     }
   }
+
+  // physics / civil-engineering realism (clearances, curve drag, kinks, S-curves, structures …)
+  for (const i of realismIssues()) issues.push(i);
 
   // Devices not attached
   for (const d of P.devices) if (!d.pieceId) add('info', `${d.props?.name || d.type} is not on a track`, d, d.id);

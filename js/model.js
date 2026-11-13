@@ -17,7 +17,7 @@ export function newProject() {
       { id: 'L1', name: 'Upper level', elevation: 4, visible: true, color: '#b5523f' },
     ],
     activeLevel: 'L0',
-    settings: { minRadius: 18, maxGrade: 2.5, clearance: 3.5, snap: true, grid: 1 },
+    settings: { minRadius: 18, maxGrade: 2.5, clearance: 3.5, carHeight: 3, deckThickness: 0.5, carLength: 8, maxEffGrade: 3, snap: true, grid: 1 },
     pieces: [],
     devices: [],
     scenery: [],

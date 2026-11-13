@@ -202,8 +202,12 @@ function renderRules() {
   el.append(field('Min. radius (in)', S.minRadius, (v) => (S.minRadius = v), { type: 'number' }));
   el.append(field('Max. grade (%)', S.maxGrade, (v) => (S.maxGrade = v), { type: 'number', step: 0.25 }));
   el.append(field('Rail-to-rail clearance (in)', S.clearance, (v) => (S.clearance = v), { type: 'number', step: 0.25 }));
+  el.append(field('Max. effective grade (%)', S.maxEffGrade ?? 3, (v) => (S.maxEffGrade = v), { type: 'number', step: 0.25 }));
+  el.append(field('Tallest car above rail (in)', S.carHeight ?? 3, (v) => (S.carHeight = v), { type: 'number', step: 0.125 }));
+  el.append(field('Upper deck thickness (in)', S.deckThickness ?? 0.5, (v) => (S.deckThickness = v), { type: 'number', step: 0.125 }));
+  el.append(field('Longest car (in)', S.carLength ?? 8, (v) => (S.carLength = v), { type: 'number', step: 0.5 }));
   el.append(field('Grid (in)', S.grid, (v) => (S.grid = v), { type: 'number', step: 0.25 }));
-  el.append(h('div', { class: 'hint' }, 'Typical HO: 18" min radius for short equipment (22–24"+ for long cars), 2–2.5% max grade, ~3" overhead clearance above the rail plus the thickness of the upper deck.'));
+  el.append(h('div', { class: 'hint' }, 'Typical HO: 18" min radius for short equipment (22–24"+ for long cars), 2–2.5% max grade. Curves add about 32/R % of drag, so keep grade + 32/R under ~3%. Overhead: the tallest car (3" classic, ~3.25" modern hi-cubes, ~4" double stacks) must clear the underside of the deck above. S-curves need a straight one car long between curves under 30" radius. Ease grade changes over 1½ car lengths or more.'));
 }
 
 // ---------------- checks ----------------
@@ -238,6 +242,22 @@ function renderBoardInfo() {
   $('#boardThick').value = B.thickness || 0.75;
   const a = Math.abs(polyArea(B.outline));
   $('#boardInfo').textContent = `${B.outline.length} corners · area ${(a / 144).toFixed(1)} sq ft (${(a * 6.4516 / 10000).toFixed(2)} m²)`;
+}
+
+// ---------------- test train messages ----------------
+function showTrainEvent(ev) {
+  const box = $('#trainMsg');
+  const derail = ev.kind === 'derail';
+  box.className = derail ? 'derail' : 'stop';
+  box.innerHTML = '';
+  box.append(
+    h('div', { class: 'tmTitle' }, derail ? '⚠ Derailed / collision' : '⛔ Train stopped'),
+    h('div', {}, ev.msg),
+    h('div', { class: 'tmBtns' },
+      h('button', { onclick: () => { setView('split'); setTimeout(() => { centerOn(ev.at); if (ev.id) { state.selection = new Set([ev.id]); renderProps(); } draw(); }, 80); } }, 'Show on plan'),
+      h('button', { onclick: () => { box.className = 'hidden'; v3d?.stopTrain(); $('#b3Train').textContent = '▶ Test train'; $('#b3Cab').classList.remove('on'); } }, 'Clear train')),
+  );
+  status((derail ? 'Train derailed: ' : 'Train stopped: ') + ev.msg);
 }
 
 // ---------------- modal / files ----------------
@@ -287,6 +307,7 @@ async function ensure3D() {
   try {
     v3d = await import('./view3d.js');
     v3d.init3D($('#view3d'));
+    v3d.onTrainEvent(showTrainEvent);
   } catch (e) {
     console.error(e);
     $('#no3d').classList.remove('hidden');
@@ -390,6 +411,7 @@ function wire() {
   $('#b3Night').onclick = () => { nightOn = !nightOn; v3d?.setNight(nightOn); $('#b3Night').classList.toggle('on', nightOn); };
   $('#b3Train').onclick = () => {
     if (!v3d) return;
+    $('#trainMsg').className = 'hidden';
     if (v3d.trainRunning()) { v3d.stopTrain(); $('#b3Train').textContent = '▶ Test train'; $('#b3Cab').classList.remove('on'); }
     else if (v3d.startTrain()) { v3d.setSpeed(+$('#b3Speed').value); $('#b3Train').textContent = '■ Stop train'; }
   };
@@ -488,8 +510,9 @@ function buildDemo() {
   for (let i = 0; i < 6; i++) lay('r18');
   // siding from the turnout's diverging leg
   state.target = { pieceId: to.id, ep: endOf(to, 1) };
+  lay('s9'); // a car-length straight before curving back avoids an R18/R18 S-curve
   lay('r18', 1);
-  lay('s9'); lay('s6');
+  lay('s9');
   const bump = lay('bumper', 1);
   // upper-level spur on the plank (sits on piers in 3D)
   P.activeLevel = 'L1';
@@ -497,6 +520,8 @@ function buildDemo() {
   const spur = addPiece('s9', { x: 58, y: 52 });
   lay('s9'); lay('s9');
   lay('bumper', 1);
+  state.target = { pieceId: spur.id, ep: 0 };
+  lay('bumper');
   P.activeLevel = 'L0';
   state.grade = +$('#gradeSel').value || 0;
   // devices
