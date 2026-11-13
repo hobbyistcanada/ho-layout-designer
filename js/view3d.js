@@ -5,7 +5,7 @@ import { state, getCache, routeSampleWorld } from './model.js';
 import { HO } from './catalog.js';
 import { DEG, sampleRoute, toWorld } from './geometry.js';
 import { devicePose } from './editor2d.js';
-import { supports, onTerrain, hillHeightFn, portalOpening, trestleBents, trestleSpread, moveTrain, autoPortals, TURNOUT_KINDS } from './realism.js';
+import { supports, onTerrain, seated, groundAt, hillHeightFn, portalOpening, trestleBents, trestleSpread, moveTrain, autoPortals, TURNOUT_KINDS } from './realism.js';
 
 let renderer, scene, camera, controls, root, container, active = false, dirty = true;
 let hemi, sun, night = false, train = null, cab = false, clock = new THREE.Clock();
@@ -98,7 +98,7 @@ function rebuild() {
 
   buildBoard(P.board);
   buildTrack();
-  for (const o of P.scenery) buildScenery(o);
+  for (const o of P.scenery) buildScenery(seated(o)); // trees & buildings stand on the terrain
   for (const o of autoPortals()) buildScenery(o); // a portal at every tunnel mouth
   for (const d of P.devices) buildDevice(d);
   applyLighting();
@@ -253,7 +253,7 @@ function buildTerrain(o) {
   g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
   g.setIndex(idx);
   g.computeVertexNormals();
-  const m = new THREE.Mesh(g, mat(o.color, { flatShading: true, side: THREE.DoubleSide }));
+  const m = new THREE.Mesh(g, mat(o.color, { side: THREE.DoubleSide })); // smooth shading: no faceted sawtooth
   m.castShadow = true; m.receiveShadow = true;
   root.add(m);
 }
@@ -354,7 +354,7 @@ function placeObj(m, o, y) {
 
 function buildScenery(o) {
   const c = o.color;
-  if ((o.base || 0) > 0.5 && ['box', 'cyl', 'pine', 'tree', 'light'].includes(o.shape)) {
+  if ((o.base || 0) > 0.5 && ['box', 'cyl', 'pine', 'tree', 'light'].includes(o.shape) && groundAt(o.x, o.y) < o.base - 0.3) { // on a deck, not on the hill
     const pad = new THREE.Mesh(new THREE.BoxGeometry(o.w + 1, 0.5, o.d + 1), mat('#7c8f4e'));
     pad.position.copy(V(o.x, o.y, o.base - 0.25)); pad.rotation.y = (o.rot || 0) * DEG; pad.receiveShadow = true; root.add(pad);
   }

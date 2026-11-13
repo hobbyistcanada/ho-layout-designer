@@ -255,6 +255,24 @@ export function hillHeightFn(o) {
   };
 }
 
+// Ground height at a point (board = 0, hills with their earthworks)
+const hfCache = new WeakMap();
+export function groundAt(x, y) {
+  const info = tunnelInfo();
+  let fns = hfCache.get(info);
+  if (!fns) { fns = state.project.scenery.filter((o) => o.shape === 'hill').map((o) => hillHeightFn(o)); hfCache.set(info, fns); }
+  let g = 0;
+  for (const f of fns) g = Math.max(g, f(x, y));
+  return g;
+}
+// Buildings, trees and lights stand on the ground: a base below the terrain is raised to it
+const SITS = ['box', 'cyl', 'pine', 'tree', 'light'];
+export function seated(o) {
+  if (!SITS.includes(o.shape)) return o;
+  const g = groundAt(o.x, o.y);
+  return g > (o.base || 0) + 0.05 ? { ...o, base: Math.round(g * 100) / 100 } : o;
+}
+
 // ---------------------------------------------------------------- structures
 const SPANS = ['bridge', 'trestle'];
 function toLocalObj(o, x, y) {
@@ -432,7 +450,7 @@ export function analyse() {
   }
 
   // scenery: fouling, floating, bridges, water (auto portals at tunnel mouths included)
-  for (const o of [...P.scenery, ...autoPortals()]) {
+  for (const o of [...P.scenery.map(seated), ...autoPortals()]) {
     const label = o.props?.name || o.name;
     const boxes = obstacleBoxes(o);
     const reach = Math.max(o.w, o.d) / 2 + 4;
@@ -453,7 +471,7 @@ export function analyse() {
     }
     if (['box', 'cyl', 'pine', 'tree', 'light'].includes(o.shape) && (o.base || 0) > 0.5) {
       const onTrackLevel = I.near(o.x, o.y, 14).some((s) => Math.abs(s.z - o.base) < 1.2);
-      const onHill = P.scenery.some((h) => h.shape === 'hill' && hillBase(h, o.x, o.y) >= o.base - 0.5);
+      const onHill = groundAt(o.x, o.y) >= o.base - 0.5;
       if (!onTrackLevel && !onHill) issue('warn', `${label} is floating ${o.base}" in the air – nothing at that height supports it`, o, o.id);
     }
     if (o.shape === 'water' || o.shape === 'river') {
