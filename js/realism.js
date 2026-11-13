@@ -196,7 +196,7 @@ export function tunnelInfo() {
         if (k < merged.length - 1) { const p = ch[r.b + 1] || ch[r.b]; mouths.push({ x: p.x, y: p.y, z: p.z, h: p.h, hill: o.id }); }
       });
     }
-    for (const p of cut) p.onSlope = hillBase(o, p.x, p.y) > p.z - 2.5;
+    for (const p of cut) { const b = hillBase(o, p.x, p.y); p.onSlope = b > 0.2 && b > p.z - 2.5; }
     res.set(o.id, { tun, cut, mouths });
   }
   tunCache.set(I, { key, res });
@@ -210,36 +210,46 @@ export function autoPortals() {
   return out;
 }
 
-// Terrain height: the hill (with some rock texture), built up over tunnels so there is always
-// rock above the bore, and dug out along cuttings as a trench with 1:0.75 sides that stops at
-// the portal face.
+// Terrain height: the hill (with some rock texture), with railway earthworks: hillside fill,
+// rock cuttings that stop at the portal face, and rock kept above every tunnel bore.
 const rock = (o, x, y) => (Math.sin(x * 0.9) * Math.cos(y * 0.7) + Math.sin(x * 0.31 + y * 0.53) + 2) * 0.03 * o.h;
 export function hillHeightFn(o) {
   const S = settings(), cover = tunnelCover(S);
   const info = tunnelInfo().get(o.id) || { tun: [], cut: [] };
   const bucket = (list) => { const g = new Map(); for (const p of list) { const k = Math.floor(p.x / 4) + ',' + Math.floor(p.y / 4); if (!g.has(k)) g.set(k, []); g.get(k).push(p); } return g; };
   const T = bucket(info.tun), Cg = bucket(info.cut);
-  const around = (g, x, y, fn) => {
-    for (let gx = Math.floor((x - 8) / 4); gx <= Math.floor((x + 8) / 4); gx++)
-      for (let gy = Math.floor((y - 8) / 4); gy <= Math.floor((y + 8) / 4); gy++)
+  const around = (g, x, y, fn, cone = false) => {
+    // window large enough for every slope to run out to natural ground (rock cut up to the
+    // summit of a 26" mountain at 1:0.5 reaches ~15")
+    for (let gx = Math.floor((x - 16) / 4); gx <= Math.floor((x + 16) / 4); gx++)
+      for (let gy = Math.floor((y - 16) / 4); gy <= Math.floor((y + 16) / 4); gy++)
         for (const p of g.get(gx + ',' + gy) || []) {
-          const dx = x - p.x, dy = y - p.y, c = Math.cos(p.h * DEG), s = Math.sin(p.h * DEG);
+          const dx = x - p.x, dy = y - p.y;
+          if (dx * dx + dy * dy > 256) continue;
+          const c = Math.cos(p.h * DEG), s = Math.sin(p.h * DEG);
           const along = dx * c + dy * s;
-          if (Math.abs(along) > 0.3) continue; // cross-section of the track at this sample only
-          fn(p, Math.abs(-dx * s + dy * c));
+          const lat = Math.abs(-dx * s + dy * c);
+          // cross-section of the track at this sample (widening with distance so strips still
+          // overlap on the outside of curves – no slivers of hill left standing between them)
+          if (cone) { fn(p, Math.hypot(dx, dy)); continue; }
+          if (Math.abs(along) > 0.3 + lat * 0.06) continue;
+          fn(p, lat);
         }
   };
   return (x, y) => {
     let h = hillBase(o, x, y);
-    if (h > 0) h += rock(o, x, y) * Math.min(1, h / 2);
-    // 1) cuttings: trench with 1:0.75 side slopes along every open track
-    around(Cg, x, y, (p, lat) => { const allowed = p.z - 0.15 + Math.max(0, lat - 1.6) * 1.33; if (allowed < h) h = allowed; });
-    // 2) tunnels: rock (or a retaining wall) stays above the bore, even next to another cutting
-    around(T, x, y, (p, lat) => { const need = p.z + cover + 0.4 - Math.max(0, lat - 2.4) * 3; if (need > h) h = need; });
-    // 3) on a hillside the downhill side is built up as an embankment (1:1.5 fill slope) so the
+    if (h > 0) h += rock(o, x, y) * Math.min(1, h / 6); // texture fades out towards the foot
+    // Earthworks in the order a railway builds them:
+    // 1) on a hillside the downhill side is built up as an embankment (1:1.5 fill slope) so the
     //    track bed sits on ground, not on a ledge hanging over the slope
-    around(Cg, x, y, (p, lat) => { if (p.onSlope) { const fill = p.z - 0.15 - Math.max(0, lat - 1.6) * 0.67; if (fill > h) h = fill; } });
-    // 4) the floor of every open trench / formation stays clear
+    //    (measured as a plain distance, so an embankment also ends in a sloped end, not a wall)
+    around(Cg, x, y, (p, dist) => { if (p.onSlope) { const fill = p.z - 0.15 - Math.max(0, dist - 1.6) * 0.67; if (fill > h) h = fill; } }, true);
+    // 2) cuttings: formation 3.2" wide; rock-cut sides at 1:0.5 (63°), as railways cut through
+    //    mountains, so the cut meets the natural slope instead of carving away the hill
+    around(Cg, x, y, (p, lat) => { const allowed = p.z - 0.15 + Math.max(0, lat - 1.6) * 2; if (allowed < h) h = allowed; });
+    // 3) tunnels: rock (or a retaining wall) stays above the bore, even next to another cutting
+    around(T, x, y, (p, lat) => { const need = p.z + cover + 0.4 - Math.max(0, lat - 2.4) * 2; if (need > h) h = need; });
+    // 4) the formation of every open track stays clear
     around(Cg, x, y, (p, lat) => { if (lat <= 1.6 && h > p.z - 0.15) h = p.z - 0.15; });
     return Math.max(0, h);
   };

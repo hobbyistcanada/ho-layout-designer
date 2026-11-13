@@ -232,8 +232,8 @@ function buildTerrain(o) {
   const rot = (o.rot || 0) * DEG, cs = Math.cos(rot), sn = Math.sin(rot);
   // ~0.5" mesh so cutting walls and portal faces stay crisp; the grid extends past the hill so
   // ground built up over a tunnel near the hill's edge is not clipped
-  const ext = 6, W0 = o.w + 2 * ext, D0 = o.d + 2 * ext;
-  const nx = Math.min(200, Math.max(24, Math.round(W0 * 2))), ny = Math.min(200, Math.max(24, Math.round(D0 * 2)));
+  const ext = 14, W0 = o.w + 2 * ext, D0 = o.d + 2 * ext; // room for hillside fill slopes
+  const nx = Math.min(220, Math.max(24, Math.round(W0 * 2))), ny = Math.min(220, Math.max(24, Math.round(D0 * 2)));
   const pos = [], idx = [], inside = [];
   for (let j = 0; j <= ny; j++) for (let i = 0; i <= nx; i++) {
     const lx = -W0 / 2 + (W0 * i) / nx, ly = -D0 / 2 + (D0 * j) / ny;
