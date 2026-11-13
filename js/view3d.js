@@ -239,7 +239,7 @@ function buildTerrain(o) {
     const lx = -W0 / 2 + (W0 * i) / nx, ly = -D0 / 2 + (D0 * j) / ny;
     const x = o.x + lx * cs - ly * sn, y = o.y + lx * sn + ly * cs;
     const hgt = f(x, y);
-    const v = V(x, y, Math.max(-0.02, hgt));
+    const v = V(x, y, hgt > 0.01 ? hgt : -0.06); // flat ground tucks just under the board top
     pos.push(v.x, v.y, v.z);
     inside.push(pointInPoly({ x, y }, state.project.board.outline)); // terrain only on the benchwork
   }
